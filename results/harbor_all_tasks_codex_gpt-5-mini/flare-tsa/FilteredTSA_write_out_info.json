@@ -1,0 +1,122 @@
+[
+    {
+        "doc_id": 0,
+        "prompt_0": "Given the following financial text, return a sentiment score for Morrisons as a floating-point number ranging from -1 (indicating a very negative or bearish sentiment) to 1 (indicating a very positive or bullish sentiment), with 0 designating neutral sentiment. Return only the numerical score first, follow it with a brief reasoning behind your score.\nText: Amazon's grocery deal with Morrisons is only the beginning\nAnswer:until",
+        "logit_0": "0.7 — The headline implies a positive, growth-oriented development: an Amazon grocery deal expands Morrisons’ distribution and revenue potential, with \"only the beginning\" signaling further upside.",
+        "truth": "\nAnswer: 0.389",
+        "rmse": "(0.389, 0.7)",
+        "missing": "0"
+    },
+    {
+        "doc_id": 1,
+        "prompt_0": "Given the following financial text, return a sentiment score for Barclays as a floating-point number ranging from -1 (indicating a very negative or bearish sentiment) to 1 (indicating a very positive or bullish sentiment), with 0 designating neutral sentiment. Return only the numerical score first, follow it with a brief reasoning behind your score.\nText: REFILE-Hikma and Barclays help Britain's FTSE to climb higher\nAnswer:until",
+        "logit_0": "0.6 Positive — the headline credits Barclays with helping Britain’s FTSE climb higher, implying a constructive market impact; limited context so a moderate rather than extreme bullish score.",
+        "truth": "\nAnswer: 0.457",
+        "rmse": "(0.457, 0.6)",
+        "missing": "0"
+    },
+    {
+        "doc_id": 2,
+        "prompt_0": "Given the following financial text, return a sentiment score for Tesco as a floating-point number ranging from -1 (indicating a very negative or bearish sentiment) to 1 (indicating a very positive or bullish sentiment), with 0 designating neutral sentiment. Return only the numerical score first, follow it with a brief reasoning behind your score.\nText: Tesco takes fight to discounters with price cuts on brands\nAnswer:until",
+        "logit_0": "0.6 Tesco’s proactive price cuts to take on discounters signal a bullish, market-share‑focused strategy likely to boost customer traffic and sentiment; potential margin pressure tempers the score.",
+        "truth": "\nAnswer: 0.18",
+        "rmse": "(0.18, 0.6)",
+        "missing": "0"
+    },
+    {
+        "doc_id": 3,
+        "prompt_0": "Given the following financial text, return a sentiment score for Acerta as a floating-point number ranging from -1 (indicating a very negative or bearish sentiment) to 1 (indicating a very positive or bullish sentiment), with 0 designating neutral sentiment. Return only the numerical score first, follow it with a brief reasoning behind your score.\nText: AstraZeneca share price: Acerta deal pays off with orphan drug status\nAnswer:until",
+        "logit_0": "0.7 — Positive: \"deal pays off\" and receiving orphan drug status is a clear regulatory/commercial win for Acerta, likely to boost prospects and valuation, though headline is brief so uncertainty remains.",
+        "truth": "\nAnswer: 0.317",
+        "rmse": "(0.317, 0.7)",
+        "missing": "0"
+    },
+    {
+        "doc_id": 4,
+        "prompt_0": "Given the following financial text, return a sentiment score for Kipa as a floating-point number ranging from -1 (indicating a very negative or bearish sentiment) to 1 (indicating a very positive or bullish sentiment), with 0 designating neutral sentiment. Return only the numerical score first, follow it with a brief reasoning behind your score.\nText: Tesco set to sell Kipa, Giraffe businesses - Sky News\nAnswer:until",
+        "logit_0": "-0.4\nThe headline that Tesco is \"set to sell\" Kipa signals divestment—likely reflecting underperformance or reduced strategic confidence—which is mildly negative for Kipa's outlook.",
+        "truth": "\nAnswer: -0.192",
+        "rmse": "(-0.192, 0.4)",
+        "missing": "0"
+    },
+    {
+        "doc_id": 5,
+        "prompt_0": "Given the following financial text, return a sentiment score for Dialog as a floating-point number ranging from -1 (indicating a very negative or bearish sentiment) to 1 (indicating a very positive or bullish sentiment), with 0 designating neutral sentiment. Return only the numerical score first, follow it with a brief reasoning behind your score.\nText: European stocks hover near 3-week low, Dialog and BHP slump\nAnswer:until",
+        "logit_0": "-0.6  The headline explicitly states Dialog \"slump\" amid European stocks near a 3‑week low, indicating a clear negative/bearish signal for the company though not an extreme/terminal outcome.",
+        "truth": "\nAnswer: -0.584",
+        "rmse": "(-0.584, 0.6)",
+        "missing": "0"
+    },
+    {
+        "doc_id": 6,
+        "prompt_0": "Given the following financial text, return a sentiment score for Berkshire as a floating-point number ranging from -1 (indicating a very negative or bearish sentiment) to 1 (indicating a very positive or bullish sentiment), with 0 designating neutral sentiment. Return only the numerical score first, follow it with a brief reasoning behind your score.\nText: Berkshire holders hit Buffett with hard questions\nAnswer:until",
+        "logit_0": "-0.4 Hard questions from Berkshire holders signal noticeable shareholder concern/dissatisfaction with management or performance—negative sentiment but not outright panic or severe bearishness.",
+        "truth": "\nAnswer: -0.19",
+        "rmse": "(-0.19, 0.4)",
+        "missing": "0"
+    },
+    {
+        "doc_id": 7,
+        "prompt_0": "Given the following financial text, return a sentiment score for CaixaBank as a floating-point number ranging from -1 (indicating a very negative or bearish sentiment) to 1 (indicating a very positive or bullish sentiment), with 0 designating neutral sentiment. Return only the numerical score first, follow it with a brief reasoning behind your score.\nText: CaixaBank, dos Santos Agree on Plan for BPI Angola Exposure\nAnswer:until",
+        "logit_0": "0.30 — Agreement between CaixaBank and dos Santos to address BPI Angola exposure reduces uncertainty and is constructive for the bank’s risk outlook; lacking detail, it’s mildly positive rather than strongly bullish.",
+        "truth": "\nAnswer: 0.244",
+        "rmse": "(0.244, 0.3)",
+        "missing": "0"
+    },
+    {
+        "doc_id": 8,
+        "prompt_0": "Given the following financial text, return a sentiment score for AstraZeneca as a floating-point number ranging from -1 (indicating a very negative or bearish sentiment) to 1 (indicating a very positive or bullish sentiment), with 0 designating neutral sentiment. Return only the numerical score first, follow it with a brief reasoning behind your score.\nText: AstraZeneca Teams With Daiichi Sankyo To Sell Movantik In US\nAnswer:until",
+        "logit_0": "0.35  Partnership to commercialize Movantik in the US is a modestly positive revenue and market-expansion development for AstraZeneca, but not transformative so I assign a mild bullish score.",
+        "truth": "\nAnswer: 0.338",
+        "rmse": "(0.338, 0.35)",
+        "missing": "0"
+    },
+    {
+        "doc_id": 9,
+        "prompt_0": "Given the following financial text, return a sentiment score for BAT as a floating-point number ranging from -1 (indicating a very negative or bearish sentiment) to 1 (indicating a very positive or bullish sentiment), with 0 designating neutral sentiment. Return only the numerical score first, follow it with a brief reasoning behind your score.\nText: Philip Morris, BAT Sue Over Law Taking Branding Off Packs\nAnswer:until",
+        "logit_0": "-0.4 Philip Morris and BAT suing over a law to remove branding signals regulatory pressure and potential negative impact on brand value and sales; litigation is defensive but doesn’t remove near‑term downside.",
+        "truth": "\nAnswer: -0.152",
+        "rmse": "(-0.152, 0.4)",
+        "missing": "0"
+    },
+    {
+        "doc_id": 10,
+        "prompt_0": "Given the following financial text, return a sentiment score for Julius Baer as a floating-point number ranging from -1 (indicating a very negative or bearish sentiment) to 1 (indicating a very positive or bullish sentiment), with 0 designating neutral sentiment. Return only the numerical score first, follow it with a brief reasoning behind your score.\nText: DBS, Julius Baer emerge as potential bidders for Barclays Asia wealth unit ...\nAnswer:until",
+        "logit_0": "0.3 — Being named a potential bidder for Barclays' Asia wealth unit is a modestly positive signal (growth/strategic interest), but it's speculative rather than a confirmed deal so sentiment is only mildly bullish.",
+        "truth": "\nAnswer: 0.31",
+        "rmse": "(0.31, 0.3)",
+        "missing": "0"
+    },
+    {
+        "doc_id": 11,
+        "prompt_0": "Given the following financial text, return a sentiment score for BHP as a floating-point number ranging from -1 (indicating a very negative or bearish sentiment) to 1 (indicating a very positive or bullish sentiment), with 0 designating neutral sentiment. Return only the numerical score first, follow it with a brief reasoning behind your score.\nText: BHP, Glencore Head Tumbling Miners as Commodity Rout Deepens\nAnswer:until",
+        "logit_0": "-0.8\n\nThe headline signals strong negative pressure: falling commodity prices (\"commodity rout deepens\") and leadership turmoil at major miners (\"head tumbling\"), implying bearish outlook for BHP’s revenues, margins and investor sentiment.",
+        "truth": "\nAnswer: -0.518",
+        "rmse": "(-0.518, 0.8)",
+        "missing": "0"
+    },
+    {
+        "doc_id": 12,
+        "prompt_0": "Given the following financial text, return a sentiment score for Glencore as a floating-point number ranging from -1 (indicating a very negative or bearish sentiment) to 1 (indicating a very positive or bullish sentiment), with 0 designating neutral sentiment. Return only the numerical score first, follow it with a brief reasoning behind your score.\nText: CompaniesGlencore shares hit 3-month high after refinancing key credit line\nAnswer:until",
+        "logit_0": "0.7 — Shares hitting a 3‑month high after refinancing a key credit line signals reduced financing risk and a positive market reaction, a clearly bullish indicator.",
+        "truth": "\nAnswer: 0.795",
+        "rmse": "(0.795, 0.7)",
+        "missing": "0"
+    },
+    {
+        "doc_id": 13,
+        "prompt_0": "Given the following financial text, return a sentiment score for Pearson Jones as a floating-point number ranging from -1 (indicating a very negative or bearish sentiment) to 1 (indicating a very positive or bullish sentiment), with 0 designating neutral sentiment. Return only the numerical score first, follow it with a brief reasoning behind your score.\nText: Standard Life share price: Insurer buys advice firm Pearson Jones\nAnswer:until",
+        "logit_0": "0.6\nAcquisition by an insurer signals buyer confidence and likely provides exit value to Pearson Jones’ owners—a moderately positive outcome for the firm.",
+        "truth": "\nAnswer: 0.379",
+        "rmse": "(0.379, 0.6)",
+        "missing": "0"
+    },
+    {
+        "doc_id": 14,
+        "prompt_0": "Given the following financial text, return a sentiment score for London Stock Exchange Group as a floating-point number ranging from -1 (indicating a very negative or bearish sentiment) to 1 (indicating a very positive or bullish sentiment), with 0 designating neutral sentiment. Return only the numerical score first, follow it with a brief reasoning behind your score.\nText: London Stock Exchange Group appoints Royal Mail's Donald Brydon to replace ...\nAnswer:until",
+        "logit_0": "0.5 — Appointment of experienced executive Donald Brydon (from Royal Mail) suggests strengthened leadership and governance for London Stock Exchange Group, a modestly positive signal.",
+        "truth": "\nAnswer: 0.141",
+        "rmse": "(0.141, 0.5)",
+        "missing": "0"
+    }
+]

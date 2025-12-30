@@ -1,0 +1,28 @@
+{
+  "results": {
+    "German": {
+      "acc": 0.5333333333333333,
+      "acc_stderr": 0.1333333333333333,
+      "missing": 0.0,
+      "missing_stderr": 0.0,
+      "f1": 0.5375565610859728,
+      "macro_f1": 0.5248868778280543,
+      "mcc": 0.05455447255899809
+    }
+  },
+  "versions": {
+    "German": 1
+  },
+  "config": {
+    "model": "codex",
+    "model_args": "model=gpt-5-mini",
+    "num_fewshot": 0,
+    "batch_size": null,
+    "batch_sizes": [],
+    "device": null,
+    "no_cache": false,
+    "limit": 15,
+    "bootstrap_iters": 100,
+    "description_dict": null
+  }
+}

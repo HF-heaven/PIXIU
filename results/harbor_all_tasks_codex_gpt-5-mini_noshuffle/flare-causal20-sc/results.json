@@ -1,0 +1,28 @@
+{
+  "results": {
+    "Causal20SC": {
+      "acc": 0.6,
+      "acc_stderr": 0.13093073414159542,
+      "missing": 0.13333333333333333,
+      "missing_stderr": 0.09085135251589958,
+      "f1": 0.75,
+      "macro_f1": 0.75,
+      "mcc": 0.0
+    }
+  },
+  "versions": {
+    "Causal20SC": 1
+  },
+  "config": {
+    "model": "codex",
+    "model_args": "model=gpt-5-mini",
+    "num_fewshot": 0,
+    "batch_size": null,
+    "batch_sizes": [],
+    "device": null,
+    "no_cache": false,
+    "limit": 15,
+    "bootstrap_iters": 100,
+    "description_dict": null
+  }
+}

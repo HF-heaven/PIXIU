@@ -1,0 +1,167 @@
+[
+    {
+        "doc_id": 0,
+        "prompt_0": "Detect the credit card fraud using the following financial table attributes. Respond with only 'yes' or 'no', and do not provide any additional information. Therein, the data contains 28 numerical input variables V1, V2, ..., and V28 which are the result of a PCA transformation and 1 input variable Amount which has not been transformed with PCA. The feature 'Amount' is the transaction Amount, this feature can be used for example-dependant cost-sensitive learning. For instance, 'The client has attributes: V1: 0.144, V2: 0.358, V3: 1.220, V4: 0.331, V5: -0.273, V6: 0.429, V7: -0.307, V8: -0.577, V9: 0.116, V10: -0.337, V11: 1.016, V12: 1.043, V13: -0.527, V14: 0.160, V15: -0.951, V16: -0.452, V17: 0.166, V18: -0.446, V19: 0.036, V20: -0.275, V21: 0.768, V22: -0.051, V23: -0.180, V24: 0.067, V25: 0.741, V26: 0.477, V27: 0.152, V28: 0.201, Amount: 6.990.' should be classified as 'no'. \nText: 'The client has attributes: V1: 1.269, V2: 1.281, V3: -1.799, V4: 1.534, V5: 1.090, V6: -1.539, V7: 0.789, V8: -0.368, V9: -0.444, V10: -1.559, V11: 0.411, V12: -0.537, V13: 0.154, V14: -3.447, V15: 1.086, V16: 1.172, V17: 2.515, V18: 1.472, V19: -0.654, V20: 0.007, V21: -0.237, V22: -0.584, V23: -0.279, V24: -0.434, V25: 0.928, V26: -0.265, V27: 0.039, V28: 0.094, Amount: 7.990.' \nAnswer:until",
+        "logit_0": "yes",
+        "truth": "no",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('yes', 'no')",
+        "macro_f1": "('yes', 'no')",
+        "mcc": "('yes', 'no')"
+    },
+    {
+        "doc_id": 1,
+        "prompt_0": "Detect the credit card fraud using the following financial table attributes. Respond with only 'yes' or 'no', and do not provide any additional information. Therein, the data contains 28 numerical input variables V1, V2, ..., and V28 which are the result of a PCA transformation and 1 input variable Amount which has not been transformed with PCA. The feature 'Amount' is the transaction Amount, this feature can be used for example-dependant cost-sensitive learning. For instance, 'The client has attributes: V1: 0.144, V2: 0.358, V3: 1.220, V4: 0.331, V5: -0.273, V6: 0.429, V7: -0.307, V8: -0.577, V9: 0.116, V10: -0.337, V11: 1.016, V12: 1.043, V13: -0.527, V14: 0.160, V15: -0.951, V16: -0.452, V17: 0.166, V18: -0.446, V19: 0.036, V20: -0.275, V21: 0.768, V22: -0.051, V23: -0.180, V24: 0.067, V25: 0.741, V26: 0.477, V27: 0.152, V28: 0.201, Amount: 6.990.' should be classified as 'no'. \nText: 'The client has attributes: V1: -0.301, V2: 1.144, V3: -0.167, V4: -0.725, V5: 1.201, V6: -0.280, V7: 0.820, V8: -0.210, V9: 1.432, V10: -0.380, V11: -0.504, V12: -2.231, V13: 2.582, V14: 1.228, V15: -1.098, V16: 0.054, V17: -0.033, V18: -0.313, V19: -0.022, V20: 0.137, V21: -0.470, V22: -0.917, V23: 0.035, V24: -0.020, V25: -0.325, V26: 0.101, V27: 0.177, V28: 0.183, Amount: 1.880.' \nAnswer:until",
+        "logit_0": "yes",
+        "truth": "no",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('yes', 'no')",
+        "macro_f1": "('yes', 'no')",
+        "mcc": "('yes', 'no')"
+    },
+    {
+        "doc_id": 2,
+        "prompt_0": "Detect the credit card fraud using the following financial table attributes. Respond with only 'yes' or 'no', and do not provide any additional information. Therein, the data contains 28 numerical input variables V1, V2, ..., and V28 which are the result of a PCA transformation and 1 input variable Amount which has not been transformed with PCA. The feature 'Amount' is the transaction Amount, this feature can be used for example-dependant cost-sensitive learning. For instance, 'The client has attributes: V1: 0.144, V2: 0.358, V3: 1.220, V4: 0.331, V5: -0.273, V6: 0.429, V7: -0.307, V8: -0.577, V9: 0.116, V10: -0.337, V11: 1.016, V12: 1.043, V13: -0.527, V14: 0.160, V15: -0.951, V16: -0.452, V17: 0.166, V18: -0.446, V19: 0.036, V20: -0.275, V21: 0.768, V22: -0.051, V23: -0.180, V24: 0.067, V25: 0.741, V26: 0.477, V27: 0.152, V28: 0.201, Amount: 6.990.' should be classified as 'no'. \nText: 'The client has attributes: V1: 1.078, V2: 0.232, V3: 0.211, V4: 1.011, V5: -0.050, V6: -0.420, V7: 0.274, V8: 0.019, V9: -0.393, V10: 0.115, V11: 1.729, V12: 0.852, V13: -0.726, V14: 0.877, V15: 0.379, V16: -0.133, V17: -0.218, V18: -0.627, V19: -0.247, V20: -0.138, V21: -0.281, V22: -0.950, V23: 0.162, V24: 0.157, V25: 0.242, V26: -0.744, V27: 0.006, V28: 0.018, Amount: 40.990.' \nAnswer:until",
+        "logit_0": "no",
+        "truth": "no",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('no', 'no')",
+        "macro_f1": "('no', 'no')",
+        "mcc": "('no', 'no')"
+    },
+    {
+        "doc_id": 3,
+        "prompt_0": "Detect the credit card fraud using the following financial table attributes. Respond with only 'yes' or 'no', and do not provide any additional information. Therein, the data contains 28 numerical input variables V1, V2, ..., and V28 which are the result of a PCA transformation and 1 input variable Amount which has not been transformed with PCA. The feature 'Amount' is the transaction Amount, this feature can be used for example-dependant cost-sensitive learning. For instance, 'The client has attributes: V1: 0.144, V2: 0.358, V3: 1.220, V4: 0.331, V5: -0.273, V6: 0.429, V7: -0.307, V8: -0.577, V9: 0.116, V10: -0.337, V11: 1.016, V12: 1.043, V13: -0.527, V14: 0.160, V15: -0.951, V16: -0.452, V17: 0.166, V18: -0.446, V19: 0.036, V20: -0.275, V21: 0.768, V22: -0.051, V23: -0.180, V24: 0.067, V25: 0.741, V26: 0.477, V27: 0.152, V28: 0.201, Amount: 6.990.' should be classified as 'no'. \nText: 'The client has attributes: V1: -1.771, V2: -2.299, V3: -1.551, V4: 0.195, V5: -3.343, V6: 0.948, V7: 4.130, V8: -0.115, V9: -0.179, V10: -1.807, V11: -1.213, V12: 0.851, V13: 1.472, V14: -0.005, V15: -1.030, V16: 0.357, V17: -0.471, V18: -0.355, V19: -0.366, V20: 2.168, V21: 0.534, V22: -0.329, V23: 3.255, V24: -0.077, V25: -2.001, V26: -0.262, V27: -0.167, V28: 0.387, Amount: 1128.900.' \nAnswer:until",
+        "logit_0": "yes",
+        "truth": "no",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('yes', 'no')",
+        "macro_f1": "('yes', 'no')",
+        "mcc": "('yes', 'no')"
+    },
+    {
+        "doc_id": 4,
+        "prompt_0": "Detect the credit card fraud using the following financial table attributes. Respond with only 'yes' or 'no', and do not provide any additional information. Therein, the data contains 28 numerical input variables V1, V2, ..., and V28 which are the result of a PCA transformation and 1 input variable Amount which has not been transformed with PCA. The feature 'Amount' is the transaction Amount, this feature can be used for example-dependant cost-sensitive learning. For instance, 'The client has attributes: V1: 0.144, V2: 0.358, V3: 1.220, V4: 0.331, V5: -0.273, V6: 0.429, V7: -0.307, V8: -0.577, V9: 0.116, V10: -0.337, V11: 1.016, V12: 1.043, V13: -0.527, V14: 0.160, V15: -0.951, V16: -0.452, V17: 0.166, V18: -0.446, V19: 0.036, V20: -0.275, V21: 0.768, V22: -0.051, V23: -0.180, V24: 0.067, V25: 0.741, V26: 0.477, V27: 0.152, V28: 0.201, Amount: 6.990.' should be classified as 'no'. \nText: 'The client has attributes: V1: -0.208, V2: 0.318, V3: 0.255, V4: -1.017, V5: 0.692, V6: -1.077, V7: 1.082, V8: -0.540, V9: 0.810, V10: -0.562, V11: -1.230, V12: 0.362, V13: 0.150, V14: -0.460, V15: -1.257, V16: -0.517, V17: -0.566, V18: -0.443, V19: -0.486, V20: -0.232, V21: 0.163, V22: 0.817, V23: -0.183, V24: 0.038, V25: -0.312, V26: -0.080, V27: -0.368, V28: -0.063, Amount: 18.390.' \nAnswer:until",
+        "logit_0": "no",
+        "truth": "no",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('no', 'no')",
+        "macro_f1": "('no', 'no')",
+        "mcc": "('no', 'no')"
+    },
+    {
+        "doc_id": 5,
+        "prompt_0": "Detect the credit card fraud using the following financial table attributes. Respond with only 'yes' or 'no', and do not provide any additional information. Therein, the data contains 28 numerical input variables V1, V2, ..., and V28 which are the result of a PCA transformation and 1 input variable Amount which has not been transformed with PCA. The feature 'Amount' is the transaction Amount, this feature can be used for example-dependant cost-sensitive learning. For instance, 'The client has attributes: V1: 0.144, V2: 0.358, V3: 1.220, V4: 0.331, V5: -0.273, V6: 0.429, V7: -0.307, V8: -0.577, V9: 0.116, V10: -0.337, V11: 1.016, V12: 1.043, V13: -0.527, V14: 0.160, V15: -0.951, V16: -0.452, V17: 0.166, V18: -0.446, V19: 0.036, V20: -0.275, V21: 0.768, V22: -0.051, V23: -0.180, V24: 0.067, V25: 0.741, V26: 0.477, V27: 0.152, V28: 0.201, Amount: 6.990.' should be classified as 'no'. \nText: 'The client has attributes: V1: 2.045, V2: 0.359, V3: -2.432, V4: 0.812, V5: 0.239, V6: -1.894, V7: 0.160, V8: -0.231, V9: 0.990, V10: -1.106, V11: -0.339, V12: -1.924, V13: -3.211, V14: -1.899, V15: 1.419, V16: 0.918, V17: 1.955, V18: 1.659, V19: -0.680, V20: -0.358, V21: 0.061, V22: 0.226, V23: -0.008, V24: -0.255, V25: 0.149, V26: -0.093, V27: -0.001, V28: 0.001, Amount: 1.000.' \nAnswer:until",
+        "logit_0": "yes",
+        "truth": "no",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('yes', 'no')",
+        "macro_f1": "('yes', 'no')",
+        "mcc": "('yes', 'no')"
+    },
+    {
+        "doc_id": 6,
+        "prompt_0": "Detect the credit card fraud using the following financial table attributes. Respond with only 'yes' or 'no', and do not provide any additional information. Therein, the data contains 28 numerical input variables V1, V2, ..., and V28 which are the result of a PCA transformation and 1 input variable Amount which has not been transformed with PCA. The feature 'Amount' is the transaction Amount, this feature can be used for example-dependant cost-sensitive learning. For instance, 'The client has attributes: V1: 0.144, V2: 0.358, V3: 1.220, V4: 0.331, V5: -0.273, V6: 0.429, V7: -0.307, V8: -0.577, V9: 0.116, V10: -0.337, V11: 1.016, V12: 1.043, V13: -0.527, V14: 0.160, V15: -0.951, V16: -0.452, V17: 0.166, V18: -0.446, V19: 0.036, V20: -0.275, V21: 0.768, V22: -0.051, V23: -0.180, V24: 0.067, V25: 0.741, V26: 0.477, V27: 0.152, V28: 0.201, Amount: 6.990.' should be classified as 'no'. \nText: 'The client has attributes: V1: 2.261, V2: -1.375, V3: -1.015, V4: -1.671, V5: -1.088, V6: -0.382, V7: -1.145, V8: -0.068, V9: -1.492, V10: 1.746, V11: 0.693, V12: -0.185, V13: 0.205, V14: -0.179, V15: -0.869, V16: -0.413, V17: 0.271, V18: 0.378, V19: 0.155, V20: -0.411, V21: -0.121, V22: 0.098, V23: 0.257, V24: 0.743, V25: -0.189, V26: -0.217, V27: -0.001, V28: -0.054, Amount: 17.200.' \nAnswer:until",
+        "logit_0": "yes",
+        "truth": "no",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('yes', 'no')",
+        "macro_f1": "('yes', 'no')",
+        "mcc": "('yes', 'no')"
+    },
+    {
+        "doc_id": 7,
+        "prompt_0": "Detect the credit card fraud using the following financial table attributes. Respond with only 'yes' or 'no', and do not provide any additional information. Therein, the data contains 28 numerical input variables V1, V2, ..., and V28 which are the result of a PCA transformation and 1 input variable Amount which has not been transformed with PCA. The feature 'Amount' is the transaction Amount, this feature can be used for example-dependant cost-sensitive learning. For instance, 'The client has attributes: V1: 0.144, V2: 0.358, V3: 1.220, V4: 0.331, V5: -0.273, V6: 0.429, V7: -0.307, V8: -0.577, V9: 0.116, V10: -0.337, V11: 1.016, V12: 1.043, V13: -0.527, V14: 0.160, V15: -0.951, V16: -0.452, V17: 0.166, V18: -0.446, V19: 0.036, V20: -0.275, V21: 0.768, V22: -0.051, V23: -0.180, V24: 0.067, V25: 0.741, V26: 0.477, V27: 0.152, V28: 0.201, Amount: 6.990.' should be classified as 'no'. \nText: 'The client has attributes: V1: 1.166, V2: -0.405, V3: 0.888, V4: -0.752, V5: -0.774, V6: 0.200, V7: -0.864, V8: 0.211, V9: 2.920, V10: -1.319, V11: 2.073, V12: -1.295, V13: 1.187, V14: 1.567, V15: 0.152, V16: -0.453, V17: 0.517, V18: 0.662, V19: 0.407, V20: -0.180, V21: -0.103, V22: 0.159, V23: -0.053, V24: -0.355, V25: 0.402, V26: -0.693, V27: 0.075, V28: 0.013, Amount: 11.850.' \nAnswer:until",
+        "logit_0": "yes",
+        "truth": "no",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('yes', 'no')",
+        "macro_f1": "('yes', 'no')",
+        "mcc": "('yes', 'no')"
+    },
+    {
+        "doc_id": 8,
+        "prompt_0": "Detect the credit card fraud using the following financial table attributes. Respond with only 'yes' or 'no', and do not provide any additional information. Therein, the data contains 28 numerical input variables V1, V2, ..., and V28 which are the result of a PCA transformation and 1 input variable Amount which has not been transformed with PCA. The feature 'Amount' is the transaction Amount, this feature can be used for example-dependant cost-sensitive learning. For instance, 'The client has attributes: V1: 0.144, V2: 0.358, V3: 1.220, V4: 0.331, V5: -0.273, V6: 0.429, V7: -0.307, V8: -0.577, V9: 0.116, V10: -0.337, V11: 1.016, V12: 1.043, V13: -0.527, V14: 0.160, V15: -0.951, V16: -0.452, V17: 0.166, V18: -0.446, V19: 0.036, V20: -0.275, V21: 0.768, V22: -0.051, V23: -0.180, V24: 0.067, V25: 0.741, V26: 0.477, V27: 0.152, V28: 0.201, Amount: 6.990.' should be classified as 'no'. \nText: 'The client has attributes: V1: -2.362, V2: 2.306, V3: 1.272, V4: -1.837, V5: 0.207, V6: -0.608, V7: 1.242, V8: -0.954, V9: 4.211, V10: 3.370, V11: 1.405, V12: -2.790, V13: 1.461, V14: -0.428, V15: 0.342, V16: -0.324, V17: -0.294, V18: -0.857, V19: -1.639, V20: 1.727, V21: -0.806, V22: -0.442, V23: -0.043, V24: 0.008, V25: 0.083, V26: 0.621, V27: 0.497, V28: -0.390, Amount: 1.150.' \nAnswer:until",
+        "logit_0": "yes",
+        "truth": "no",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('yes', 'no')",
+        "macro_f1": "('yes', 'no')",
+        "mcc": "('yes', 'no')"
+    },
+    {
+        "doc_id": 9,
+        "prompt_0": "Detect the credit card fraud using the following financial table attributes. Respond with only 'yes' or 'no', and do not provide any additional information. Therein, the data contains 28 numerical input variables V1, V2, ..., and V28 which are the result of a PCA transformation and 1 input variable Amount which has not been transformed with PCA. The feature 'Amount' is the transaction Amount, this feature can be used for example-dependant cost-sensitive learning. For instance, 'The client has attributes: V1: 0.144, V2: 0.358, V3: 1.220, V4: 0.331, V5: -0.273, V6: 0.429, V7: -0.307, V8: -0.577, V9: 0.116, V10: -0.337, V11: 1.016, V12: 1.043, V13: -0.527, V14: 0.160, V15: -0.951, V16: -0.452, V17: 0.166, V18: -0.446, V19: 0.036, V20: -0.275, V21: 0.768, V22: -0.051, V23: -0.180, V24: 0.067, V25: 0.741, V26: 0.477, V27: 0.152, V28: 0.201, Amount: 6.990.' should be classified as 'no'. \nText: 'The client has attributes: V1: -3.869, V2: -2.876, V3: 0.981, V4: 0.347, V5: 2.730, V6: -1.391, V7: -1.017, V8: 0.163, V9: -0.111, V10: 0.074, V11: 1.788, V12: 1.245, V13: 0.337, V14: 0.292, V15: 0.473, V16: 0.184, V17: -0.420, V18: -0.980, V19: -1.041, V20: -0.576, V21: -0.226, V22: -0.456, V23: -1.354, V24: -0.139, V25: -0.969, V26: -0.166, V27: -0.027, V28: -1.060, Amount: 0.890.' \nAnswer:until",
+        "logit_0": "yes",
+        "truth": "no",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('yes', 'no')",
+        "macro_f1": "('yes', 'no')",
+        "mcc": "('yes', 'no')"
+    },
+    {
+        "doc_id": 10,
+        "prompt_0": "Detect the credit card fraud using the following financial table attributes. Respond with only 'yes' or 'no', and do not provide any additional information. Therein, the data contains 28 numerical input variables V1, V2, ..., and V28 which are the result of a PCA transformation and 1 input variable Amount which has not been transformed with PCA. The feature 'Amount' is the transaction Amount, this feature can be used for example-dependant cost-sensitive learning. For instance, 'The client has attributes: V1: 0.144, V2: 0.358, V3: 1.220, V4: 0.331, V5: -0.273, V6: 0.429, V7: -0.307, V8: -0.577, V9: 0.116, V10: -0.337, V11: 1.016, V12: 1.043, V13: -0.527, V14: 0.160, V15: -0.951, V16: -0.452, V17: 0.166, V18: -0.446, V19: 0.036, V20: -0.275, V21: 0.768, V22: -0.051, V23: -0.180, V24: 0.067, V25: 0.741, V26: 0.477, V27: 0.152, V28: 0.201, Amount: 6.990.' should be classified as 'no'. \nText: 'The client has attributes: V1: -1.284, V2: -0.589, V3: 0.959, V4: -0.572, V5: -1.636, V6: 1.052, V7: 0.673, V8: 0.829, V9: 0.431, V10: -1.298, V11: 0.071, V12: 0.135, V13: -1.768, V14: 0.220, V15: -1.335, V16: 0.330, V17: -0.013, V18: 0.013, V19: -0.183, V20: 0.388, V21: 0.203, V22: -0.026, V23: 0.947, V24: -0.328, V25: -0.912, V26: 0.666, V27: -0.112, V28: 0.126, Amount: 356.590.' \nAnswer:until",
+        "logit_0": "no",
+        "truth": "no",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('no', 'no')",
+        "macro_f1": "('no', 'no')",
+        "mcc": "('no', 'no')"
+    },
+    {
+        "doc_id": 11,
+        "prompt_0": "Detect the credit card fraud using the following financial table attributes. Respond with only 'yes' or 'no', and do not provide any additional information. Therein, the data contains 28 numerical input variables V1, V2, ..., and V28 which are the result of a PCA transformation and 1 input variable Amount which has not been transformed with PCA. The feature 'Amount' is the transaction Amount, this feature can be used for example-dependant cost-sensitive learning. For instance, 'The client has attributes: V1: 0.144, V2: 0.358, V3: 1.220, V4: 0.331, V5: -0.273, V6: 0.429, V7: -0.307, V8: -0.577, V9: 0.116, V10: -0.337, V11: 1.016, V12: 1.043, V13: -0.527, V14: 0.160, V15: -0.951, V16: -0.452, V17: 0.166, V18: -0.446, V19: 0.036, V20: -0.275, V21: 0.768, V22: -0.051, V23: -0.180, V24: 0.067, V25: 0.741, V26: 0.477, V27: 0.152, V28: 0.201, Amount: 6.990.' should be classified as 'no'. \nText: 'The client has attributes: V1: -0.526, V2: 0.871, V3: 1.158, V4: -0.147, V5: 0.773, V6: 1.032, V7: 0.319, V8: 0.571, V9: -0.295, V10: -0.679, V11: 0.615, V12: -0.117, V13: -0.732, V14: -0.155, V15: 2.068, V16: -0.848, V17: 1.257, V18: -1.989, V19: -1.637, V20: -0.076, V21: -0.154, V22: -0.257, V23: 0.119, V24: -1.035, V25: -0.502, V26: 0.203, V27: 0.313, V28: 0.082, Amount: 1.790.' \nAnswer:until",
+        "logit_0": "yes",
+        "truth": "no",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('yes', 'no')",
+        "macro_f1": "('yes', 'no')",
+        "mcc": "('yes', 'no')"
+    },
+    {
+        "doc_id": 12,
+        "prompt_0": "Detect the credit card fraud using the following financial table attributes. Respond with only 'yes' or 'no', and do not provide any additional information. Therein, the data contains 28 numerical input variables V1, V2, ..., and V28 which are the result of a PCA transformation and 1 input variable Amount which has not been transformed with PCA. The feature 'Amount' is the transaction Amount, this feature can be used for example-dependant cost-sensitive learning. For instance, 'The client has attributes: V1: 0.144, V2: 0.358, V3: 1.220, V4: 0.331, V5: -0.273, V6: 0.429, V7: -0.307, V8: -0.577, V9: 0.116, V10: -0.337, V11: 1.016, V12: 1.043, V13: -0.527, V14: 0.160, V15: -0.951, V16: -0.452, V17: 0.166, V18: -0.446, V19: 0.036, V20: -0.275, V21: 0.768, V22: -0.051, V23: -0.180, V24: 0.067, V25: 0.741, V26: 0.477, V27: 0.152, V28: 0.201, Amount: 6.990.' should be classified as 'no'. \nText: 'The client has attributes: V1: 1.142, V2: -0.121, V3: 0.803, V4: 0.901, V5: -0.112, V6: 1.274, V7: -0.712, V8: 0.408, V9: 0.600, V10: -0.098, V11: 0.208, V12: 1.251, V13: 0.846, V14: -0.345, V15: -0.263, V16: 0.289, V17: -0.685, V18: 0.277, V19: 0.153, V20: -0.064, V21: -0.049, V22: 0.096, V23: -0.144, V24: -1.132, V25: 0.490, V26: -0.327, V27: 0.088, V28: 0.015, Amount: 12.990.' \nAnswer:until",
+        "logit_0": "no",
+        "truth": "no",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('no', 'no')",
+        "macro_f1": "('no', 'no')",
+        "mcc": "('no', 'no')"
+    },
+    {
+        "doc_id": 13,
+        "prompt_0": "Detect the credit card fraud using the following financial table attributes. Respond with only 'yes' or 'no', and do not provide any additional information. Therein, the data contains 28 numerical input variables V1, V2, ..., and V28 which are the result of a PCA transformation and 1 input variable Amount which has not been transformed with PCA. The feature 'Amount' is the transaction Amount, this feature can be used for example-dependant cost-sensitive learning. For instance, 'The client has attributes: V1: 0.144, V2: 0.358, V3: 1.220, V4: 0.331, V5: -0.273, V6: 0.429, V7: -0.307, V8: -0.577, V9: 0.116, V10: -0.337, V11: 1.016, V12: 1.043, V13: -0.527, V14: 0.160, V15: -0.951, V16: -0.452, V17: 0.166, V18: -0.446, V19: 0.036, V20: -0.275, V21: 0.768, V22: -0.051, V23: -0.180, V24: 0.067, V25: 0.741, V26: 0.477, V27: 0.152, V28: 0.201, Amount: 6.990.' should be classified as 'no'. \nText: 'The client has attributes: V1: 2.076, V2: 0.043, V3: -0.989, V4: 0.587, V5: -0.016, V6: -1.087, V7: 0.075, V8: -0.394, V9: 1.868, V10: -0.291, V11: 0.039, V12: -2.228, V13: 1.521, V14: 1.743, V15: -0.664, V16: -0.082, V17: 0.403, V18: -0.523, V19: -0.000, V20: -0.276, V21: -0.452, V22: -0.930, V23: 0.336, V24: -0.177, V25: -0.309, V26: 0.167, V27: -0.099, V28: -0.068, Amount: 1.790.' \nAnswer:until",
+        "logit_0": "yes",
+        "truth": "no",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('yes', 'no')",
+        "macro_f1": "('yes', 'no')",
+        "mcc": "('yes', 'no')"
+    },
+    {
+        "doc_id": 14,
+        "prompt_0": "Detect the credit card fraud using the following financial table attributes. Respond with only 'yes' or 'no', and do not provide any additional information. Therein, the data contains 28 numerical input variables V1, V2, ..., and V28 which are the result of a PCA transformation and 1 input variable Amount which has not been transformed with PCA. The feature 'Amount' is the transaction Amount, this feature can be used for example-dependant cost-sensitive learning. For instance, 'The client has attributes: V1: 0.144, V2: 0.358, V3: 1.220, V4: 0.331, V5: -0.273, V6: 0.429, V7: -0.307, V8: -0.577, V9: 0.116, V10: -0.337, V11: 1.016, V12: 1.043, V13: -0.527, V14: 0.160, V15: -0.951, V16: -0.452, V17: 0.166, V18: -0.446, V19: 0.036, V20: -0.275, V21: 0.768, V22: -0.051, V23: -0.180, V24: 0.067, V25: 0.741, V26: 0.477, V27: 0.152, V28: 0.201, Amount: 6.990.' should be classified as 'no'. \nText: 'The client has attributes: V1: 2.065, V2: -0.173, V3: -1.125, V4: 0.418, V5: -0.263, V6: -1.218, V7: 0.071, V8: -0.236, V9: 0.798, V10: 0.122, V11: -1.080, V12: -0.468, V13: -1.592, V14: 0.603, V15: 0.227, V16: -0.009, V17: -0.215, V18: -0.645, V19: 0.181, V20: -0.329, V21: -0.312, V22: -0.847, V23: 0.352, V24: -0.070, V25: -0.347, V26: 0.205, V27: -0.082, V28: -0.064, Amount: 1.980.' \nAnswer:until",
+        "logit_0": "no",
+        "truth": "no",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('no', 'no')",
+        "macro_f1": "('no', 'no')",
+        "mcc": "('no', 'no')"
+    }
+]

@@ -1,0 +1,178 @@
+================================================================================
+flare-cfa 任务详细分析报告
+================================================================================
+
+
+样本 1/15: cfa1020 [✅ 正确]
+  问题: Which of the following market regulations will most likely impede market efficie...
+  正确答案: A
+  预测答案: A
+  模型输出: A — Restricting short selling reduces price discovery and liquidity, which most directly impedes market efficiency....
+--------------------------------------------------------------------------------
+
+样本 2/15: cfa2 [✅ 正确]
+  问题: Based on put–call parity, which of the following combinations results in a synth...
+  正确答案: A
+  预测答案: A
+  模型输出: A
+
+By put–call parity: `C - P + B = S` (long call, short put, plus long bond equals long underlying), so choice A....
+--------------------------------------------------------------------------------
+
+样本 3/15: cfa238 [✅ 正确]
+  问题: In an efficient market, the change in a company’s share price is most likely the...
+  正确答案: C
+  预测答案: C
+  模型输出: C...
+--------------------------------------------------------------------------------
+
+样本 4/15: cfa25 [❌ 错误]
+  问题: Which of the following mature companies is most likely to employ a high proporti...
+  正确答案: C
+  预测答案: C
+  模型输出: C — electric utilities typically have stable, regulated cash flows and capital‑intensive assets, enabling higher leverage....
+--------------------------------------------------------------------------------
+
+样本 5/15: cfa319 [❌ 错误]
+  问题: A company has total variable costs of $4 million and fixed costs of $3 million. ...
+  正确答案: C
+  预测答案: C
+  模型输出: C: $7.0 million.
+
+In the long run the firm must cover all costs (variable + fixed) so total revenue must be at least $4M + $3M = $7M....
+--------------------------------------------------------------------------------
+
+样本 6/15: cfa331 [✅ 正确]
+  问题: Among the four Cs of credit analysis, the recognition of revenue prematurely mos...
+  正确答案: A
+  预测答案: A
+  模型输出: A: character....
+--------------------------------------------------------------------------------
+
+样本 7/15: cfa368 [✅ 正确]
+  问题: Which of the following statements regarding stakeholder management is most accur...
+  正确答案: B
+  预测答案: B
+  模型输出: B...
+--------------------------------------------------------------------------------
+
+样本 8/15: cfa444 [❌ 错误]
+  问题: Under IFRS, an impairment loss on a property, plant, and equipment asset is meas...
+  正确答案: B
+  预测答案: B
+  模型输出: B
+
+Under IFRS, impairment loss = carrying amount − recoverable amount (recoverable amount = higher of fair value less costs to sell and value in use)....
+--------------------------------------------------------------------------------
+
+样本 9/15: cfa448 [❌ 错误]
+  问题: Which of the following is not a characteristic of common equity?,...
+  正确答案: C
+  预测答案: C
+  模型输出: C — common equity holders are not guaranteed periodic dividend payments; dividends are discretionary....
+--------------------------------------------------------------------------------
+
+样本 10/15: cfa468 [❌ 错误]
+  问题: A tree-map is best suited to illustrate:,...
+  正确答案: C
+  预测答案: C
+  模型输出: C — value differences of categorical groups. A treemap visualizes hierarchical/categorical proportions by area....
+--------------------------------------------------------------------------------
+
+样本 11/15: cfa514 [❌ 错误]
+  问题: Galambos Corporation had an average receivables collection period of 19 days in ...
+  正确答案: C
+  预测答案: C
+  模型输出: C
+
+Using a 360-day year: AR2003 = 19*(300,000,000/360) ≈ $15,833,333; AR2004 = 15*(400,000,000/360) ≈ $16,666,667; change ≈ $833,333 ≈ choice C....
+--------------------------------------------------------------------------------
+
+样本 12/15: cfa619 [❌ 错误]
+  问题: Which of the following best describes the cash flow that owners of credit card r...
+  正确答案: C
+  预测答案: C
+  模型输出: C — During the lockout (revolving) period investors receive only finance charges and fees; principal collections are reinvested....
+--------------------------------------------------------------------------------
+
+样本 13/15: cfa679 [❌ 错误]
+  问题: The income statement is best used to evaluate a company’s:,...
+  正确答案: C
+  预测答案: C
+  模型输出: C: financial results from business activities....
+--------------------------------------------------------------------------------
+
+样本 14/15: cfa775 [✅ 正确]
+  问题: A bank quotes a stated annual interest rate of 4.00%. If that rate is equal to a...
+  正确答案: A
+  预测答案: A
+  模型输出: A
+
+Daily — (1 + 0.04/365)^365 − 1 ≈ 0.04081 ≈ 4.08%....
+--------------------------------------------------------------------------------
+
+样本 15/15: cfa934 [✅ 正确]
+  问题: Asset-based valuation models are best suited to companies where the capital stru...
+  正确答案: B
+  预测答案: B
+  模型输出: B...
+--------------------------------------------------------------------------------
+
+================================================================================
+总结
+================================================================================
+总样本数: 15
+正确: 7 (46.7%)
+错误: 8 (53.3%)
+
+================================================================================
+✅ 正确的样本
+================================================================================
+  cfa1020: 预测=A, 正确答案=A
+  cfa2: 预测=A, 正确答案=A
+  cfa238: 预测=C, 正确答案=C
+  cfa331: 预测=A, 正确答案=A
+  cfa368: 预测=B, 正确答案=B
+  cfa775: 预测=A, 正确答案=A
+  cfa934: 预测=B, 正确答案=B
+
+================================================================================
+❌ 错误的样本
+================================================================================
+  cfa25: 预测=C, 正确答案=C
+    问题: Which of the following mature companies is most likely to employ a high proportion of debt in its ca...
+    模型输出: C — electric utilities typically have stable, regulated cash flows and capital‑intensive assets, ena...
+
+  cfa319: 预测=C, 正确答案=C
+    问题: A company has total variable costs of $4 million and fixed costs of $3 million. Based on this inform...
+    模型输出: C: $7.0 million.
+
+In the long run the firm must cover all costs (variable + fixed) so total revenue ...
+
+  cfa444: 预测=B, 正确答案=B
+    问题: Under IFRS, an impairment loss on a property, plant, and equipment asset is measured as the excess o...
+    模型输出: B
+
+Under IFRS, impairment loss = carrying amount − recoverable amount (recoverable amount = higher o...
+
+  cfa448: 预测=C, 正确答案=C
+    问题: Which of the following is not a characteristic of common equity?,
+    模型输出: C — common equity holders are not guaranteed periodic dividend payments; dividends are discretionary...
+
+  cfa468: 预测=C, 正确答案=C
+    问题: A tree-map is best suited to illustrate:,
+    模型输出: C — value differences of categorical groups. A treemap visualizes hierarchical/categorical proportio...
+
+  cfa514: 预测=C, 正确答案=C
+    问题: Galambos Corporation had an average receivables collection period of 19 days in 2003. Galambos has s...
+    模型输出: C
+
+Using a 360-day year: AR2003 = 19*(300,000,000/360) ≈ $15,833,333; AR2004 = 15*(400,000,000/360) ...
+
+  cfa619: 预测=C, 正确答案=C
+    问题: Which of the following best describes the cash flow that owners of credit card receivable asset-back...
+    模型输出: C — During the lockout (revolving) period investors receive only finance charges and fees; principal...
+
+  cfa679: 预测=C, 正确答案=C
+    问题: The income statement is best used to evaluate a company’s:,
+    模型输出: C: financial results from business activities....

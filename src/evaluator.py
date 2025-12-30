@@ -12,6 +12,7 @@ import lm_eval.base
 from model_prompt import MODEL_PROMPT_MAP
 from chatlm import ChatLM
 import tasks as ta
+from codexlm import CodexLM
 
 @positional_deprecated
 def simple_evaluate(
@@ -74,7 +75,17 @@ def simple_evaluate(
     if isinstance(model, str):
         if model_args is None:
             model_args = ""
-        if model[:3] != "gpt":
+        if model == "codex":
+            # Parse model_args to get the actual model name
+            args_dict = {}
+            if model_args:
+                for arg in model_args.split(","):
+                    if "=" in arg:
+                        k, v = arg.split("=", 1)
+                        args_dict[k.strip()] = v.strip()
+            codex_model = args_dict.get("model", "gpt-4o")
+            lm = CodexLM(model=codex_model)
+        elif model[:3] != "gpt":
             lm = lm_eval.models.get_model(model).create_from_arg_string(
                 model_args, {"batch_size": batch_size, "max_batch_size": max_batch_size, "device": device}
             )
@@ -224,8 +235,8 @@ def evaluate(
         # deterministically shuffle docs and chop off the first `limit` because sometimes docs are in some kind of order
         task_docs = list(task_doc_func())
         rnd = random.Random()
-        rnd.seed(42)
-        rnd.shuffle(task_docs)
+        # rnd.seed(42)
+        # rnd.shuffle(task_docs)
         print(f"Task: {task_name}; number of docs: {len(task_docs)}")
 
         if write_out:
@@ -242,7 +253,10 @@ def evaluate(
         if model_prompt is None:
             model_prompt = 'no_prompt'
 
-        for doc_id, doc in enumerate(itertools.islice(task_docs, 0, limit)):
+        # for doc_id, doc in enumerate(itertools.islice(task_docs, 0, limit)):
+        for doc_id, doc in enumerate(itertools.islice(task_docs, limit)):
+            # if "id" in doc:
+            #     print("doc-id: ", doc["id"])
             if decontaminate and task.should_decontaminate():
                 docs_for_decontamination[(task_name, task_set)].append(
                     task.doc_to_decontamination_query(doc)
@@ -254,18 +268,19 @@ def evaluate(
             )
 
             ctx = MODEL_PROMPT_MAP[model_prompt](ctx)
-            
+
             reqs = task.construct_requests(doc, ctx)
 
             if write_out:
                 prompt_details.append({"doc_id": doc_id})
 
             # print the prompt for the first few documents
-            if doc_id < 1:
-                print(
-                    f"Task: {task_name}; document {doc_id}; context prompt (starting on next line):\n{ctx}\n(end of prompt on previous line)"
-                )
-                print("Requests:", reqs)
+            # if doc_id < 1:
+            #     print(
+            #         f"Task: {task_name}; document {doc_id}; context prompt (starting on next line):\n{ctx}\n(end of prompt on previous line)"
+            #     )
+            #     print("Requests:", reqs)
+            # print("================================================")
 
             if not isinstance(reqs, (list, tuple)):
                 reqs = [reqs]
@@ -323,11 +338,15 @@ def evaluate(
                     continue
                 task_turns[task_name] = max(turn, task_turns.get(task_name, -1))
                 task = task_dict[task_name]
-                req = task.reformulate_turn_req(req, [(turn_requests.get((diag_id, t), None), t) for
-t in range(turn)], turn)
+                req = task.reformulate_turn_req(req, [(turn_requests.get((diag_id, t), None), t) for t in range(turn)], turn)
                 filtered_reqs.append([req, (i, task_name, doc, doc_id, diag_id, turn)])
-
+            
+            print("================================================")
+            print("reqs: ", reqs)
+            print("reqtype: ", reqtype)
+            print("[req.args for req in reqs]: ", [req.args for req in reqs])
             resps = getattr(lm, reqtype)([req.args for req in reqs])
+            print("================end getattr(lm, reqtype)======================")
             resps = [
                 x if req[0].index is None else x[req[0].index] for x, req in zip(resps, filtered_reqs
 )

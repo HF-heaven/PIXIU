@@ -1,0 +1,107 @@
+[
+    {
+        "doc_id": 0,
+        "prompt_0": "Look for indications that the price of gold is stable.. In the context of gold, is there a Direction Constant implied in the news headline? Respond with Yes or No.\nText: gold up on firm oil prices firm, economic concerns\nAnswer:until",
+        "logit_0": "No",
+        "truth": "No",
+        "avg_f1": "('Direction Constant', 1, 1, ['No'])"
+    },
+    {
+        "doc_id": 1,
+        "prompt_0": "Look for indications that the price of gold is increasing.. Does the news headline provide information on a Direction Up regarding gold? Your answer should be either Yes or No.\nText: gold closes higher for first time in three sessions\nAnswer:until",
+        "logit_0": "Yes",
+        "truth": "Yes",
+        "avg_f1": "('Direction Up', 0, 0, ['Yes'])"
+    },
+    {
+        "doc_id": 2,
+        "prompt_0": "Look for any mention of future gold prices.. Can a FuturePrice in the gold market be inferred from the news headline? Your response should be either Yes or No.\nText: gold futures climb over 2% in afternoon dealings\nAnswer:until",
+        "logit_0": "Yes",
+        "truth": "No",
+        "avg_f1": "('FuturePrice', 0, 1, ['Yes'])"
+    },
+    {
+        "doc_id": 3,
+        "prompt_0": "Look for indications that the price of gold is stable.. Does the news headline provide information on a Direction Constant regarding gold? Your answer should be either Yes or No.\nText: longer cycles for gold and the us dollar\nAnswer:until",
+        "logit_0": "No",
+        "truth": "No",
+        "avg_f1": "('Direction Constant', 1, 1, ['No'])"
+    },
+    {
+        "doc_id": 4,
+        "prompt_0": "Consider if the headline compares gold with other assets.. Is there a mention of a Asset Comparision in relation to gold in the news headline? Please answer with Yes or No.\nText: gold rebounds; oil falls below $99\nAnswer:until",
+        "logit_0": "Yes",
+        "truth": "Yes",
+        "avg_f1": "('Asset Comparision', 0, 0, ['Yes'])"
+    },
+    {
+        "doc_id": 5,
+        "prompt_0": "Consider whether the headline references past prices of gold.. In the context of gold, is there a PastPrice implied in the news headline? Respond with Yes or No.\nText: Gold prices to trade lower Angel Commodities\nAnswer:until",
+        "logit_0": "No",
+        "truth": "No",
+        "avg_f1": "('PastPrice', 1, 1, ['No'])"
+    },
+    {
+        "doc_id": 6,
+        "prompt_0": "Look for indications that the price of gold is increasing.. Does the news headline indicate a Direction Up in the context of gold commodities? Your answer should be Yes or No.\nText: sell mcx gold june; target of rs 26550-26400: achiievers\nAnswer:until",
+        "logit_0": "No",
+        "truth": "No",
+        "avg_f1": "('Direction Up', 1, 1, ['No'])"
+    },
+    {
+        "doc_id": 7,
+        "prompt_0": "Consider if the headline compares gold with other assets.. Is there a Asset Comparision in the gold commodity market indicated in the news headline? Please answer Yes or No.\nText: gold pares gain as dollar gains some steam\nAnswer:until",
+        "logit_0": "Yes",
+        "truth": "Yes",
+        "avg_f1": "('Asset Comparision', 0, 0, ['Yes'])"
+    },
+    {
+        "doc_id": 8,
+        "prompt_0": "Consider whether the headline mentions the price of gold.. Does the news headline provide information on a Price or Not regarding gold? Your answer should be either Yes or No.\nText: ride this equity rollercoaster, there is a pot of gold at the end: nilesh shah\nAnswer:until",
+        "logit_0": "No",
+        "truth": "No",
+        "avg_f1": "('Price or Not', 1, 1, ['No'])"
+    },
+    {
+        "doc_id": 9,
+        "prompt_0": "Consider whether the headline references past prices of gold.. Does the news headline mention anything about a PastPrice in gold commodities? Please answer Yes or No.\nText: gold trades lower in early trade on profit booking; brokerages bullish\nAnswer:until",
+        "logit_0": "No",
+        "truth": "Yes",
+        "avg_f1": "('PastPrice', 1, 0, ['No'])"
+    },
+    {
+        "doc_id": 10,
+        "prompt_0": "Consider whether the headline mentions the price of gold.. Can a Price or Not in the gold market be inferred from the news headline? Your response should be either Yes or No.\nText: Gold turns higher ahead of closing bell to notch a modest gain\nAnswer:until",
+        "logit_0": "No",
+        "truth": "Yes",
+        "avg_f1": "('Price or Not', 1, 0, ['No'])"
+    },
+    {
+        "doc_id": 11,
+        "prompt_0": "Consider if the headline compares gold with other assets.. In the news headline, can you identify a Asset Comparision pertaining to gold? Your response should be Yes or No.\nText: buy gold -  gold bears press bets in record numbers\nAnswer:until",
+        "logit_0": "No",
+        "truth": "No",
+        "avg_f1": "('Asset Comparision', 1, 1, ['No'])"
+    },
+    {
+        "doc_id": 12,
+        "prompt_0": "Consider if the headline compares gold with other assets.. Is the news headline discussing a Asset Comparision related to gold? Please respond with Yes or No.\nText: june gold down $1.30, or 0.1%, to settle at $1,185.60/oz on comex\nAnswer:until",
+        "logit_0": "No",
+        "truth": "No",
+        "avg_f1": "('Asset Comparision', 1, 1, ['No'])"
+    },
+    {
+        "doc_id": 13,
+        "prompt_0": "Look for any references to future events concerning gold.. Is there a mention of a FutureNews in relation to gold in the news headline? Please answer with Yes or No.\nText: gold rises over $10 to above $850 on inflation concerns\nAnswer:until",
+        "logit_0": "No",
+        "truth": "No",
+        "avg_f1": "('FutureNews', 1, 1, ['No'])"
+    },
+    {
+        "doc_id": 14,
+        "prompt_0": "Look for indications that the price of gold is increasing.. Does the news headline mention anything about a Direction Up in gold commodities? Please answer Yes or No.\nText: Gold falls to Rs 29,300; silver down at Rs 39,150\nAnswer:until",
+        "logit_0": "No",
+        "truth": "No",
+        "avg_f1": "('Direction Up', 1, 1, ['No'])"
+    }
+]

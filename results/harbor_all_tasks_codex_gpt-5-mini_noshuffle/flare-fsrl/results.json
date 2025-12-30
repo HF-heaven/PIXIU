@@ -1,0 +1,23 @@
+{
+  "results": {
+    "FSRL": {
+      "entity_f1": 0.2965779467680609,
+      "f1": 0.5261277572100285
+    }
+  },
+  "versions": {
+    "FSRL": 1
+  },
+  "config": {
+    "model": "codex",
+    "model_args": "model=gpt-5-mini",
+    "num_fewshot": 0,
+    "batch_size": null,
+    "batch_sizes": [],
+    "device": null,
+    "no_cache": false,
+    "limit": 15,
+    "bootstrap_iters": 100,
+    "description_dict": null
+  }
+}

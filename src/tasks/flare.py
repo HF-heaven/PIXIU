@@ -8,7 +8,7 @@ from .utils import process_text
 from .zhutils import process_zhtext
 from seqeval.metrics import f1_score as entity_score
 from sklearn.metrics import f1_score, matthews_corrcoef, mean_squared_error
-from bart_score import BARTScorer
+from metrics.BARTScore.bart_score import BARTScorer
 import evaluate
 import re
 from factscore_package.factscorer import FactScorer
@@ -258,6 +258,8 @@ class SequentialLabeling(Task):
         ]
         list_preds = [item for sublist in list_preds for item in sublist]
         golds = [self.LMAP[item] for sublist in golds for item in sublist]
+        print("golds: ", golds)
+        print("list_preds: ", list_preds)
         f1 = f1_score(golds, list_preds, average="weighted")
         return f1
 
@@ -375,7 +377,9 @@ class AbstractiveSummarization(Task):
             os.path.dirname(__file__),  # /content/PIXIU/src/tasks
             "../metrics/BARTScore/bart_score.pth"
         )
-        bart_scorer.load(path=checkpoint_path)
+        # Only load checkpoint if it exists, otherwise use default BART model
+        if os.path.exists(checkpoint_path):
+            bart_scorer.load(path=checkpoint_path)
         res = bart_scorer.score(srcs=preds, tgts=golds, batch_size=8)
         return sum(res) / len(res)
 
@@ -518,7 +522,9 @@ class ExtractiveSummarization(Task):
             os.path.dirname(__file__),  # /content/PIXIU/src/tasks
             "../metrics/BARTScore/bart_score.pth"
         )
-        bart_scorer.load(path=checkpoint_path)
+        # Only load checkpoint if it exists, otherwise use default BART model
+        if os.path.exists(checkpoint_path):
+            bart_scorer.load(path=checkpoint_path)
         res = bart_scorer.score(srcs=preds, tgts=golds, batch_size=8)
         return sum(res) / len(res)
 

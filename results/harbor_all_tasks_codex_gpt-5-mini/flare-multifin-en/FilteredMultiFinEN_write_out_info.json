@@ -1,0 +1,167 @@
+[
+    {
+        "doc_id": 0,
+        "prompt_0": "In this task, you're working with English headlines from the MULTIFIN dataset. This dataset is made up of real-world article headlines from a large accounting firm's websites. Your objective is to categorize each headline according to its primary topic. The potential categories are 'Finance', 'Technology', 'Tax & Accounting', 'Business & Management', 'Government & Controls', and 'Industry'. Your response should only include the category that best fits the headline.\nText: PwC Appoints Pete Brown to co-lead Global People and Organisation Services\nAnswer:until",
+        "logit_0": "Business & Management",
+        "truth": "Business & Management",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('business & management', 'business & management')",
+        "macro_f1": "('business & management', 'business & management')",
+        "mcc": "('business & management', 'business & management')"
+    },
+    {
+        "doc_id": 1,
+        "prompt_0": "In this task, you're working with English headlines from the MULTIFIN dataset. This dataset is made up of real-world article headlines from a large accounting firm's websites. Your objective is to categorize each headline according to its primary topic. The potential categories are 'Finance', 'Technology', 'Tax & Accounting', 'Business & Management', 'Government & Controls', and 'Industry'. Your response should only include the category that best fits the headline.\nText: IAS 19 Actuarial Studies\nAnswer:until",
+        "logit_0": "Tax & Accounting",
+        "truth": "Finance",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('tax & accounting', 'finance')",
+        "macro_f1": "('tax & accounting', 'finance')",
+        "mcc": "('tax & accounting', 'finance')"
+    },
+    {
+        "doc_id": 2,
+        "prompt_0": "In this task, you're working with English headlines from the MULTIFIN dataset. This dataset is made up of real-world article headlines from a large accounting firm's websites. Your objective is to categorize each headline according to its primary topic. The potential categories are 'Finance', 'Technology', 'Tax & Accounting', 'Business & Management', 'Government & Controls', and 'Industry'. Your response should only include the category that best fits the headline.\nText: Tax and legal news 10 February 2017\nAnswer:until",
+        "logit_0": "Tax & Accounting",
+        "truth": "Tax & Accounting",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('tax & accounting', 'tax & accounting')",
+        "macro_f1": "('tax & accounting', 'tax & accounting')",
+        "mcc": "('tax & accounting', 'tax & accounting')"
+    },
+    {
+        "doc_id": 3,
+        "prompt_0": "In this task, you're working with English headlines from the MULTIFIN dataset. This dataset is made up of real-world article headlines from a large accounting firm's websites. Your objective is to categorize each headline according to its primary topic. The potential categories are 'Finance', 'Technology', 'Tax & Accounting', 'Business & Management', 'Government & Controls', and 'Industry'. Your response should only include the category that best fits the headline.\nText: Global Consumer Insights Survey\nAnswer:until",
+        "logit_0": "Business & Management",
+        "truth": "Industry",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('business & management', 'industry')",
+        "macro_f1": "('business & management', 'industry')",
+        "mcc": "('business & management', 'industry')"
+    },
+    {
+        "doc_id": 4,
+        "prompt_0": "In this task, you're working with English headlines from the MULTIFIN dataset. This dataset is made up of real-world article headlines from a large accounting firm's websites. Your objective is to categorize each headline according to its primary topic. The potential categories are 'Finance', 'Technology', 'Tax & Accounting', 'Business & Management', 'Government & Controls', and 'Industry'. Your response should only include the category that best fits the headline.\nText: Deals\nAnswer:until",
+        "logit_0": "Finance",
+        "truth": "Finance",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('finance', 'finance')",
+        "macro_f1": "('finance', 'finance')",
+        "mcc": "('finance', 'finance')"
+    },
+    {
+        "doc_id": 5,
+        "prompt_0": "In this task, you're working with English headlines from the MULTIFIN dataset. This dataset is made up of real-world article headlines from a large accounting firm's websites. Your objective is to categorize each headline according to its primary topic. The potential categories are 'Finance', 'Technology', 'Tax & Accounting', 'Business & Management', 'Government & Controls', and 'Industry'. Your response should only include the category that best fits the headline.\nText: Annual report 2016: My PwC transcript\nAnswer:until",
+        "logit_0": "Tax & Accounting",
+        "truth": "Tax & Accounting",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('tax & accounting', 'tax & accounting')",
+        "macro_f1": "('tax & accounting', 'tax & accounting')",
+        "mcc": "('tax & accounting', 'tax & accounting')"
+    },
+    {
+        "doc_id": 6,
+        "prompt_0": "In this task, you're working with English headlines from the MULTIFIN dataset. This dataset is made up of real-world article headlines from a large accounting firm's websites. Your objective is to categorize each headline according to its primary topic. The potential categories are 'Finance', 'Technology', 'Tax & Accounting', 'Business & Management', 'Government & Controls', and 'Industry'. Your response should only include the category that best fits the headline.\nText: Linking ESG to financing and investment activities\nAnswer:until",
+        "logit_0": "Finance",
+        "truth": "Business & Management",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('finance', 'business & management')",
+        "macro_f1": "('finance', 'business & management')",
+        "mcc": "('finance', 'business & management')"
+    },
+    {
+        "doc_id": 7,
+        "prompt_0": "In this task, you're working with English headlines from the MULTIFIN dataset. This dataset is made up of real-world article headlines from a large accounting firm's websites. Your objective is to categorize each headline according to its primary topic. The potential categories are 'Finance', 'Technology', 'Tax & Accounting', 'Business & Management', 'Government & Controls', and 'Industry'. Your response should only include the category that best fits the headline.\nText: IFRS 15 Revenue from contracts with customers\nAnswer:until",
+        "logit_0": "Tax & Accounting",
+        "truth": "Tax & Accounting",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('tax & accounting', 'tax & accounting')",
+        "macro_f1": "('tax & accounting', 'tax & accounting')",
+        "mcc": "('tax & accounting', 'tax & accounting')"
+    },
+    {
+        "doc_id": 8,
+        "prompt_0": "In this task, you're working with English headlines from the MULTIFIN dataset. This dataset is made up of real-world article headlines from a large accounting firm's websites. Your objective is to categorize each headline according to its primary topic. The potential categories are 'Finance', 'Technology', 'Tax & Accounting', 'Business & Management', 'Government & Controls', and 'Industry'. Your response should only include the category that best fits the headline.\nText: Private equity\nAnswer:until",
+        "logit_0": "Finance",
+        "truth": "Finance",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('finance', 'finance')",
+        "macro_f1": "('finance', 'finance')",
+        "mcc": "('finance', 'finance')"
+    },
+    {
+        "doc_id": 9,
+        "prompt_0": "In this task, you're working with English headlines from the MULTIFIN dataset. This dataset is made up of real-world article headlines from a large accounting firm's websites. Your objective is to categorize each headline according to its primary topic. The potential categories are 'Finance', 'Technology', 'Tax & Accounting', 'Business & Management', 'Government & Controls', and 'Industry'. Your response should only include the category that best fits the headline.\nText: Data Analytics\nAnswer:until",
+        "logit_0": "Technology",
+        "truth": "Technology",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('technology', 'technology')",
+        "macro_f1": "('technology', 'technology')",
+        "mcc": "('technology', 'technology')"
+    },
+    {
+        "doc_id": 10,
+        "prompt_0": "In this task, you're working with English headlines from the MULTIFIN dataset. This dataset is made up of real-world article headlines from a large accounting firm's websites. Your objective is to categorize each headline according to its primary topic. The potential categories are 'Finance', 'Technology', 'Tax & Accounting', 'Business & Management', 'Government & Controls', and 'Industry'. Your response should only include the category that best fits the headline.\nText: Corporate acquisitions - Tax services\nAnswer:until",
+        "logit_0": "Tax & Accounting",
+        "truth": "Finance",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('tax & accounting', 'finance')",
+        "macro_f1": "('tax & accounting', 'finance')",
+        "mcc": "('tax & accounting', 'finance')"
+    },
+    {
+        "doc_id": 11,
+        "prompt_0": "In this task, you're working with English headlines from the MULTIFIN dataset. This dataset is made up of real-world article headlines from a large accounting firm's websites. Your objective is to categorize each headline according to its primary topic. The potential categories are 'Finance', 'Technology', 'Tax & Accounting', 'Business & Management', 'Government & Controls', and 'Industry'. Your response should only include the category that best fits the headline.\nText: Assurance\nAnswer:until",
+        "logit_0": "Tax & Accounting",
+        "truth": "Tax & Accounting",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('tax & accounting', 'tax & accounting')",
+        "macro_f1": "('tax & accounting', 'tax & accounting')",
+        "mcc": "('tax & accounting', 'tax & accounting')"
+    },
+    {
+        "doc_id": 12,
+        "prompt_0": "In this task, you're working with English headlines from the MULTIFIN dataset. This dataset is made up of real-world article headlines from a large accounting firm's websites. Your objective is to categorize each headline according to its primary topic. The potential categories are 'Finance', 'Technology', 'Tax & Accounting', 'Business & Management', 'Government & Controls', and 'Industry'. Your response should only include the category that best fits the headline.\nText: Digital Forensics and Data Analytics Solutions\nAnswer:until",
+        "logit_0": "Technology",
+        "truth": "Government & Controls",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('technology', 'government & controls')",
+        "macro_f1": "('technology', 'government & controls')",
+        "mcc": "('technology', 'government & controls')"
+    },
+    {
+        "doc_id": 13,
+        "prompt_0": "In this task, you're working with English headlines from the MULTIFIN dataset. This dataset is made up of real-world article headlines from a large accounting firm's websites. Your objective is to categorize each headline according to its primary topic. The potential categories are 'Finance', 'Technology', 'Tax & Accounting', 'Business & Management', 'Government & Controls', and 'Industry'. Your response should only include the category that best fits the headline.\nText: PwC's CXO Survey 2018\nAnswer:until",
+        "logit_0": "Business & Management",
+        "truth": "Business & Management",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('business & management', 'business & management')",
+        "macro_f1": "('business & management', 'business & management')",
+        "mcc": "('business & management', 'business & management')"
+    },
+    {
+        "doc_id": 14,
+        "prompt_0": "In this task, you're working with English headlines from the MULTIFIN dataset. This dataset is made up of real-world article headlines from a large accounting firm's websites. Your objective is to categorize each headline according to its primary topic. The potential categories are 'Finance', 'Technology', 'Tax & Accounting', 'Business & Management', 'Government & Controls', and 'Industry'. Your response should only include the category that best fits the headline.\nText: Payroll Outsourcing: Discipline leading to Innovation\nAnswer:until",
+        "logit_0": "Tax & Accounting",
+        "truth": "Business & Management",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('tax & accounting', 'business & management')",
+        "macro_f1": "('tax & accounting', 'business & management')",
+        "mcc": "('tax & accounting', 'business & management')"
+    }
+]

@@ -1,0 +1,23 @@
+[
+    {
+        "doc_id": 0,
+        "prompt_0": "Consider whether the headline references past prices of gold.. Can a PastPrice in the gold market be inferred from the news headline? Your response should be either Yes or No.\nText: gold prices ease in asia as fed seen on track to exit easy policy\nAnswer:until",
+        "logit_0": "How can I assist you with C programming or related tasks?",
+        "truth": "Yes",
+        "avg_f1": "('PastPrice', 1, 0, ['How can I assist you with C programming or related tasks?'])"
+    },
+    {
+        "doc_id": 1,
+        "prompt_0": "Consider whether the headline discusses past events related to gold.. In the context of gold, is there a PastNews implied in the news headline? Respond with Yes or No.\nText: Gold falls to Rs 29,300; silver down at Rs 39,150\nAnswer:until",
+        "logit_0": "Hi there! How can I assist you today?",
+        "truth": "No",
+        "avg_f1": "('PastNews', 1, 1, ['Hi there! How can I assist you today?'])"
+    },
+    {
+        "doc_id": 2,
+        "prompt_0": "Look for indications that the price of gold is decreasing.. Does the news headline mention anything about a Direction Down in gold commodities? Please answer Yes or No.\nText: mcx goldguinea sept contract declines\nAnswer:until",
+        "logit_0": "Hello! How can I assist you today?",
+        "truth": "Yes",
+        "avg_f1": "('Direction Down', 1, 0, ['Hello! How can I assist you today?'])"
+    }
+]

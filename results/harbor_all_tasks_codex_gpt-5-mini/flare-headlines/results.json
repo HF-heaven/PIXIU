@@ -1,0 +1,22 @@
+{
+  "results": {
+    "FilteredHeadlines": {
+      "avg_f1": 0.6666666666666667
+    }
+  },
+  "versions": {
+    "FilteredHeadlines": 1
+  },
+  "config": {
+    "model": "codex",
+    "model_args": "model=gpt-5-mini",
+    "num_fewshot": 0,
+    "batch_size": null,
+    "batch_sizes": [],
+    "device": null,
+    "no_cache": false,
+    "limit": null,
+    "bootstrap_iters": 100,
+    "description_dict": null
+  }
+}

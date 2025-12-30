@@ -1,0 +1,28 @@
+{
+  "results": {
+    "FilteredFIQASA": {
+      "acc": 0.8,
+      "acc_stderr": 0.10690449676496977,
+      "missing": 0.0,
+      "missing_stderr": 0.0,
+      "f1": 0.8866666666666667,
+      "macro_f1": 0.8833333333333333,
+      "mcc": 0.7057271461613007
+    }
+  },
+  "versions": {
+    "FilteredFIQASA": 1
+  },
+  "config": {
+    "model": "codex",
+    "model_args": "model=gpt-5-mini",
+    "num_fewshot": 0,
+    "batch_size": null,
+    "batch_sizes": [],
+    "device": null,
+    "no_cache": false,
+    "limit": null,
+    "bootstrap_iters": 100,
+    "description_dict": null
+  }
+}

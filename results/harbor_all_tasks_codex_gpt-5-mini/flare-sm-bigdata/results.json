@@ -1,0 +1,28 @@
+{
+  "results": {
+    "FilteredStockMovementBigData": {
+      "acc": 0.6,
+      "acc_stderr": 0.13093073414159545,
+      "missing": 0.0,
+      "missing_stderr": 0.0,
+      "f1": 0.6318181818181817,
+      "macro_f1": 0.48863636363636365,
+      "mcc": 0.0
+    }
+  },
+  "versions": {
+    "FilteredStockMovementBigData": 1
+  },
+  "config": {
+    "model": "codex",
+    "model_args": "model=gpt-5-mini",
+    "num_fewshot": 0,
+    "batch_size": null,
+    "batch_sizes": [],
+    "device": null,
+    "no_cache": false,
+    "limit": null,
+    "bootstrap_iters": 100,
+    "description_dict": null
+  }
+}

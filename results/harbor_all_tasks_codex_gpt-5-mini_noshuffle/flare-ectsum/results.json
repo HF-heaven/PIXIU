@@ -1,0 +1,26 @@
+{
+  "results": {
+    "ECTSUM": {
+      "rouge1": 0.0,
+      "rouge2": 0.0,
+      "rougeL": 0.0,
+      "bert_score_f1": 0.0,
+      "bart_score": -4.954776811599731
+    }
+  },
+  "versions": {
+    "ECTSUM": 1
+  },
+  "config": {
+    "model": "codex",
+    "model_args": "model=gpt-5-mini",
+    "num_fewshot": 0,
+    "batch_size": null,
+    "batch_sizes": [],
+    "device": null,
+    "no_cache": false,
+    "limit": 15,
+    "bootstrap_iters": 100,
+    "description_dict": null
+  }
+}

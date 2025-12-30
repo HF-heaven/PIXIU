@@ -1,0 +1,26 @@
+{
+  "results": {
+    "EDTSUM": {
+      "rouge1": 0.20781848952207255,
+      "rouge2": 0.07660735650627581,
+      "rougeL": 0.14938860071474158,
+      "bert_score_f1": 0.6127898414929708,
+      "bart_score": -4.117877213160197
+    }
+  },
+  "versions": {
+    "EDTSUM": 1
+  },
+  "config": {
+    "model": "codex",
+    "model_args": "model=gpt-5-mini",
+    "num_fewshot": 0,
+    "batch_size": null,
+    "batch_sizes": [],
+    "device": null,
+    "no_cache": false,
+    "limit": 15,
+    "bootstrap_iters": 100,
+    "description_dict": null
+  }
+}

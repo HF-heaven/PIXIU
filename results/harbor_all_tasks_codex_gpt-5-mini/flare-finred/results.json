@@ -1,0 +1,24 @@
+{
+  "results": {
+    "FilteredFinRED": {
+      "precision": 0.02857142857142857,
+      "recall": 0.05263157894736842,
+      "f1": 0.037037037037037035
+    }
+  },
+  "versions": {
+    "FilteredFinRED": 1
+  },
+  "config": {
+    "model": "codex",
+    "model_args": "model=gpt-5-mini",
+    "num_fewshot": 0,
+    "batch_size": null,
+    "batch_sizes": [],
+    "device": null,
+    "no_cache": false,
+    "limit": null,
+    "bootstrap_iters": 100,
+    "description_dict": null
+  }
+}

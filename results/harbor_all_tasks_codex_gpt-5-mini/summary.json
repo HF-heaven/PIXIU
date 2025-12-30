@@ -1,0 +1,570 @@
+{
+  "total_tasks": 22,
+  "successful_tasks": 20,
+  "failed_tasks": 2,
+  "model": "codex",
+  "model_args": "model=gpt-5-mini",
+  "results": {
+    "cra-ccf": {
+      "pixiu_task": "flare_cra_ccf",
+      "sample_count": 15,
+      "results": {
+        "results": {},
+        "versions": {
+          "Filteredccf": 1
+        },
+        "config": {
+          "model": "codex",
+          "model_args": "model=gpt-5-mini",
+          "num_fewshot": 0,
+          "batch_size": null,
+          "batch_sizes": [],
+          "device": null,
+          "no_cache": false,
+          "limit": null,
+          "bootstrap_iters": 100,
+          "description_dict": null
+        }
+      },
+      "output_file": "results/harbor_all_tasks_codex_gpt-5-mini/cra-ccf/results.json"
+    },
+    "cra-ccfraud": {
+      "pixiu_task": "flare_cra_ccfraud",
+      "sample_count": 15,
+      "results": {
+        "results": {},
+        "versions": {
+          "Filteredccfraud": 1
+        },
+        "config": {
+          "model": "codex",
+          "model_args": "model=gpt-5-mini",
+          "num_fewshot": 0,
+          "batch_size": null,
+          "batch_sizes": [],
+          "device": null,
+          "no_cache": false,
+          "limit": null,
+          "bootstrap_iters": 100,
+          "description_dict": null
+        }
+      },
+      "output_file": "results/harbor_all_tasks_codex_gpt-5-mini/cra-ccfraud/results.json"
+    },
+    "en-fpb": {
+      "pixiu_task": "flare_fpb",
+      "sample_count": 15,
+      "results": {
+        "results": {
+          "FilteredFPB": {
+            "acc": 0.8666666666666667,
+            "acc_stderr": 0.09085135251589956,
+            "missing": 0.0,
+            "missing_stderr": 0.0,
+            "f1": 0.8666666666666667,
+            "macro_f1": 0.8968253968253969,
+            "mcc": 0.7794117647058824
+          }
+        },
+        "versions": {
+          "FilteredFPB": 1
+        },
+        "config": {
+          "model": "codex",
+          "model_args": "model=gpt-5-mini",
+          "num_fewshot": 0,
+          "batch_size": null,
+          "batch_sizes": [],
+          "device": null,
+          "no_cache": false,
+          "limit": null,
+          "bootstrap_iters": 100,
+          "description_dict": null
+        }
+      },
+      "output_file": "results/harbor_all_tasks_codex_gpt-5-mini/en-fpb/results.json"
+    },
+    "finben-fomc": {
+      "pixiu_task": "flare_fomc",
+      "sample_count": 15,
+      "results": {
+        "results": {
+          "FilteredFOMC": {
+            "acc": 0.5333333333333333,
+            "acc_stderr": 0.1333333333333333,
+            "missing": 0.0,
+            "missing_stderr": 0.0,
+            "f1": 0.4892230576441102,
+            "macro_f1": 0.40100250626566414,
+            "mcc": 0.15035419175641032
+          }
+        },
+        "versions": {
+          "FilteredFOMC": 1
+        },
+        "config": {
+          "model": "codex",
+          "model_args": "model=gpt-5-mini",
+          "num_fewshot": 0,
+          "batch_size": null,
+          "batch_sizes": [],
+          "device": null,
+          "no_cache": false,
+          "limit": null,
+          "bootstrap_iters": 100,
+          "description_dict": null
+        }
+      },
+      "output_file": "results/harbor_all_tasks_codex_gpt-5-mini/finben-fomc/results.json"
+    },
+    "flare-australian": {
+      "pixiu_task": "flare_australian",
+      "sample_count": 15,
+      "results": {
+        "results": {},
+        "versions": {
+          "FilteredAustralian": 1
+        },
+        "config": {
+          "model": "codex",
+          "model_args": "model=gpt-5-mini",
+          "num_fewshot": 0,
+          "batch_size": null,
+          "batch_sizes": [],
+          "device": null,
+          "no_cache": false,
+          "limit": null,
+          "bootstrap_iters": 100,
+          "description_dict": null
+        }
+      },
+      "output_file": "results/harbor_all_tasks_codex_gpt-5-mini/flare-australian/results.json"
+    },
+    "flare-cd": {
+      "pixiu_task": "flare_cd",
+      "sample_count": 15,
+      "results": {
+        "results": {
+          "FilteredCD": {
+            "entity_f1": 0.05128205128205127,
+            "f1": 0.5013955355125702
+          }
+        },
+        "versions": {
+          "FilteredCD": 1
+        },
+        "config": {
+          "model": "codex",
+          "model_args": "model=gpt-5-mini",
+          "num_fewshot": 0,
+          "batch_size": null,
+          "batch_sizes": [],
+          "device": null,
+          "no_cache": false,
+          "limit": null,
+          "bootstrap_iters": 100,
+          "description_dict": null
+        }
+      },
+      "output_file": "results/harbor_all_tasks_codex_gpt-5-mini/flare-cd/results.json"
+    },
+    "flare-cfa": {
+      "pixiu_task": "flare_cfa",
+      "sample_count": 15,
+      "results": {
+        "results": {},
+        "versions": {
+          "FilteredCFA": 1
+        },
+        "config": {
+          "model": "codex",
+          "model_args": "model=gpt-5-mini",
+          "num_fewshot": 0,
+          "batch_size": null,
+          "batch_sizes": [],
+          "device": null,
+          "no_cache": false,
+          "limit": null,
+          "bootstrap_iters": 100,
+          "description_dict": null
+        }
+      },
+      "output_file": "results/harbor_all_tasks_codex_gpt-5-mini/flare-cfa/results.json"
+    },
+    "flare-finqa": {
+      "pixiu_task": "flare_finqa",
+      "sample_count": 15,
+      "results": {
+        "results": {
+          "FilteredFinQA": {
+            "acc": 0.0,
+            "acc_stderr": 0.0
+          }
+        },
+        "versions": {
+          "FilteredFinQA": 1
+        },
+        "config": {
+          "model": "codex",
+          "model_args": "model=gpt-5-mini",
+          "num_fewshot": 0,
+          "batch_size": null,
+          "batch_sizes": [],
+          "device": null,
+          "no_cache": false,
+          "limit": null,
+          "bootstrap_iters": 100,
+          "description_dict": null
+        }
+      },
+      "output_file": "results/harbor_all_tasks_codex_gpt-5-mini/flare-finqa/results.json"
+    },
+    "flare-finred": {
+      "pixiu_task": "flare_finred",
+      "sample_count": 15,
+      "results": {
+        "results": {
+          "FilteredFinRED": {
+            "precision": 0.02857142857142857,
+            "recall": 0.05263157894736842,
+            "f1": 0.037037037037037035
+          }
+        },
+        "versions": {
+          "FilteredFinRED": 1
+        },
+        "config": {
+          "model": "codex",
+          "model_args": "model=gpt-5-mini",
+          "num_fewshot": 0,
+          "batch_size": null,
+          "batch_sizes": [],
+          "device": null,
+          "no_cache": false,
+          "limit": null,
+          "bootstrap_iters": 100,
+          "description_dict": null
+        }
+      },
+      "output_file": "results/harbor_all_tasks_codex_gpt-5-mini/flare-finred/results.json"
+    },
+    "flare-fiqasa": {
+      "pixiu_task": "flare_fiqasa",
+      "sample_count": 15,
+      "results": {
+        "results": {
+          "FilteredFIQASA": {
+            "acc": 0.8,
+            "acc_stderr": 0.10690449676496977,
+            "missing": 0.0,
+            "missing_stderr": 0.0,
+            "f1": 0.8866666666666667,
+            "macro_f1": 0.8833333333333333,
+            "mcc": 0.7057271461613007
+          }
+        },
+        "versions": {
+          "FilteredFIQASA": 1
+        },
+        "config": {
+          "model": "codex",
+          "model_args": "model=gpt-5-mini",
+          "num_fewshot": 0,
+          "batch_size": null,
+          "batch_sizes": [],
+          "device": null,
+          "no_cache": false,
+          "limit": null,
+          "bootstrap_iters": 100,
+          "description_dict": null
+        }
+      },
+      "output_file": "results/harbor_all_tasks_codex_gpt-5-mini/flare-fiqasa/results.json"
+    },
+    "flare-fnxl": {
+      "pixiu_task": "flare_fnxl",
+      "sample_count": 15,
+      "results": {
+        "results": {
+          "FilteredFNXL": {
+            "entity_f1": 0.0,
+            "f1": 0.3155431754874652
+          }
+        },
+        "versions": {
+          "FilteredFNXL": 1
+        },
+        "config": {
+          "model": "codex",
+          "model_args": "model=gpt-5-mini",
+          "num_fewshot": 0,
+          "batch_size": null,
+          "batch_sizes": [],
+          "device": null,
+          "no_cache": false,
+          "limit": null,
+          "bootstrap_iters": 100,
+          "description_dict": null
+        }
+      },
+      "output_file": "results/harbor_all_tasks_codex_gpt-5-mini/flare-fnxl/results.json"
+    },
+    "flare-fsrl": {
+      "pixiu_task": "flare_fsrl",
+      "sample_count": 15,
+      "results": {
+        "results": {
+          "FilteredFSRL": {
+            "entity_f1": 0.4333333333333333,
+            "f1": 0.6485576655207896
+          }
+        },
+        "versions": {
+          "FilteredFSRL": 1
+        },
+        "config": {
+          "model": "codex",
+          "model_args": "model=gpt-5-mini",
+          "num_fewshot": 0,
+          "batch_size": null,
+          "batch_sizes": [],
+          "device": null,
+          "no_cache": false,
+          "limit": null,
+          "bootstrap_iters": 100,
+          "description_dict": null
+        }
+      },
+      "output_file": "results/harbor_all_tasks_codex_gpt-5-mini/flare-fsrl/results.json"
+    },
+    "flare-german": {
+      "pixiu_task": "flare_german",
+      "sample_count": 15,
+      "results": {
+        "results": {},
+        "versions": {
+          "FilteredGerman": 1
+        },
+        "config": {
+          "model": "codex",
+          "model_args": "model=gpt-5-mini",
+          "num_fewshot": 0,
+          "batch_size": null,
+          "batch_sizes": [],
+          "device": null,
+          "no_cache": false,
+          "limit": null,
+          "bootstrap_iters": 100,
+          "description_dict": null
+        }
+      },
+      "output_file": "results/harbor_all_tasks_codex_gpt-5-mini/flare-german/results.json"
+    },
+    "flare-headlines": {
+      "pixiu_task": "flare_headlines",
+      "sample_count": 15,
+      "results": {
+        "results": {
+          "FilteredHeadlines": {
+            "avg_f1": 0.6666666666666667
+          }
+        },
+        "versions": {
+          "FilteredHeadlines": 1
+        },
+        "config": {
+          "model": "codex",
+          "model_args": "model=gpt-5-mini",
+          "num_fewshot": 0,
+          "batch_size": null,
+          "batch_sizes": [],
+          "device": null,
+          "no_cache": false,
+          "limit": null,
+          "bootstrap_iters": 100,
+          "description_dict": null
+        }
+      },
+      "output_file": "results/harbor_all_tasks_codex_gpt-5-mini/flare-headlines/results.json"
+    },
+    "flare-ma": {
+      "pixiu_task": "flare_ma",
+      "sample_count": 15,
+      "results": {
+        "results": {
+          "FilteredMA": {
+            "acc": 0.8,
+            "acc_stderr": 0.10690449676496977,
+            "missing": 0.0,
+            "missing_stderr": 0.0,
+            "f1": 0.7885167464114832,
+            "macro_f1": 0.784688995215311,
+            "mcc": 0.6446583712203042
+          }
+        },
+        "versions": {
+          "FilteredMA": 1
+        },
+        "config": {
+          "model": "codex",
+          "model_args": "model=gpt-5-mini",
+          "num_fewshot": 0,
+          "batch_size": null,
+          "batch_sizes": [],
+          "device": null,
+          "no_cache": false,
+          "limit": null,
+          "bootstrap_iters": 100,
+          "description_dict": null
+        }
+      },
+      "output_file": "results/harbor_all_tasks_codex_gpt-5-mini/flare-ma/results.json"
+    },
+    "flare-mlesg": {
+      "pixiu_task": "flare_mlesg",
+      "sample_count": 15,
+      "results": {
+        "results": {
+          "FilteredMLESG": {
+            "acc": 0.6,
+            "acc_stderr": 0.13093073414159542,
+            "missing": 0.0,
+            "missing_stderr": 0.0,
+            "f1": 0.5333333333333333,
+            "macro_f1": 0.5641025641025641,
+            "mcc": 0.6015012728979923
+          }
+        },
+        "versions": {
+          "FilteredMLESG": 1
+        },
+        "config": {
+          "model": "codex",
+          "model_args": "model=gpt-5-mini",
+          "num_fewshot": 0,
+          "batch_size": null,
+          "batch_sizes": [],
+          "device": null,
+          "no_cache": false,
+          "limit": null,
+          "bootstrap_iters": 100,
+          "description_dict": null
+        }
+      },
+      "output_file": "results/harbor_all_tasks_codex_gpt-5-mini/flare-mlesg/results.json"
+    },
+    "flare-ner": {
+      "pixiu_task": "flare_ner",
+      "sample_count": 15,
+      "results": {
+        "results": {},
+        "versions": {
+          "FilteredNER": 1
+        },
+        "config": {
+          "model": "codex",
+          "model_args": "model=gpt-5-mini",
+          "num_fewshot": 0,
+          "batch_size": null,
+          "batch_sizes": [],
+          "device": null,
+          "no_cache": false,
+          "limit": null,
+          "bootstrap_iters": 100,
+          "description_dict": null
+        }
+      },
+      "output_file": "results/harbor_all_tasks_codex_gpt-5-mini/flare-ner/results.json"
+    },
+    "flare-tatqa": {
+      "pixiu_task": "flare_tatqa",
+      "sample_count": 15,
+      "results": {
+        "results": {
+          "FilteredTATQA": {
+            "acc": 0.06666666666666667,
+            "acc_stderr": 0.06666666666666667
+          }
+        },
+        "versions": {
+          "FilteredTATQA": 1
+        },
+        "config": {
+          "model": "codex",
+          "model_args": "model=gpt-5-mini",
+          "num_fewshot": 0,
+          "batch_size": null,
+          "batch_sizes": [],
+          "device": null,
+          "no_cache": false,
+          "limit": null,
+          "bootstrap_iters": 100,
+          "description_dict": null
+        }
+      },
+      "output_file": "results/harbor_all_tasks_codex_gpt-5-mini/flare-tatqa/results.json"
+    },
+    "flare-tsa": {
+      "pixiu_task": "flare_tsa",
+      "sample_count": 15,
+      "results": {
+        "results": {
+          "FilteredTSA": {
+            "rmse": 0.5640705629617628,
+            "missing": 0.0,
+            "missing_stderr": 0.0
+          }
+        },
+        "versions": {
+          "FilteredTSA": 1
+        },
+        "config": {
+          "model": "codex",
+          "model_args": "model=gpt-5-mini",
+          "num_fewshot": 0,
+          "batch_size": null,
+          "batch_sizes": [],
+          "device": null,
+          "no_cache": false,
+          "limit": null,
+          "bootstrap_iters": 100,
+          "description_dict": null
+        }
+      },
+      "output_file": "results/harbor_all_tasks_codex_gpt-5-mini/flare-tsa/results.json"
+    },
+    "taiwan": {
+      "pixiu_task": "flare_cra_taiwan",
+      "sample_count": 15,
+      "results": {
+        "results": {},
+        "versions": {
+          "Filteredtaiwan": 1
+        },
+        "config": {
+          "model": "codex",
+          "model_args": "model=gpt-5-mini",
+          "num_fewshot": 0,
+          "batch_size": null,
+          "batch_sizes": [],
+          "device": null,
+          "no_cache": false,
+          "limit": null,
+          "bootstrap_iters": 100,
+          "description_dict": null
+        }
+      },
+      "output_file": "results/harbor_all_tasks_codex_gpt-5-mini/taiwan/results.json"
+    }
+  },
+  "failed": [
+    [
+      "flare-ectsum",
+      "To be able to use evaluate-metric/bertscore, you need to install the following dependencies['bert_score'] using 'pip install bert_score' for instance'"
+    ],
+    [
+      "flare-edtsum",
+      "To be able to use evaluate-metric/bertscore, you need to install the following dependencies['bert_score'] using 'pip install bert_score' for instance'"
+    ]
+  ]
+}

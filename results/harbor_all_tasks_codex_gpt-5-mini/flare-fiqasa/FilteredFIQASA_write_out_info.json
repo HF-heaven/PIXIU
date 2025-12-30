@@ -1,0 +1,167 @@
+[
+    {
+        "doc_id": 0,
+        "prompt_0": "What is the sentiment of the following financial headline: Positive, Negative, or Neutral?\nText: GE to Sell Majority Stake in Bank BPH's Core Bank to Alior Bank\nAnswer:until",
+        "logit_0": "Neutral",
+        "truth": "positive",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('neutral', 'positive')",
+        "macro_f1": "('neutral', 'positive')",
+        "mcc": "('neutral', 'positive')"
+    },
+    {
+        "doc_id": 1,
+        "prompt_0": "What is the sentiment of the following financial post: Positive, Negative, or Neutral?\nText: @BULLYA @pollux654321 My 50 $KORS 80 Calls are going to b a Blessing for my Daughters tuition!\nAnswer:until",
+        "logit_0": "Positive",
+        "truth": "positive",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('positive', 'positive')",
+        "macro_f1": "('positive', 'positive')",
+        "mcc": "('positive', 'positive')"
+    },
+    {
+        "doc_id": 2,
+        "prompt_0": "What is the sentiment of the following financial headline: Positive, Negative, or Neutral?\nText: Berkshire applies to boost Wells Fargo stake above 10 percent\nAnswer:until",
+        "logit_0": "Positive",
+        "truth": "positive",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('positive', 'positive')",
+        "macro_f1": "('positive', 'positive')",
+        "mcc": "('positive', 'positive')"
+    },
+    {
+        "doc_id": 3,
+        "prompt_0": "What is the sentiment of the following financial post: Positive, Negative, or Neutral?\nText: $SPY bull move ended waiting for next setup\nAnswer:until",
+        "logit_0": "Neutral",
+        "truth": "negative",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('neutral', 'negative')",
+        "macro_f1": "('neutral', 'negative')",
+        "mcc": "('neutral', 'negative')"
+    },
+    {
+        "doc_id": 4,
+        "prompt_0": "What is the sentiment of the following financial headline: Positive, Negative, or Neutral?\nText: REFILE-Hikma and Barclays help Britain's FTSE to climb higher\nAnswer:until",
+        "logit_0": "Positive",
+        "truth": "positive",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('positive', 'positive')",
+        "macro_f1": "('positive', 'positive')",
+        "mcc": "('positive', 'positive')"
+    },
+    {
+        "doc_id": 5,
+        "prompt_0": "What is the sentiment of the following financial post: Positive, Negative, or Neutral?\nText: .@barronsonline sees #Apple at $150/share in a year (+36% from today) on growing services business. $AAPL https://t.co/3BDNEKN7l1\nAnswer:until",
+        "logit_0": "Positive",
+        "truth": "positive",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('positive', 'positive')",
+        "macro_f1": "('positive', 'positive')",
+        "mcc": "('positive', 'positive')"
+    },
+    {
+        "doc_id": 6,
+        "prompt_0": "What is the sentiment of the following financial post: Positive, Negative, or Neutral?\nText: $SLV POS, been saying it for 2 years. Going lower. Forget about it or go short.\nAnswer:until",
+        "logit_0": "Negative",
+        "truth": "negative",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('negative', 'negative')",
+        "macro_f1": "('negative', 'negative')",
+        "mcc": "('negative', 'negative')"
+    },
+    {
+        "doc_id": 7,
+        "prompt_0": "What is the sentiment of the following financial headline: Positive, Negative, or Neutral?\nText: Industry NewsMorrisons unveils which stores will close as 900 jobs face the axe\nAnswer:until",
+        "logit_0": "Negative",
+        "truth": "negative",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('negative', 'negative')",
+        "macro_f1": "('negative', 'negative')",
+        "mcc": "('negative', 'negative')"
+    },
+    {
+        "doc_id": 8,
+        "prompt_0": "What is the sentiment of the following financial headline: Positive, Negative, or Neutral?\nText: CompaniesUnilever sales lifted by ice cream in soft economy\nAnswer:until",
+        "logit_0": "Positive",
+        "truth": "positive",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('positive', 'positive')",
+        "macro_f1": "('positive', 'positive')",
+        "mcc": "('positive', 'positive')"
+    },
+    {
+        "doc_id": 9,
+        "prompt_0": "What is the sentiment of the following financial headline: Positive, Negative, or Neutral?\nText: UPDATE 1-Nomura, RBS must pay $806 mln in mortgage bond case-US judge\nAnswer:until",
+        "logit_0": "Negative",
+        "truth": "negative",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('negative', 'negative')",
+        "macro_f1": "('negative', 'negative')",
+        "mcc": "('negative', 'negative')"
+    },
+    {
+        "doc_id": 10,
+        "prompt_0": "What is the sentiment of the following financial post: Positive, Negative, or Neutral?\nText: $INTC finally some nice downside move... looking for the 31 handle to break\nAnswer:until",
+        "logit_0": "Negative",
+        "truth": "negative",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('negative', 'negative')",
+        "macro_f1": "('negative', 'negative')",
+        "mcc": "('negative', 'negative')"
+    },
+    {
+        "doc_id": 11,
+        "prompt_0": "What is the sentiment of the following financial post: Positive, Negative, or Neutral?\nText: $TRX http://stks.co/1KkK Long setup. MACD cross.\nAnswer:until",
+        "logit_0": "Positive",
+        "truth": "positive",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('positive', 'positive')",
+        "macro_f1": "('positive', 'positive')",
+        "mcc": "('positive', 'positive')"
+    },
+    {
+        "doc_id": 12,
+        "prompt_0": "What is the sentiment of the following financial headline: Positive, Negative, or Neutral?\nText: EasyJet Dismisses Lufthansa Low-Cost Plan in Contest for Germany\nAnswer:until",
+        "logit_0": "Neutral",
+        "truth": "negative",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('neutral', 'negative')",
+        "macro_f1": "('neutral', 'negative')",
+        "mcc": "('neutral', 'negative')"
+    },
+    {
+        "doc_id": 13,
+        "prompt_0": "What is the sentiment of the following financial headline: Positive, Negative, or Neutral?\nText: Shell share price: Standard Life announce position against BG acquisition\nAnswer:until",
+        "logit_0": "Negative",
+        "truth": "negative",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('negative', 'negative')",
+        "macro_f1": "('negative', 'negative')",
+        "mcc": "('negative', 'negative')"
+    },
+    {
+        "doc_id": 14,
+        "prompt_0": "What is the sentiment of the following financial post: Positive, Negative, or Neutral?\nText: FBR Capital reiterated \"Outperform\" rating on $BRCM with a price target of $45.00 on Friday.\nAnswer:until",
+        "logit_0": "Positive",
+        "truth": "positive",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('positive', 'positive')",
+        "macro_f1": "('positive', 'positive')",
+        "mcc": "('positive', 'positive')"
+    }
+]

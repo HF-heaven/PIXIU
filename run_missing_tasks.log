@@ -1,0 +1,77 @@
+==========================================
+运行缺失的 7 个任务
+==========================================
+
+[1/7] 运行任务: en-forecasting-travelinsurance
+/home/hefan/anaconda3/envs/pixiu_env/lib/python3.10/site-packages/jieba/_compat.py:18: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+[nltk_data] Downloading package punkt to /home/hefan/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+Traceback (most recent call last):
+  File "<string>", line 6, in <module>
+ImportError: cannot import name 'run_evaluation' from 'run_all_harbor_tasks' (/home/hefan/PIXIU/run_all_harbor_tasks.py)
+  ❌ en-forecasting-travelinsurance 失败
+
+[2/7] 运行任务: finben-finer-ord
+/home/hefan/anaconda3/envs/pixiu_env/lib/python3.10/site-packages/jieba/_compat.py:18: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+[nltk_data] Downloading package punkt to /home/hefan/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+Traceback (most recent call last):
+  File "<string>", line 6, in <module>
+ImportError: cannot import name 'run_evaluation' from 'run_all_harbor_tasks' (/home/hefan/PIXIU/run_all_harbor_tasks.py)
+  ❌ finben-finer-ord 失败
+
+[3/7] 运行任务: flare-causal20-sc
+/home/hefan/anaconda3/envs/pixiu_env/lib/python3.10/site-packages/jieba/_compat.py:18: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+[nltk_data] Downloading package punkt to /home/hefan/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+Traceback (most recent call last):
+  File "<string>", line 6, in <module>
+ImportError: cannot import name 'run_evaluation' from 'run_all_harbor_tasks' (/home/hefan/PIXIU/run_all_harbor_tasks.py)
+  ❌ flare-causal20-sc 失败
+
+[4/7] 运行任务: flare-multifin-en
+/home/hefan/anaconda3/envs/pixiu_env/lib/python3.10/site-packages/jieba/_compat.py:18: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+[nltk_data] Downloading package punkt to /home/hefan/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+Traceback (most recent call last):
+  File "<string>", line 6, in <module>
+ImportError: cannot import name 'run_evaluation' from 'run_all_harbor_tasks' (/home/hefan/PIXIU/run_all_harbor_tasks.py)
+  ❌ flare-multifin-en 失败
+
+[5/7] 运行任务: flare-sm-acl
+/home/hefan/anaconda3/envs/pixiu_env/lib/python3.10/site-packages/jieba/_compat.py:18: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+[nltk_data] Downloading package punkt to /home/hefan/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+Traceback (most recent call last):
+  File "<string>", line 6, in <module>
+ImportError: cannot import name 'run_evaluation' from 'run_all_harbor_tasks' (/home/hefan/PIXIU/run_all_harbor_tasks.py)
+  ❌ flare-sm-acl 失败
+
+[6/7] 运行任务: flare-sm-bigdata
+/home/hefan/anaconda3/envs/pixiu_env/lib/python3.10/site-packages/jieba/_compat.py:18: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+[nltk_data] Downloading package punkt to /home/hefan/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+Traceback (most recent call last):
+  File "<string>", line 6, in <module>
+ImportError: cannot import name 'run_evaluation' from 'run_all_harbor_tasks' (/home/hefan/PIXIU/run_all_harbor_tasks.py)
+  ❌ flare-sm-bigdata 失败
+
+[7/7] 运行任务: flare-sm-cikm
+/home/hefan/anaconda3/envs/pixiu_env/lib/python3.10/site-packages/jieba/_compat.py:18: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+[nltk_data] Downloading package punkt to /home/hefan/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+Traceback (most recent call last):
+  File "<string>", line 6, in <module>
+ImportError: cannot import name 'run_evaluation' from 'run_all_harbor_tasks' (/home/hefan/PIXIU/run_all_harbor_tasks.py)
+  ❌ flare-sm-cikm 失败
+
+==========================================
+所有任务完成！
+==========================================

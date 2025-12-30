@@ -1,0 +1,167 @@
+[
+    {
+        "doc_id": 0,
+        "prompt_0": "In this task, you are provided with sentences extracted from financial news and SEC data. Your goal is to classify each sentence into either 'causal' or 'noise' based on whether or not it indicates a causal relationship between financial events. Please return only the category 'causal' or 'noise'.\nText:  Third Democratic presidential debate  September 12, 2019 at 9:54 PM EDT - Updated September 13 at 12:54 AM  WASHINGTON (AP)  -  Ten Democrats seeking the presidency tripped over some details Thursday night as they sparred in a debate thick with policy and personal stories. Several made provocative accusations that President Donald Trump inspired the deadly shooting in El Paso, Texas, last month.\nAnswer:until",
+        "logit_0": "causal",
+        "truth": "noise",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('causal', 'noise')",
+        "macro_f1": "('causal', 'noise')",
+        "mcc": "('causal', 'noise')"
+    },
+    {
+        "doc_id": 1,
+        "prompt_0": "In this task, you are provided with sentences extracted from financial news and SEC data. Your goal is to classify each sentence into either 'causal' or 'noise' based on whether or not it indicates a causal relationship between financial events. Please return only the category 'causal' or 'noise'.\nText:  On the policy front, Bernie Sanders claimed his approach to health care has a stamp of approval from everyone who studies such matters, which is not the case.\nAnswer:until",
+        "logit_0": "noise",
+        "truth": "noise",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('noise', 'noise')",
+        "macro_f1": "('noise', 'noise')",
+        "mcc": "('noise', 'noise')"
+    },
+    {
+        "doc_id": 2,
+        "prompt_0": "In this task, you are provided with sentences extracted from financial news and SEC data. Your goal is to classify each sentence into either 'causal' or 'noise' based on whether or not it indicates a causal relationship between financial events. Please return only the category 'causal' or 'noise'.\nText:  Joe Biden misrepresented recent history when he said the administration he served as vice president didn't put migrant kids in cages.\nAnswer:until",
+        "logit_0": "",
+        "truth": "noise",
+        "acc": "0.0",
+        "missing": "1",
+        "f1": "('missing', 'noise')",
+        "macro_f1": "('missing', 'noise')",
+        "mcc": "('missing', 'noise')"
+    },
+    {
+        "doc_id": 3,
+        "prompt_0": "In this task, you are provided with sentences extracted from financial news and SEC data. Your goal is to classify each sentence into either 'causal' or 'noise' based on whether or not it indicates a causal relationship between financial events. Please return only the category 'causal' or 'noise'.\nText:  Here's a look at some of the assertions in the third round of Democratic primary debates, the first to have all qualifying contenders square off in one night:  BETO O'ROURKE, former U.S. representative from Texas, on last month's mass shooting in El Paso: Everything that I've learned about resilience, I've learned from my hometown of El Paso, Texas, in the face of this act of terror, that was directed at our community, in large part by the president of the United States.\nAnswer:until",
+        "logit_0": "noise",
+        "truth": "noise",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('noise', 'noise')",
+        "macro_f1": "('noise', 'noise')",
+        "mcc": "('noise', 'noise')"
+    },
+    {
+        "doc_id": 4,
+        "prompt_0": "In this task, you are provided with sentences extracted from financial news and SEC data. Your goal is to classify each sentence into either 'causal' or 'noise' based on whether or not it indicates a causal relationship between financial events. Please return only the category 'causal' or 'noise'.\nText:  It killed 22 people, and injured many more, we were not defeated by that. Nor were we defined by that.\nAnswer:until",
+        "logit_0": "causal",
+        "truth": "noise",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('causal', 'noise')",
+        "macro_f1": "('causal', 'noise')",
+        "mcc": "('causal', 'noise')"
+    },
+    {
+        "doc_id": 5,
+        "prompt_0": "In this task, you are provided with sentences extracted from financial news and SEC data. Your goal is to classify each sentence into either 'causal' or 'noise' based on whether or not it indicates a causal relationship between financial events. Please return only the category 'causal' or 'noise'.\nText:  JULIAN CASTRO, former U.S. housing secretary: Look, a few weeks ago a shooter drove 10 hours inspired by this president to kill people who look like me and people who look like my family. THE FACTS: Nobody has claimed that Trump directed the shooting, as O'Rourke suggested.\nAnswer:until",
+        "logit_0": "causal",
+        "truth": "noise",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('causal', 'noise')",
+        "macro_f1": "('causal', 'noise')",
+        "mcc": "('causal', 'noise')"
+    },
+    {
+        "doc_id": 6,
+        "prompt_0": "In this task, you are provided with sentences extracted from financial news and SEC data. Your goal is to classify each sentence into either 'causal' or 'noise' based on whether or not it indicates a causal relationship between financial events. Please return only the category 'causal' or 'noise'.\nText:  Earlier in the debate, O'Rourke had said the shooter was inspired to kill by our president, an accusation also made by Castro. It is hard to know for sure what led the gunman to open fire inside a Walmart in El Paso, Texas, killing 22 people. The suspect posted a manifesto online before the shooting that echoed Trump's comments on immigration.\nAnswer:until",
+        "logit_0": "causal",
+        "truth": "noise",
+        "acc": "0.0",
+        "missing": "0",
+        "f1": "('causal', 'noise')",
+        "macro_f1": "('causal', 'noise')",
+        "mcc": "('causal', 'noise')"
+    },
+    {
+        "doc_id": 7,
+        "prompt_0": "In this task, you are provided with sentences extracted from financial news and SEC data. Your goal is to classify each sentence into either 'causal' or 'noise' based on whether or not it indicates a causal relationship between financial events. Please return only the category 'causal' or 'noise'.\nText:  Yet he said his own views predate Trump and his campaign for president.\nAnswer:until",
+        "logit_0": "noise",
+        "truth": "noise",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('noise', 'noise')",
+        "macro_f1": "('noise', 'noise')",
+        "mcc": "('noise', 'noise')"
+    },
+    {
+        "doc_id": 8,
+        "prompt_0": "In this task, you are provided with sentences extracted from financial news and SEC data. Your goal is to classify each sentence into either 'causal' or 'noise' based on whether or not it indicates a causal relationship between financial events. Please return only the category 'causal' or 'noise'.\nText:  The screed spoke of what the suspect called a Hispanic invasion of Texas, railed against immigrants and warned of an imminent attack.\nAnswer:until",
+        "logit_0": "noise",
+        "truth": "noise",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('noise', 'noise')",
+        "macro_f1": "('noise', 'noise')",
+        "mcc": "('noise', 'noise')"
+    },
+    {
+        "doc_id": 9,
+        "prompt_0": "In this task, you are provided with sentences extracted from financial news and SEC data. Your goal is to classify each sentence into either 'causal' or 'noise' based on whether or not it indicates a causal relationship between financial events. Please return only the category 'causal' or 'noise'.\nText:  Nearly all of the victims had Latino last names.\nAnswer:until",
+        "logit_0": "noise",
+        "truth": "noise",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('noise', 'noise')",
+        "macro_f1": "('noise', 'noise')",
+        "mcc": "('noise', 'noise')"
+    },
+    {
+        "doc_id": 10,
+        "prompt_0": "In this task, you are provided with sentences extracted from financial news and SEC data. Your goal is to classify each sentence into either 'causal' or 'noise' based on whether or not it indicates a causal relationship between financial events. Please return only the category 'causal' or 'noise'.\nText:  We have the highest child poverty rate of almost any country on Earth.\nAnswer:until",
+        "logit_0": "noise",
+        "truth": "noise",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('noise', 'noise')",
+        "macro_f1": "('noise', 'noise')",
+        "mcc": "('noise', 'noise')"
+    },
+    {
+        "doc_id": 11,
+        "prompt_0": "In this task, you are provided with sentences extracted from financial news and SEC data. Your goal is to classify each sentence into either 'causal' or 'noise' based on whether or not it indicates a causal relationship between financial events. Please return only the category 'causal' or 'noise'.\nText:  THE FACTS: This oft-repeated line by the Vermont senator is an exaggeration.\nAnswer:until",
+        "logit_0": "noise",
+        "truth": "noise",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('noise', 'noise')",
+        "macro_f1": "('noise', 'noise')",
+        "mcc": "('noise', 'noise')"
+    },
+    {
+        "doc_id": 12,
+        "prompt_0": "In this task, you are provided with sentences extracted from financial news and SEC data. Your goal is to classify each sentence into either 'causal' or 'noise' based on whether or not it indicates a causal relationship between financial events. Please return only the category 'causal' or 'noise'.\nText:  There are nearly 200 countries in the world, many with people mired in extreme poverty that most Americans would struggle to fathom.\nAnswer:until",
+        "logit_0": "noise",
+        "truth": "noise",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('noise', 'noise')",
+        "macro_f1": "('noise', 'noise')",
+        "mcc": "('noise', 'noise')"
+    },
+    {
+        "doc_id": 13,
+        "prompt_0": "In this task, you are provided with sentences extracted from financial news and SEC data. Your goal is to classify each sentence into either 'causal' or 'noise' based on whether or not it indicates a causal relationship between financial events. Please return only the category 'causal' or 'noise'.\nText:  Poverty is also a relative measure in which someone who is poor in one nation might look rather prosperous in another.\nAnswer:until",
+        "logit_0": "noise",
+        "truth": "noise",
+        "acc": "1.0",
+        "missing": "0",
+        "f1": "('noise', 'noise')",
+        "macro_f1": "('noise', 'noise')",
+        "mcc": "('noise', 'noise')"
+    },
+    {
+        "doc_id": 14,
+        "prompt_0": "In this task, you are provided with sentences extracted from financial news and SEC data. Your goal is to classify each sentence into either 'causal' or 'noise' based on whether or not it indicates a causal relationship between financial events. Please return only the category 'causal' or 'noise'.\nText:  But the Organization for Economic Co-operation and Development updated its child poverty report in 2018. The United States had an above average level of child poverty, but it was not at the bottom of the 42 nations listed in the report.\nAnswer:until",
+        "logit_0": "",
+        "truth": "noise",
+        "acc": "0.0",
+        "missing": "1",
+        "f1": "('missing', 'noise')",
+        "macro_f1": "('missing', 'noise')",
+        "mcc": "('missing', 'noise')"
+    }
+]
