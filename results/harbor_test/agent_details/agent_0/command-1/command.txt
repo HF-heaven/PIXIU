@@ -1,9 +1,9 @@
-codex exec --dangerously-bypass-approvals-and-sandbox --skip-git-repo-check --model gpt-5-mini --json -- You are given a financial task instance in `/tmp/pixiu_codex_f283b5d225be42c1b2d3ab4805264015/tests/data/item.json`.
+codex exec --dangerously-bypass-approvals-and-sandbox --skip-git-repo-check --cd /tmp/pixiu_codex_e9d97a1f0943488d835025cc5ada16ea --model gpt-4o-mini --json -- You are given a financial task instance in `tests/data/item.json`.
 
-**Important**: You are currently in the `/app` directory, but the input file is located at the absolute path `/tmp/pixiu_codex_f283b5d225be42c1b2d3ab4805264015/tests/data/item.json` (note the leading slash). Do not use relative paths like `tests/data/item.json`.
+**Important**: You are currently in the `/app` directory, but the input file is located at the absolute path `tests/data/item.json` (relative to your working directory). Use the relative path `tests/data/item.json`.
 
-- Read the JSON file at `/tmp/pixiu_codex_f283b5d225be42c1b2d3ab4805264015/tests/data/item.json` to understand the query and available choices.
+- Read the JSON file at `tests/data/item.json` to understand the query and available choices.
 - Decide on the single best label according to the task description.
-- Write your final answer as plain text to `/tmp/pixiu_codex_f283b5d225be42c1b2d3ab4805264015/app/answer.txt`.
+- Write your final answer as plain text to `app/answer.txt`.
 
 Your answer must exactly match one of the allowed labels.
