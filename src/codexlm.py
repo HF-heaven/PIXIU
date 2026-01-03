@@ -143,7 +143,24 @@ class CodexLM(BaseLM):
 - Write your final answer as plain text to `/app/answer.txt`.
 
 Your answer must exactly match one of the allowed labels."""
-        return self._harbor_instruction_template
+        
+        # When using --cd flag, we need to convert absolute paths to relative paths
+        # because --cd only changes working directory, not filesystem root
+        # Replace /tests/data/item.json with tests/data/item.json (relative)
+        # Replace /app/answer.txt with app/answer.txt (relative)
+        instruction_relative = self._harbor_instruction_template.replace(
+            "/tests/data/item.json", "tests/data/item.json"
+        ).replace(
+            "/app/answer.txt", "app/answer.txt"
+        ).replace(
+            "absolute path `/tests/data/item.json`", "file at `tests/data/item.json`"
+        ).replace(
+            "note the leading slash", "relative to your working directory"
+        ).replace(
+            "Do not use relative paths like `tests/data/item.json`", "Use the relative path `tests/data/item.json`"
+        )
+        
+        return instruction_relative
     
     def _build_item_json(self, doc: dict, dataset_name: str = None, split: str = "test") -> dict:
         """Build Harbor-format item.json from doc object."""
@@ -224,21 +241,15 @@ Your answer must exactly match one of the allowed labels."""
             # In Harbor's container environment, these are absolute paths from container root.
             # 
             # To replicate this in local environment:
-            # - We use temp_dir as the "container root"
-            # - We need to modify the instruction to use absolute paths from temp_dir
-            #   because Linux absolute paths start from system root, not working directory
-            # - OR: We can use the original instruction and let codex resolve paths
-            #   (codex might handle this differently)
-            #
-            # Best approach: Modify instruction to use temp_dir absolute paths
-            # This ensures codex can find the files correctly
-            instruction_modified = instruction.replace(
-                "/tests/data/item.json",
-                str(data_dir / "item.json")
-            ).replace(
-                "/app/answer.txt",
-                str(app_dir / "answer.txt")
-            )
+            # - We use temp_dir as the "container root" 
+            # - We use codex's --cd option to set working directory to temp_dir
+            # - This makes /tests/data/item.json and /app/answer.txt accessible as
+            #   relative paths from temp_dir (tests/data/item.json and app/answer.txt)
+            # - The agent sees them as if temp_dir is the filesystem root
+            # 
+            # Use original Harbor instruction unchanged - codex will resolve paths
+            # relative to temp_dir due to --cd flag
+            instruction_modified = instruction
             
             # Prepare command (like Harbor does)
             # Command 0: Create auth.json (like Harbor command-0)
@@ -272,6 +283,7 @@ EOF'''
                 "codex", "exec",
                 "--dangerously-bypass-approvals-and-sandbox",
                 "--skip-git-repo-check",
+                "--cd", str(temp_dir),  # Set temp_dir as working root - agent sees it as filesystem root
                 "--model", self.model,
                 "--json",
                 "--",
@@ -296,11 +308,11 @@ EOF'''
                 print(f"[DEBUG] Harbor mode: instruction (with absolute paths):")
                 print(instruction_modified)
             
-            # Execute with cwd=app_dir (as Harbor does - agent runs in /app directory)
-            # The instruction uses absolute paths, so they will resolve correctly
+            # Execute codex CLI
+            # With --cd flag, codex treats temp_dir as the working root
+            # No need to set cwd here since codex handles it internally
             result = subprocess.run(
                 cmd,
-                cwd=str(app_dir),  # Set working directory to app_dir (as Harbor does)
                 capture_output=True,
                 text=True,
                 env=env,
