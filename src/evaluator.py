@@ -76,15 +76,22 @@ def simple_evaluate(
         if model_args is None:
             model_args = ""
         if model == "codex":
-            # Parse model_args to get the actual model name
+            # Parse model_args to get the actual model name and harbor_mode
             args_dict = {}
             if model_args:
                 for arg in model_args.split(","):
                     if "=" in arg:
                         k, v = arg.split("=", 1)
                         args_dict[k.strip()] = v.strip()
+                    else:
+                        # Handle boolean flags like "harbor_mode"
+                        if arg.strip() == "harbor_mode":
+                            args_dict["harbor_mode"] = True
             codex_model = args_dict.get("model", "gpt-4o")
-            lm = CodexLM(model=codex_model)
+            harbor_mode = args_dict.get("harbor_mode", False)
+            if isinstance(harbor_mode, str):
+                harbor_mode = harbor_mode.lower() in ("true", "1", "yes")
+            lm = CodexLM(model=codex_model, harbor_mode=harbor_mode)
         elif model[:3] != "gpt":
             lm = lm_eval.models.get_model(model).create_from_arg_string(
                 model_args, {"batch_size": batch_size, "max_batch_size": max_batch_size, "device": device}
@@ -345,7 +352,67 @@ def evaluate(
             print("reqs: ", reqs)
             print("reqtype: ", reqtype)
             print("[req.args for req in reqs]: ", [req.args for req in reqs])
-            resps = getattr(lm, reqtype)([req.args for req in reqs])
+            
+            # For Harbor mode, set request_docs and agent details saving before calling greedy_until
+            if reqtype == "greedy_until" and hasattr(lm, 'harbor_mode') and lm.harbor_mode:
+                # Enable agent details saving if write_out is enabled
+                if write_out:
+                    import pathlib
+                    lm._save_agent_details = True
+                    if output_base_path:
+                        output_path = pathlib.Path(output_base_path) if isinstance(output_base_path, str) else output_base_path
+                    else:
+                        output_path = pathlib.Path(".")
+                    lm._agent_log_base_dir = str(output_path / "agent_details")
+                    print(f"[DEBUG] Harbor mode: Enabled agent details saving")
+                    print(f"[DEBUG]   _save_agent_details: {lm._save_agent_details}")
+                    print(f"[DEBUG]   _agent_log_base_dir: {lm._agent_log_base_dir}")
+                else:
+                    print(f"[DEBUG] Harbor mode: write_out is False, agent details saving disabled")
+                
+                # Create a list of docs corresponding to each request in filtered_reqs
+                # Note: filtered_reqs order matches the order of requests passed to greedy_until
+                request_docs = []
+                for req, (i, task_name, doc, doc_id, diag_id, turn) in filtered_reqs:
+                    request_docs.append(doc)
+                # Store docs in lm so greedy_until can access them
+                if request_docs:
+                    lm._request_docs = request_docs
+                else:
+                    # Clear if no docs (shouldn't happen, but for safety)
+                    if hasattr(lm, '_request_docs'):
+                        delattr(lm, '_request_docs')
+            
+            # Use filtered_reqs instead of reqs to match request_docs
+            # filtered_reqs contains only requests for the current turn
+            print(f"[DEBUG] filtered_reqs length: {len(filtered_reqs)}")
+            print(f"[DEBUG] reqs length: {len(reqs)}")
+            if filtered_reqs:
+                filtered_req_args = [req[0].args for req in filtered_reqs]
+                print(f"[DEBUG] filtered_req_args length: {len(filtered_req_args)}")
+                print(f"[DEBUG] filtered_req_args[0] type: {type(filtered_req_args[0]) if filtered_req_args else 'None'}")
+                if filtered_req_args and filtered_req_args[0]:
+                    print(f"[DEBUG] filtered_req_args[0] value (first 200 chars): {str(filtered_req_args[0])[:200]}")
+                    print(f"[DEBUG] filtered_req_args[0] is empty: {not filtered_req_args[0] or (isinstance(filtered_req_args[0], tuple) and len(filtered_req_args[0]) > 0 and not filtered_req_args[0][0])}")
+                print(f"[DEBUG] filtered_req_args content (full): {filtered_req_args}")
+                print(f"[DEBUG] About to call {reqtype} with {len(filtered_req_args)} requests")
+            else:
+                filtered_req_args = []
+                print(f"[DEBUG] WARNING: filtered_reqs is empty, using empty list")
+            print(f"[DEBUG] Final filtered_req_args before calling {reqtype}: {filtered_req_args}")
+            print(f"[DEBUG] filtered_req_args id: {id(filtered_req_args)}")
+            print(f"[DEBUG] filtered_req_args type: {type(filtered_req_args)}")
+            print(f"[DEBUG] filtered_req_args len: {len(filtered_req_args) if filtered_req_args else 0}")
+            method = getattr(lm, reqtype)
+            print(f"[DEBUG] method: {method}")
+            print(f"[DEBUG] method type: {type(method)}")
+            print(f"[DEBUG] About to call method with filtered_req_args")
+            resps = method(filtered_req_args)
+            print(f"[DEBUG] After calling method, resps type: {type(resps)}, len: {len(resps) if hasattr(resps, '__len__') else 'N/A'}")
+            
+            # Clean up _request_docs after use
+            if reqtype == "greedy_until" and hasattr(lm, '_request_docs'):
+                delattr(lm, '_request_docs')
             print("================end getattr(lm, reqtype)======================")
             resps = [
                 x if req[0].index is None else x[req[0].index] for x, req in zip(resps, filtered_reqs
@@ -384,6 +451,39 @@ def evaluate(
 
 
         metrics = task.process_results(doc, requests)
+        
+        # Extract pred and gold from process_results for write_out
+        if write_out:
+            pred = None
+            gold = write_out_info[task_name][doc_id].get("truth")
+            
+            # Check if metrics contain pred information
+            # For classification: metrics like f1, macro_f1 contain (pred, gold) tuples
+            for metric_name, metric_value in metrics.items():
+                if isinstance(metric_value, tuple) and len(metric_value) >= 2:
+                    # Extract pred from tuple (pred, gold, ...)
+                    pred = metric_value[0]
+                    # Also update gold from tuple if available
+                    if len(metric_value) >= 2:
+                        gold_from_tuple = metric_value[1]
+                        if gold is None or gold != str(gold_from_tuple):
+                            gold = str(gold_from_tuple)
+                    break
+            
+            # If no pred found in metrics, try to extract from raw output
+            if pred is None and requests:
+                # Use the raw model output as pred
+                pred = requests[0] if isinstance(requests[0], str) else str(requests[0])
+            
+            # Store pred and gold
+            if pred is not None:
+                write_out_info[task_name][doc_id]["pred"] = str(pred)
+            if gold is not None:
+                write_out_info[task_name][doc_id]["gold"] = str(gold)
+                # Also ensure truth field exists
+                if "truth" not in write_out_info[task_name][doc_id]:
+                    write_out_info[task_name][doc_id]["truth"] = str(gold)
+        
         for metric, value in metrics.items():
             vals[(task_name, metric)].append(value)
 
@@ -437,6 +537,9 @@ def evaluate(
                 encoding="utf8",
             ) as fp:
                 json.dump(write_out_info[task_name], fp, indent=4, ensure_ascii=False)
+        
+        # Note: Agent details saving is now enabled before calling greedy_until
+        # (moved to earlier in the code to ensure it's set before model execution)
 
     return {"results": dict(results), "versions": dict(versions)}
 
