@@ -430,7 +430,11 @@ def evaluate(
                     write_out_info[task_name][doc_id][f"logit_{i}"] = resp
                     task = task_dict[task_name]
                     if isinstance(task, lm_eval.base.MultipleChoiceTask):
-                        write_out_info[task_name][doc_id]["truth"] = doc["gold"]
+                        # Convert gold index to actual label string for MultipleChoiceTask
+                        if "choices" in doc and isinstance(doc["gold"], int):
+                            write_out_info[task_name][doc_id]["truth"] = doc["choices"][doc["gold"]]
+                        else:
+                            write_out_info[task_name][doc_id]["truth"] = doc["gold"]
                     elif isinstance(task, lm_eval.tasks.winogrande.Winogrande):
                         write_out_info[task_name][doc_id]["truth"] = task.answer_to_num[
                             doc["answer"]
