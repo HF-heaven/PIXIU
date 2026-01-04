@@ -144,26 +144,22 @@ class CodexLM(BaseLM):
         raise NotImplementedError("Codex CLI does not support loglikelihood")
     
     def _load_harbor_instruction(self) -> str:
-        """Load Harbor instruction template (with {query} placeholder)."""
+        """Load Harbor instruction template (adapted for native execution without Docker).
+        
+        Original Harbor uses absolute paths (/tests/data/item.json, /app/answer.txt)
+        which work in Docker containers. For native execution, we use relative paths.
+        """
         if self._harbor_instruction_template is None:
-            # Use Harbor-style instruction template with {query} placeholder
-            # This matches Harbor's adapter.py exactly
-            self._harbor_instruction_template = """=== YOUR TASK ===
-You are given a financial task.
-You MUST follow the following STEP GUIDE to complete the task.
-Examine your answer with a program called check_answer.py under the same directory, and iterate until it's passed.
-When running a command, **NO LEADING QUOTATION MARK** (e.g., ' or ") should be provided, just provide the command.
-Try to add `bash -lc` before the command if you keep encountering the error.
+            # Adapted from Harbor's template/instruction.md for native execution
+            # Changed /tests/data/item.json -> tests/data/item.json (relative)
+            # Changed /app/answer.txt -> app/answer.txt (relative)
+            self._harbor_instruction_template = """You are given a financial task instance in `tests/data/item.json`.
 
-=== STEP GUIDE ===
-1. Understand the task.
-2. Provide your answer.
-3. Use `python write_answer.py "ANSWER"` to save the answer.
-4. Run `python check_answer.py` to check the answer.
-5. If the tests fail, analyze the errors and repeat steps 3-4 until the tests pass.
+- Read the JSON file at `tests/data/item.json` to understand the query and available choices.
+- Decide on the single best label according to the task description.
+- Write your final answer as plain text to `app/answer.txt`.
 
-=== TASK DESCRIPTION ===
-{query}"""
+Your answer must exactly match one of the allowed labels."""
         
         return self._harbor_instruction_template
     
@@ -242,11 +238,9 @@ Try to add `bash -lc` before the command if you keep encountering the error.
                 json.dumps(item_data, ensure_ascii=False, indent=2)
             )
             
-            # Load Harbor instruction template and insert the query
-            instruction_template = self._load_harbor_instruction()
-            # Insert the actual query from doc (mimics Harbor adapter.py line 974)
-            query = doc.get('query', context if context else '')
-            instruction = instruction_template.replace('{query}', query)
+            # Load Harbor instruction template (tells agent to read /tests/data/item.json)
+            # No need to embed query - agent will read it from the JSON file
+            instruction = self._load_harbor_instruction()
             
             # Prepare environment
             env = os.environ.copy()
