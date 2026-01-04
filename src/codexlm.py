@@ -153,13 +153,18 @@ class CodexLM(BaseLM):
             # Adapted from Harbor's template/instruction.md for native execution
             # Changed /tests/data/item.json -> tests/data/item.json (relative)
             # Changed /app/answer.txt -> app/answer.txt (relative)
+            # Made generic to support all task types (classification, NER, QA, summarization, etc.)
             self._harbor_instruction_template = """You are given a financial task instance in `tests/data/item.json`.
 
-- Read the JSON file at `tests/data/item.json` to understand the query and available choices.
-- Decide on the single best label according to the task description.
+- Read the JSON file at `tests/data/item.json` to understand the task requirements.
+- The JSON contains a "label_type" field describing the task (e.g., classification, NER, QA, summarization).
+- Complete the task according to the instructions in the JSON file.
 - Write your final answer as plain text to `app/answer.txt`.
 
-Your answer must exactly match one of the allowed labels."""
+For classification tasks: Your answer must exactly match one of the provided choices.
+For NER/sequence labeling: Output in the expected format (e.g., "entity_name, entity_type" per line).
+For QA/generation tasks: Provide a direct answer to the question.
+For summarization tasks: Generate an appropriate summary."""
         
         return self._harbor_instruction_template
     
