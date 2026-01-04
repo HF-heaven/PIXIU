@@ -11,7 +11,7 @@ from tqdm import tqdm
 class CodexLM(BaseLM):
     REQ_CHUNK_SIZE = 1  # Codex CLI processes one at a time
     
-    def __init__(self, model="gpt-4o", truncate=False, harbor_mode=False):
+    def __init__(self, model="gpt-4o", truncate=False, harbor_mode=False, use_docker=False):
         """
         :param model: str
             Model name (e.g., "gpt-4o", "gpt-4-turbo")
@@ -19,12 +19,15 @@ class CodexLM(BaseLM):
             Truncate input if too long (if False and input is too long, throw error)
         :param harbor_mode: bool
             If True, use Harbor-compatible execution mode (same instruction, file structure, etc.)
+        :param use_docker: bool
+            If True, run codex CLI inside Docker container (matching Harbor exactly)
         """
         super().__init__()
         
         self.model = model
         self.truncate = truncate
         self.harbor_mode = harbor_mode
+        self.use_docker = use_docker
         self._tokenizer = None  # Lazy load tokenizer
         self._last_raw_output = None  # Store last raw output for debugging
         self._last_stderr = None  # Store last stderr for debugging
@@ -33,36 +36,51 @@ class CodexLM(BaseLM):
         self._harbor_instruction_template = None  # Lazy load instruction template
         self._save_agent_details = False  # Whether to save detailed agent logs
         self._agent_log_base_dir = None  # Base directory for agent logs
+        self._docker_image_built = False  # Track if Docker image is built
         
         # Check for API key
         if "OPENAI_API_KEY" not in os.environ:
             raise ValueError("OPENAI_API_KEY environment variable is required")
         
-        # Verify codex CLI is available
-        try:
-            result = subprocess.run(
-                ["codex", "--version"],
-                capture_output=True,
-                text=True,
-                timeout=5
-            )
-            if result.returncode != 0:
-                raise RuntimeError("Codex CLI not working properly")
-        except FileNotFoundError:
-            raise RuntimeError("Codex CLI not found. Please install with: npm install -g @openai/codex@latest")
-        
-        # Check login status (optional, but recommended)
-        try:
-            login_result = subprocess.run(
-                ["codex", "login", "status"],
-                capture_output=True,
-                text=True,
-                timeout=5
-            )
-            if "not logged in" in login_result.stdout.lower() or login_result.returncode != 0:
-                print("WARNING: Codex CLI may not be logged in. Run: echo $OPENAI_API_KEY | codex login --with-api-key")
-        except Exception:
-            pass  # Ignore login check errors
+        # Verify codex CLI is available (or Docker if use_docker=True)
+        if use_docker:
+            # Check if Docker is available
+            try:
+                result = subprocess.run(
+                    ["docker", "--version"],
+                    capture_output=True,
+                    text=True,
+                    timeout=5
+                )
+                if result.returncode != 0:
+                    raise RuntimeError("Docker not working properly")
+            except FileNotFoundError:
+                raise RuntimeError("Docker not found. Please install Docker to use Docker mode.")
+        else:
+            try:
+                result = subprocess.run(
+                    ["codex", "--version"],
+                    capture_output=True,
+                    text=True,
+                    timeout=5
+                )
+                if result.returncode != 0:
+                    raise RuntimeError("Codex CLI not working properly")
+            except FileNotFoundError:
+                raise RuntimeError("Codex CLI not found. Please install with: npm install -g @openai/codex@latest")
+            
+            # Check login status (optional, but recommended)
+            try:
+                login_result = subprocess.run(
+                    ["codex", "login", "status"],
+                    capture_output=True,
+                    text=True,
+                    timeout=5
+                )
+                if "not logged in" in login_result.stdout.lower() or login_result.returncode != 0:
+                    print("WARNING: Codex CLI may not be logged in. Run: echo $OPENAI_API_KEY | codex login --with-api-key")
+            except Exception:
+                pass  # Ignore login check errors
     
     def _get_tokenizer(self):
         """Lazy load tokenizer to avoid import issues."""
@@ -199,20 +217,14 @@ Try to add `bash -lc` before the command if you keep encountering the error.
         
         # Copy helper scripts (check_answer.py and write_answer.py) from Harbor template
         # Harbor provides these in each dataset's environment/ directory
-        # Fix hardcoded /app/answer.txt paths for non-Docker environments
         harbor_template_dir = Path("/home/hefan/harbor/adapters/pixiu/template/environment")
         if harbor_template_dir.exists():
             for script in ["check_answer.py", "write_answer.py"]:
                 src = harbor_template_dir / script
                 if src.exists():
-                    # Read and fix hardcoded /app/answer.txt path
-                    content = src.read_text()
-                    content = content.replace('"/app/answer.txt"', '"app/answer.txt"')
-                    (app_dir / script).write_text(content)
+                    shutil.copy(src, app_dir / script)
                     if self._debug_mode:
-                        print(f"[DEBUG] Copied and fixed {script} from Harbor template to {app_dir}")
-        
-        # Create agent log directory (like Harbor does)
+                        print(f"[DEBUG] Copied {script} from Harbor template to {app_dir}")
         if save_agent_details:
             if agent_log_dir is None:
                 agent_log_dir = temp_dir / "agent"
@@ -298,16 +310,30 @@ EOF'''
                 print(f"[DEBUG] Harbor mode: instruction (with query embedded):")
                 print(instruction)
             
-            # Execute codex CLI
-            # With --cd flag, codex treats temp_dir as the working root
-            # No need to set cwd here since codex handles it internally
-            result = subprocess.run(
-                cmd,
-                capture_output=True,
-                text=True,
-                env=env,
-                timeout=300,  # 5 minute timeout
-            )
+            # Execute codex CLI (native or Docker)
+            if self.use_docker:
+                # Run codex in Docker container
+                print(f"[Docker] Running codex CLI in Docker container")
+                result = self._run_codex_in_docker(
+                    temp_dir=temp_dir,
+                    app_dir=app_dir,
+                    data_dir=data_dir,
+                    instruction=instruction,
+                    env=env,
+                    save_agent_details=save_agent_details,
+                    command_1_dir=command_1_dir if save_agent_details else None
+                )
+            else:
+                # Run codex natively
+                # With --cd flag, codex treats temp_dir as the working root
+                # No need to set cwd here since codex handles it internally
+                result = subprocess.run(
+                    cmd,
+                    capture_output=True,
+                    text=True,
+                    env=env,
+                    timeout=300,  # 5 minute timeout
+                )
             
             # Save command-1 details (like Harbor does)
             if save_agent_details:
@@ -325,11 +351,12 @@ EOF'''
             self._last_stderr = result.stderr
             
             if self._debug_mode:
-                print(f"[DEBUG] Harbor mode: codex return code={result.returncode}")
-                print(f"[DEBUG] Harbor mode: stdout (first 500 chars):")
+                mode = "Docker" if self.use_docker else "Native"
+                print(f"[DEBUG] Harbor mode ({mode}): codex return code={result.returncode}")
+                print(f"[DEBUG] Harbor mode ({mode}): stdout (first 500 chars):")
                 print(result.stdout[:500])
                 if result.stderr:
-                    print(f"[DEBUG] Harbor mode: stderr (first 500 chars):")
+                    print(f"[DEBUG] Harbor mode ({mode}): stderr (first 500 chars):")
                     print(result.stderr[:500])
             
             if result.returncode != 0:
@@ -691,6 +718,108 @@ EOF'''
                 res.append("")  # Return empty string on error
         
         return re_ord.get_original(res)
+    
+    def _build_docker_image(self):
+        """Build Docker image for running codex CLI (matching Harbor setup)."""
+        if self._docker_image_built:
+            return
+            
+        print("[Docker] Building Docker image...")
+        
+        # Use Harbor's PIXIU adapter Dockerfile
+        dockerfile_dir = Path("/home/hefan/harbor/adapters/pixiu/template/environment")
+        if not dockerfile_dir.exists():
+            raise RuntimeError(f"Harbor PIXIU Dockerfile not found at {dockerfile_dir}")
+        
+        dockerfile_path = dockerfile_dir / "Dockerfile"
+        if not dockerfile_path.exists():
+            raise RuntimeError(f"Dockerfile not found at {dockerfile_path}")
+        
+        # Build image
+        build_cmd = [
+            "docker", "build",
+            "-t", "pixiu-codex-env",
+            "-f", str(dockerfile_path),
+            str(dockerfile_dir)
+        ]
+        
+        if self._debug_mode:
+            print(f"[DEBUG] Docker build command: {' '.join(build_cmd)}")
+        
+        result = subprocess.run(
+            build_cmd,
+            capture_output=True,
+            text=True,
+            timeout=300  # 5 minute timeout for build
+        )
+        
+        if result.returncode != 0:
+            raise RuntimeError(f"Docker build failed: {result.stderr}")
+        
+        self._docker_image_built = True
+        print("[Docker] Image built successfully")
+    
+    def _run_codex_in_docker(
+        self,
+        temp_dir: Path,
+        app_dir: Path,
+        data_dir: Path,
+        instruction: str,
+        env: dict,
+        save_agent_details: bool = False,
+        command_1_dir: Path = None
+    ) -> subprocess.CompletedProcess:
+        """Run codex CLI inside Docker container (matching Harbor execution)."""
+        
+        # Ensure Docker image is built
+        self._build_docker_image()
+        
+        # Create a unique container name
+        container_name = f"pixiu-codex-{uuid.uuid4().hex[:8]}"
+        
+        # Docker run command matching Harbor's setup
+        # Mount temp_dir as /workspace and set it as working directory
+        # Mount app_dir as /app (WORKDIR in Dockerfile)
+        docker_cmd = [
+            "docker", "run",
+            "--name", container_name,
+            "--rm",  # Auto-remove container after execution
+            "-v", f"{temp_dir.absolute()}:/workspace",
+            "-v", f"{app_dir.absolute()}:/app",
+            "-v", f"{data_dir.absolute()}:/data",
+            "-w", "/workspace",  # Set working directory
+            "-e", f"OPENAI_API_KEY={env['OPENAI_API_KEY']}",
+            "-e", f"CODEX_HOME={env.get('CODEX_HOME', '/tmp/.codex')}",
+            "pixiu-codex-env",
+            "codex", "exec",
+            "--dangerously-bypass-approvals-and-sandbox",
+            "--skip-git-repo-check",
+            "--cd", "/workspace",
+            "--model", self.model,
+            "--json",
+            "--",
+            instruction
+        ]
+        
+        if save_agent_details and command_1_dir:
+            (command_1_dir / "command.txt").write_text(" ".join(docker_cmd))
+        
+        if self._debug_mode:
+            print(f"[DEBUG] Docker run command: {' '.join(docker_cmd)}")
+            print(f"[DEBUG] Docker mounts:")
+            print(f"  temp_dir={temp_dir} -> /workspace")
+            print(f"  app_dir={app_dir} -> /app")
+            print(f"  data_dir={data_dir} -> /data")
+        
+        # Run codex in Docker
+        result = subprocess.run(
+            docker_cmd,
+            capture_output=True,
+            text=True,
+            timeout=300  # 5 minute timeout
+        )
+        
+        return result
     
     def _model_call(self, inps):
         raise NotImplementedError()
