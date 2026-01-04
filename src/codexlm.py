@@ -168,6 +168,25 @@ For summarization tasks: Generate an appropriate summary."""
         
         return self._harbor_instruction_template
     
+    def _infer_label_type(self, doc: dict) -> str:
+        """Infer the task type based on doc structure."""
+        if "tokens" in doc and "labels" in doc:
+            return "sequence labeling (NER/POS)"
+        elif "relations" in doc:
+            return "relation extraction"
+        elif "expected_score" in doc or "score_range" in doc:
+            return "regression/scoring"
+        elif "choices" in doc and len(doc.get("choices", [])) > 0:
+            # Detect sentiment vs general classification
+            choices_str = " ".join(str(c).lower() for c in doc["choices"])
+            if any(word in choices_str for word in ["positive", "negative", "neutral"]):
+                return "sentiment analysis"
+            return "classification"
+        elif "summary" in doc.get("query", "").lower() or "summarize" in doc.get("query", "").lower():
+            return "summarization"
+        else:
+            return "question answering"
+    
     def _build_item_json(self, doc: dict, dataset_name: str = None, split: str = "test") -> dict:
         """Build Harbor-format item.json from doc object."""
         item_data = {
@@ -177,19 +196,21 @@ For summarization tasks: Generate an appropriate summary."""
             "split": split,
         }
         
-        # Add label_type if present
+        # Add or infer label_type
         if "label_type" in doc:
             item_data["label_type"] = doc["label_type"]
+        else:
+            item_data["label_type"] = self._infer_label_type(doc)
         
         # Add task-specific fields
         if "choices" in doc:
             item_data["choices"] = list(doc["choices"])
         
-        if "tokens" in doc:
-            item_data["tokens"] = list(doc["tokens"])
+        if "tokens" in doc or "token" in doc:
+            item_data["tokens"] = list(doc.get("tokens") or doc.get("token", []))
         
-        if "labels" in doc:
-            item_data["labels"] = list(doc["labels"])
+        if "labels" in doc or "label" in doc:
+            item_data["labels"] = list(doc.get("labels") or doc.get("label", []))
         
         if "relations" in doc:
             item_data["relations"] = list(doc["relations"])
