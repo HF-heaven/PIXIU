@@ -126,41 +126,28 @@ class CodexLM(BaseLM):
         raise NotImplementedError("Codex CLI does not support loglikelihood")
     
     def _load_harbor_instruction(self) -> str:
-        """Load Harbor instruction template."""
+        """Load Harbor instruction template (with {query} placeholder)."""
         if self._harbor_instruction_template is None:
-            # Try to load from Harbor adapter template directory
-            harbor_template_path = Path("/home/hefan/harbor/adapters/pixiu/template/instruction.md")
-            if harbor_template_path.exists():
-                self._harbor_instruction_template = harbor_template_path.read_text()
-            else:
-                # Fallback: use embedded template
-                self._harbor_instruction_template = """You are given a financial task instance in `/tests/data/item.json`.
+            # Use Harbor-style instruction template with {query} placeholder
+            # This matches Harbor's adapter.py exactly
+            self._harbor_instruction_template = """=== YOUR TASK ===
+You are given a financial task.
+You MUST follow the following STEP GUIDE to complete the task.
+Examine your answer with a program called check_answer.py under the same directory, and iterate until it's passed.
+When running a command, **NO LEADING QUOTATION MARK** (e.g., ' or ") should be provided, just provide the command.
+Try to add `bash -lc` before the command if you keep encountering the error.
 
-**Important**: You are currently in the `/app` directory, but the input file is located at the absolute path `/tests/data/item.json` (note the leading slash). Do not use relative paths like `tests/data/item.json`.
+=== STEP GUIDE ===
+1. Understand the task.
+2. Provide your answer.
+3. Use `python write_answer.py "ANSWER"` to save the answer.
+4. Run `python check_answer.py` to check the answer.
+5. If the tests fail, analyze the errors and repeat steps 3-4 until the tests pass.
 
-- Read the JSON file at `/tests/data/item.json` to understand the query and available choices.
-- Decide on the single best label according to the task description.
-- Write your final answer as plain text to `/app/answer.txt`.
-
-Your answer must exactly match one of the allowed labels."""
+=== TASK DESCRIPTION ===
+{query}"""
         
-        # When using --cd flag, we need to convert absolute paths to relative paths
-        # because --cd only changes working directory, not filesystem root
-        # Replace /tests/data/item.json with tests/data/item.json (relative)
-        # Replace /app/answer.txt with app/answer.txt (relative)
-        instruction_relative = self._harbor_instruction_template.replace(
-            "/tests/data/item.json", "tests/data/item.json"
-        ).replace(
-            "/app/answer.txt", "app/answer.txt"
-        ).replace(
-            "absolute path `/tests/data/item.json`", "file at `tests/data/item.json`"
-        ).replace(
-            "note the leading slash", "relative to your working directory"
-        ).replace(
-            "Do not use relative paths like `tests/data/item.json`", "Use the relative path `tests/data/item.json`"
-        )
-        
-        return instruction_relative
+        return self._harbor_instruction_template
     
     def _build_item_json(self, doc: dict, dataset_name: str = None, split: str = "test") -> dict:
         """Build Harbor-format item.json from doc object."""
@@ -210,6 +197,21 @@ Your answer must exactly match one of the allowed labels."""
         app_dir.mkdir(parents=True, exist_ok=True)
         data_dir.mkdir(parents=True, exist_ok=True)
         
+        # Copy helper scripts (check_answer.py and write_answer.py) from Harbor template
+        # Harbor provides these in each dataset's environment/ directory
+        # Fix hardcoded /app/answer.txt paths for non-Docker environments
+        harbor_template_dir = Path("/home/hefan/harbor/adapters/pixiu/template/environment")
+        if harbor_template_dir.exists():
+            for script in ["check_answer.py", "write_answer.py"]:
+                src = harbor_template_dir / script
+                if src.exists():
+                    # Read and fix hardcoded /app/answer.txt path
+                    content = src.read_text()
+                    content = content.replace('"/app/answer.txt"', '"app/answer.txt"')
+                    (app_dir / script).write_text(content)
+                    if self._debug_mode:
+                        print(f"[DEBUG] Copied and fixed {script} from Harbor template to {app_dir}")
+        
         # Create agent log directory (like Harbor does)
         if save_agent_details:
             if agent_log_dir is None:
@@ -228,28 +230,16 @@ Your answer must exactly match one of the allowed labels."""
                 json.dumps(item_data, ensure_ascii=False, indent=2)
             )
             
-            # Load Harbor instruction template
-            instruction = self._load_harbor_instruction()
+            # Load Harbor instruction template and insert the query
+            instruction_template = self._load_harbor_instruction()
+            # Insert the actual query from doc (mimics Harbor adapter.py line 974)
+            query = doc.get('query', context if context else '')
+            instruction = instruction_template.replace('{query}', query)
             
             # Prepare environment
             env = os.environ.copy()
             if "OPENAI_API_KEY" not in env:
                 raise ValueError("OPENAI_API_KEY environment variable is required")
-            
-            # Execute codex CLI
-            # Harbor instruction uses absolute paths: /tests/data/item.json and /app/answer.txt
-            # In Harbor's container environment, these are absolute paths from container root.
-            # 
-            # To replicate this in local environment:
-            # - We use temp_dir as the "container root" 
-            # - We use codex's --cd option to set working directory to temp_dir
-            # - This makes /tests/data/item.json and /app/answer.txt accessible as
-            #   relative paths from temp_dir (tests/data/item.json and app/answer.txt)
-            # - The agent sees them as if temp_dir is the filesystem root
-            # 
-            # Use original Harbor instruction unchanged - codex will resolve paths
-            # relative to temp_dir due to --cd flag
-            instruction_modified = instruction
             
             # Prepare command (like Harbor does)
             # Command 0: Create auth.json (like Harbor command-0)
@@ -287,7 +277,7 @@ EOF'''
                 "--model", self.model,
                 "--json",
                 "--",
-                instruction_modified
+                instruction
             ]
             
             if save_agent_details:
@@ -305,8 +295,8 @@ EOF'''
                     print(f"[DEBUG] Harbor mode: agent_log_dir={agent_log_dir}")
                 print(f"[DEBUG] Harbor mode: item.json content:")
                 print(json.dumps(item_data, indent=2))
-                print(f"[DEBUG] Harbor mode: instruction (with absolute paths):")
-                print(instruction_modified)
+                print(f"[DEBUG] Harbor mode: instruction (with query embedded):")
+                print(instruction)
             
             # Execute codex CLI
             # With --cd flag, codex treats temp_dir as the working root
@@ -432,9 +422,34 @@ EOF'''
                     break
                 continue
         
+        # Try to extract simple yes/no answer from agent message
         if actual_output:
+            # Look for patterns like "The answer is **yes**" or "written to...as \"no\""
+            import re
+            # Pattern 1: "answer is **yes**" or "answer is yes" or "label is **no**"
+            match = re.search(r'\b(?:answer|label|result|prediction)\s+(?:is|determined|saved as)\s+(?:\*\*)?["`]?(yes|no)["`]?(?:\*\*)?', actual_output, re.IGNORECASE)
+            if match:
+                return match.group(1).lower()
+            
+            # Pattern 2: "written to...as **yes**" or "written as \"no\""
+            match = re.search(r'\b(?:written|saved|stored)\s+(?:to|as)\s+.*?(?:\*\*)?["`]?(yes|no)["`]?(?:\*\*)?', actual_output, re.IGNORECASE)
+            if match:
+                return match.group(1).lower()
+            
+            # Pattern 3: quoted yes/no anywhere in message
+            match = re.search(r'["`\*]+(yes|no)["`\*]+', actual_output, re.IGNORECASE)
+            if match:
+                return match.group(1).lower()
+            
+            # If no pattern matched, return the full text
             return actual_output
         elif all_item_outputs:
+            # Try the same extraction on all collected outputs
+            for output in reversed(all_item_outputs):
+                import re
+                match = re.search(r'\b(?:answer|label|result|prediction|written|saved)\s+(?:is|determined|as|to)\s+(?:\*\*)?["`]?(yes|no)["`]?(?:\*\*)?', output, re.IGNORECASE)
+                if match:
+                    return match.group(1).lower()
             return all_item_outputs[-1]
         
         # Last resort: return raw output

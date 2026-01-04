@@ -65,7 +65,8 @@ class Classification(Task):
             language description, as well as the few shot examples, and the question
             part of the document for `doc`.
         """
-        cont_request = rf.greedy_until(ctx, {"until": None})
+        # Use empty list for until to avoid appending "until" to the prompt
+        cont_request = rf.greedy_until(ctx, {"until": []})
         return cont_request
 
     def doc_to_decontamination_query(self, doc):
@@ -1145,6 +1146,81 @@ class polish(Classification):
 class taiwan(Classification):
     DATASET_PATH = "TheFinAI/cra-taiwan"
     CALCULATE_MCC = True
+    
+    def __init__(self, data_dir=None, cache_dir=None, download_mode=None):
+        super().__init__(data_dir=data_dir, cache_dir=cache_dir, download_mode=download_mode)
+        # Check if we should load from Harbor dataset directly
+        import json
+        from pathlib import Path
+        
+        self._harbor_dataset_path = Path("/home/hefan/harbor/datasets/pixiu/taiwan")
+        self._use_harbor_data = self._harbor_dataset_path.exists()
+        
+        if self._use_harbor_data:
+            print(f"[INFO] Using Harbor dataset directly from {self._harbor_dataset_path}")
+        else:
+            print(f"[WARNING] Harbor dataset not found at {self._harbor_dataset_path}, using HuggingFace data")
+    
+    def test_docs(self):
+        """Return test docs from Harbor dataset for exact parity."""
+        if self._use_harbor_data:
+            # Load directly from Harbor's item.json files
+            import json
+            import re
+            docs = []
+            
+            for i in range(15):  # Harbor has 15 samples
+                sample_base = self._harbor_dataset_path / f"pixiu-taiwan-taiwan{i:06d}"
+                item_file = sample_base / "tests" / "data" / "item.json"
+                solution_file = sample_base / "solution" / "solve.sh"
+                
+                if not item_file.exists():
+                    print(f"[WARNING] Harbor sample {i} not found at {item_file}")
+                    continue
+                
+                with open(item_file, 'r') as f:
+                    harbor_data = json.load(f)
+                
+                # Extract the answer from solution/solve.sh
+                answer = None
+                gold_index = None
+                if solution_file.exists():
+                    with open(solution_file, 'r') as f:
+                        solve_content = f.read()
+                        # Look for: printf "%s" "answer" > /app/answer.txt
+                        match = re.search(r'printf "%s" "([^"]+)"', solve_content)
+                        if match:
+                            answer = match.group(1)
+                            # Find gold_index from choices
+                            if answer in harbor_data['choices']:
+                                gold_index = harbor_data['choices'].index(answer)
+                
+                # Extract the text from Harbor's query format
+                # Query format: "...Text: 'The client has attributes: ...' \nAnswer:"
+                query_text = harbor_data['query']
+                if "Text: '" in query_text and "' \nAnswer:" in query_text:
+                    text = query_text.split("Text: '")[1].split("' \nAnswer:")[0]
+                else:
+                    # Fallback: use the part after the instruction
+                    text = query_text
+                
+                # Create doc in PIXIU format
+                doc = {
+                    'id': harbor_data['id'],
+                    'text': text,
+                    'query': harbor_data['query'],
+                    'choices': harbor_data['choices'],
+                    'harbor_id': i,
+                    'answer': answer,
+                    'gold': gold_index
+                }
+                docs.append(doc)
+            
+            print(f"[INFO] Loaded {len(docs)} samples directly from Harbor dataset")
+            return docs
+        else:
+            # Fallback to HuggingFace dataset
+            return list(self.dataset["test"])
 
 
 class portoseguro(Classification):
