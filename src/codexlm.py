@@ -769,7 +769,18 @@ EOF'''
         save_agent_details: bool = False,
         command_1_dir: Path = None
     ) -> subprocess.CompletedProcess:
-        """Run codex CLI inside Docker container (matching Harbor execution)."""
+        """Run codex CLI with Docker container (matching Harbor execution).
+        
+        Harbor's approach:
+        1. Start a long-running Docker container with helper scripts
+        2. Run codex CLI on the host
+        3. Codex CLI uses `docker exec` to run commands inside the container
+        
+        We simplify by:
+        1. Creating a temporary container for the duration of one task
+        2. Running codex CLI on host with proper shell configuration
+        3. Using container name as the execution target
+        """
         
         # Ensure Docker image is built
         self._build_docker_image()
@@ -777,49 +788,91 @@ EOF'''
         # Create a unique container name
         container_name = f"pixiu-codex-{uuid.uuid4().hex[:8]}"
         
-        # Docker run command matching Harbor's setup
-        # Mount temp_dir as /workspace and set it as working directory
-        # Mount app_dir as /app (WORKDIR in Dockerfile)
-        docker_cmd = [
-            "docker", "run",
-            "--name", container_name,
-            "--rm",  # Auto-remove container after execution
-            "-v", f"{temp_dir.absolute()}:/workspace",
-            "-v", f"{app_dir.absolute()}:/app",
-            "-v", f"{data_dir.absolute()}:/data",
-            "-w", "/workspace",  # Set working directory
-            "-e", f"OPENAI_API_KEY={env['OPENAI_API_KEY']}",
-            "-e", f"CODEX_HOME={env.get('CODEX_HOME', '/tmp/.codex')}",
-            "pixiu-codex-env",
-            "codex", "exec",
-            "--dangerously-bypass-approvals-and-sandbox",
-            "--skip-git-repo-check",
-            "--cd", "/workspace",
-            "--model", self.model,
-            "--json",
-            "--",
-            instruction
-        ]
-        
-        if save_agent_details and command_1_dir:
-            (command_1_dir / "command.txt").write_text(" ".join(docker_cmd))
-        
-        if self._debug_mode:
-            print(f"[DEBUG] Docker run command: {' '.join(docker_cmd)}")
-            print(f"[DEBUG] Docker mounts:")
-            print(f"  temp_dir={temp_dir} -> /workspace")
-            print(f"  app_dir={app_dir} -> /app")
-            print(f"  data_dir={data_dir} -> /data")
-        
-        # Run codex in Docker
-        result = subprocess.run(
-            docker_cmd,
-            capture_output=True,
-            text=True,
-            timeout=300  # 5 minute timeout
-        )
-        
-        return result
+        try:
+            # Start a long-running container
+            start_cmd = [
+                "docker", "run",
+                "-d",  # Detached mode
+                "--name", container_name,
+                "-v", f"{temp_dir.absolute()}:/workspace",
+                "-v", f"{app_dir.absolute()}:/app",
+                "-v", f"{data_dir.absolute()}:/data",
+                "-w", "/app",  # Set /app as default working directory
+                "-e", f"OPENAI_API_KEY={env['OPENAI_API_KEY']}",
+                "pixiu-codex-env",
+                "sleep", "infinity"  # Keep container running
+            ]
+            
+            if self._debug_mode:
+                print(f"[DEBUG] Starting Docker container: {container_name}")
+                print(f"[DEBUG] Command: {' '.join(start_cmd)}")
+            
+            start_result = subprocess.run(
+                start_cmd,
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+            
+            if start_result.returncode != 0:
+                raise RuntimeError(f"Failed to start Docker container: {start_result.stderr}")
+            
+            if self._debug_mode:
+                print(f"[DEBUG] Container {container_name} started successfully")
+            
+            # Configure codex to use docker exec for command execution
+            # We create a shell wrapper that uses docker exec
+            exec_wrapper = f"""#!/bin/bash
+# Wrapper to execute commands in Docker container {container_name}
+docker exec -w /workspace {container_name} bash -lc "$@"
+"""
+            wrapper_path = temp_dir / "docker_exec_wrapper.sh"
+            wrapper_path.write_text(exec_wrapper)
+            wrapper_path.chmod(0o755)
+            
+            # Run codex CLI with custom shell pointing to our wrapper
+            # Codex will use this shell to execute commands, which will run inside Docker
+            codex_cmd = [
+                "codex", "exec",
+                "--dangerously-bypass-approvals-and-sandbox",
+                "--skip-git-repo-check",
+                "--cd", str(temp_dir),
+                "--model", self.model,
+                "--json",
+                "--",
+                instruction
+            ]
+            
+            if save_agent_details and command_1_dir:
+                (command_1_dir / "command.txt").write_text(" ".join(codex_cmd))
+            
+            if self._debug_mode:
+                print(f"[DEBUG] Running codex with Docker execution:")
+                print(f"  Command: {' '.join(codex_cmd)}")
+                print(f"  Container: {container_name}")
+            
+            # Run codex on host - it will use docker exec via the wrapper
+            result = subprocess.run(
+                codex_cmd,
+                capture_output=True,
+                text=True,
+                env=env,
+                cwd=str(temp_dir),
+                timeout=300  # 5 minute timeout
+            )
+            
+            return result
+            
+        finally:
+            # Clean up: stop and remove container
+            cleanup_cmd = ["docker", "rm", "-f", container_name]
+            subprocess.run(
+                cleanup_cmd,
+                capture_output=True,
+                timeout=30
+            )
+            if self._debug_mode:
+                print(f"[DEBUG] Cleaned up container {container_name}")
     
     def _model_call(self, inps):
         raise NotImplementedError()
