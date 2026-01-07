@@ -11,7 +11,7 @@ from tqdm import tqdm
 class CodexLM(BaseLM):
     REQ_CHUNK_SIZE = 1  # Codex CLI processes one at a time
     
-    def __init__(self, model="gpt-4o", truncate=False, harbor_mode=False, use_docker=False):
+    def __init__(self, model="gpt-4o", truncate=False, harbor_mode=False, use_docker=True):
         """
         :param model: str
             Model name (e.g., "gpt-4o", "gpt-4-turbo")
@@ -143,30 +143,30 @@ class CodexLM(BaseLM):
     def _loglikelihood_tokens(self, requests, disable_tqdm=False):
         raise NotImplementedError("Codex CLI does not support loglikelihood")
     
-    def _load_harbor_instruction(self) -> str:
+    def _load_harbor_instruction(self, query: str) -> str:
         """Load Harbor instruction template (adapted for native execution without Docker).
         
-        Original Harbor uses absolute paths (/tests/data/item.json, /app/answer.txt)
+        Original Harbor uses absolute paths (/app/answer.txt)
         which work in Docker containers. For native execution, we use relative paths.
         """
-        if self._harbor_instruction_template is None:
-            # Adapted from Harbor's template/instruction.md for native execution
-            # Changed /tests/data/item.json -> tests/data/item.json (relative)
-            # Changed /app/answer.txt -> app/answer.txt (relative)
-            # Made generic to support all task types (classification, NER, QA, summarization, etc.)
-            self._harbor_instruction_template = """You are given a financial task instance in `tests/data/item.json`.
+        instruction = f"""=== YOUR TASK ===
+You are given a financial task.
+You MUST follow the following STEP GUIDE to complete the task.
+Examine your answer with a program called check_answer.py under the same directory, and iterate until it's passed.
+When running a command, **NO LEADING QUOTATION MARK** (e.g., ' or ") should be provided, just provide the command.
+Try to add `bash -lc` before the command if you keep encountering the error.
 
-- Read the JSON file at `tests/data/item.json` to understand the task requirements.
-- The JSON contains a "label_type" field describing the task (e.g., classification, NER, QA, summarization).
-- Complete the task according to the instructions in the JSON file.
-- Write your final answer as plain text to `app/answer.txt`.
+=== STEP GUIDE ===
+1. Understand the task.
+2. Provide your answer.
+3. Use `python write_answer.py "ANSWER"` to save the answer.
+4. Run `python check_answer.py` to check the answer.
+5. If the tests fail, analyze the errors and repeat steps 3-4 until the tests pass.
 
-For classification tasks: Your answer must exactly match one of the provided choices.
-For NER/sequence labeling: Output in the expected format (e.g., "entity_name, entity_type" per line).
-For QA/generation tasks: Provide a direct answer to the question.
-For summarization tasks: Generate an appropriate summary."""
-        
-        return self._harbor_instruction_template
+=== TASK DESCRIPTION ===
+{query}
+"""
+        return instruction
     
     def _infer_label_type(self, doc: dict) -> str:
         """Infer the task type based on doc structure."""
@@ -187,41 +187,6 @@ For summarization tasks: Generate an appropriate summary."""
         else:
             return "question answering"
     
-    def _build_item_json(self, doc: dict, dataset_name: str = None, split: str = "test") -> dict:
-        """Build Harbor-format item.json from doc object."""
-        item_data = {
-            "id": doc.get("id", ""),
-            "query": doc.get("query") or doc.get("text", ""),
-            "dataset": dataset_name or "pixiu",
-            "split": split,
-        }
-        
-        # Add or infer label_type
-        if "label_type" in doc:
-            item_data["label_type"] = doc["label_type"]
-        else:
-            item_data["label_type"] = self._infer_label_type(doc)
-        
-        # Add task-specific fields
-        if "choices" in doc:
-            item_data["choices"] = list(doc["choices"])
-        
-        if "tokens" in doc or "token" in doc:
-            item_data["tokens"] = list(doc.get("tokens") or doc.get("token", []))
-        
-        if "labels" in doc or "label" in doc:
-            item_data["labels"] = list(doc.get("labels") or doc.get("label", []))
-        
-        if "relations" in doc:
-            item_data["relations"] = list(doc["relations"])
-        
-        if "expected_score" in doc:
-            item_data["expected_score"] = doc["expected_score"]
-        
-        if "score_range" in doc:
-            item_data["score_range"] = list(doc["score_range"])
-        
-        return item_data
     
     def _call_codex_cli_harbor_mode(self, doc: dict, context: str = None, save_agent_details: bool = False, agent_log_dir: Path = None) -> str:
         """Call Codex CLI in Harbor mode: create temp dir, write item.json, use instruction.md, read answer.txt.
@@ -239,14 +204,14 @@ For summarization tasks: Generate an appropriate summary."""
         
         # Copy helper scripts (check_answer.py and write_answer.py) from Harbor template
         # Harbor provides these in each dataset's environment/ directory
-        harbor_template_dir = Path("/home/hefan/harbor/adapters/pixiu/template/environment")
+        harbor_template_dir = Path("/home/hefan/PIXIU/src")
         if harbor_template_dir.exists():
             for script in ["check_answer.py", "write_answer.py"]:
                 src = harbor_template_dir / script
                 if src.exists():
-                    shutil.copy(src, app_dir / script)
+                    shutil.copy(src, temp_dir / script)
                     if self._debug_mode:
-                        print(f"[DEBUG] Copied {script} from Harbor template to {app_dir}")
+                        print(f"[DEBUG] Copied {script} from Harbor template to {temp_dir}")
         if save_agent_details:
             if agent_log_dir is None:
                 agent_log_dir = temp_dir / "agent"
@@ -258,15 +223,10 @@ For summarization tasks: Generate an appropriate summary."""
             print(f"[DEBUG] _call_codex_cli_harbor_mode: save_agent_details is False, skipping agent log creation")
         
         try:
-            # Build and write item.json
-            item_data = self._build_item_json(doc)
-            (data_dir / "item.json").write_text(
-                json.dumps(item_data, ensure_ascii=False, indent=2)
-            )
-            
-            # Load Harbor instruction template (tells agent to read /tests/data/item.json)
-            # No need to embed query - agent will read it from the JSON file
-            instruction = self._load_harbor_instruction()
+            # Build instruction from query
+            query = doc.get("query") or doc.get("text", "")
+            # print(f"[DEBUG] _call_codex_cli_harbor_mode: query: {query}")
+            instruction = self._load_harbor_instruction(query)
             
             # Prepare environment
             env = os.environ.copy()
@@ -325,10 +285,8 @@ EOF'''
                 print(f"[DEBUG] Harbor mode: answer.txt path={app_dir / 'answer.txt'}")
                 if save_agent_details:
                     print(f"[DEBUG] Harbor mode: agent_log_dir={agent_log_dir}")
-                print(f"[DEBUG] Harbor mode: item.json content:")
-                print(json.dumps(item_data, indent=2))
                 print(f"[DEBUG] Harbor mode: instruction (with query embedded):")
-                print(instruction)
+            print(instruction)
             
             # Execute codex CLI (native or Docker)
             if self.use_docker:
@@ -385,15 +343,22 @@ EOF'''
             
             # Read answer from answer.txt
             answer_path = app_dir / "answer.txt"
+            answer_from_file = None
             if answer_path.exists():
-                answer = answer_path.read_text().strip()
-                if self._debug_mode:
-                    print(f"[DEBUG] Harbor mode: read answer from answer.txt: {answer}")
-                if answer:  # Only return if answer is not empty
-                    return answer
-                else:
+                try:
+                    answer_from_file = answer_path.read_text().strip()
                     if self._debug_mode:
-                        print("[DEBUG] Harbor mode: answer.txt exists but is empty, falling back to stdout parsing")
+                        print(f"[DEBUG] Harbor mode: read answer from answer.txt: {answer_from_file}")
+                    if answer_from_file:  # Only return if answer is not empty
+                        return answer_from_file
+                    else:
+                        print(f"[WARNING] Harbor mode: answer.txt exists but is empty for doc_id={doc.get('id', 'unknown')}")
+                        if self._debug_mode:
+                            print("[DEBUG] Harbor mode: answer.txt exists but is empty, falling back to stdout parsing")
+                except Exception as e:
+                    print(f"[WARNING] Harbor mode: Failed to read answer.txt for doc_id={doc.get('id', 'unknown')}: {e}")
+            else:
+                print(f"[WARNING] Harbor mode: answer.txt not found at {answer_path} for doc_id={doc.get('id', 'unknown')}")
             
             # Fallback: try to parse from stdout (for compatibility)
             if self._debug_mode:
@@ -487,6 +452,17 @@ EOF'''
             match = re.search(r'["`\*]+(yes|no)["`\*]+', actual_output, re.IGNORECASE)
             if match:
                 return match.group(1).lower()
+            
+            # Pattern 4: Extract sentiment labels (positive/negative/neutral) - for FPB and similar tasks
+            # Look for the label at the end of the message (after final newline or standalone)
+            sentiment_match = re.search(r'\b(positive|negative|neutral)\s*$', actual_output, re.IGNORECASE | re.MULTILINE)
+            if sentiment_match:
+                return sentiment_match.group(1).lower()
+            
+            # Pattern 5: Look for sentiment labels in quotes or emphasized
+            sentiment_match = re.search(r'(?:\*\*|["`])(positive|negative|neutral)(?:\*\*|["`])', actual_output, re.IGNORECASE)
+            if sentiment_match:
+                return sentiment_match.group(1).lower()
             
             # If no pattern matched, return the full text
             return actual_output
@@ -634,7 +610,7 @@ EOF'''
     def greedy_until(self, requests):
         """Generate text using Codex CLI."""
         print("================greedy_until=================")
-        print("requests: ", requests)
+        # print("requests: ", requests)
         print(f"[DEBUG] greedy_until received requests type: {type(requests)}")
         print(f"[DEBUG] greedy_until received requests id: {id(requests)}")
         print(f"[DEBUG] greedy_until received requests len: {len(requests) if hasattr(requests, '__len__') else 'N/A'}")
@@ -642,22 +618,18 @@ EOF'''
             print("[DEBUG] greedy_until: requests is empty, returning []")
             return []
         
-        print("greedy_until requests: ", requests)
+        # print("greedy_until requests: ", requests)
         res = []
-        
-        def _collate(x):
-            toks = self.tok_encode(x[0])
-            return len(toks), x[0]
-        
-        re_ord = utils.Reorderer(requests, _collate)
-        print("re_ord: ", re_ord.get_reordered())
-        print("================================================")
         
         # Get request docs if available (set by evaluator for Harbor mode)
         request_docs = getattr(self, '_request_docs', None)
         if request_docs is None and self.harbor_mode:
             # Fallback: try to use current_doc for all requests
             request_docs = [self.current_doc] * len(requests) if self.current_doc else None
+        
+        # Note: CodexLM doesn't support batching (REQ_CHUNK_SIZE = 1), so we don't need to reorder
+        # requests for optimization. Reordering would break the mapping between requests and docs
+        # in Harbor mode. We process requests in their original order.
         
         # For Harbor mode with CachingLM: if request_docs is set but requests is empty (all cached),
         # we still need to process them to save agent details. However, if requests is empty,
@@ -667,7 +639,8 @@ EOF'''
         # This is expected behavior when using caching.
         
         # Process requests one by one (Codex CLI doesn't support batching)
-        for idx, (context, until) in enumerate(tqdm(re_ord.get_reordered(), desc="Codex generation")):
+        # Process in original order to maintain correct doc mapping
+        for idx, (context, until) in enumerate(tqdm(requests, desc="Codex generation")):
             prompt = context
             
             # Clean up prompt - remove "until" suffix if present (from prompt formatting)
@@ -677,14 +650,14 @@ EOF'''
             try:
                 if self.harbor_mode:
                     # Harbor mode: use doc-based execution
-                    # Get the corresponding doc for this request
+                    # Get the corresponding doc for this request (idx matches original order since we don't reorder)
                     if request_docs and idx < len(request_docs):
                         doc = request_docs[idx]
                     elif self.current_doc:
                         doc = self.current_doc
                     else:
                         raise RuntimeError("Harbor mode requires doc to be set. Make sure evaluator sets lm._request_docs or lm.current_doc before calling greedy_until().")
-                    print(f"Harbor mode: using doc-based execution (doc_id={doc.get('id', 'unknown')})")
+                    print(f"Harbor mode: using doc-based execution (doc_id={doc.get('id', 'unknown')}, idx={idx})")
                     
                     # Determine agent log directory if saving details
                     agent_log_dir = None
@@ -707,7 +680,7 @@ EOF'''
                     print("Harbor mode output: ", output)
                 else:
                     # Original mode: use prompt-based execution
-                    print("prompt: ", prompt)
+                    # print("prompt: ", prompt)
                     output = self._call_codex_cli(prompt)
                     print("output: ", output)
                 # Debug output if enabled
@@ -737,7 +710,8 @@ EOF'''
                     print(f"  Stderr: {self._last_stderr[:500]}")
                 res.append("")  # Return empty string on error
         
-        return re_ord.get_original(res)
+        # No need to reorder results since we processed requests in original order
+        return res
     
     def _build_docker_image(self):
         """Build Docker image for running codex CLI (matching Harbor setup)."""
@@ -840,23 +814,29 @@ EOF'''
             if self._debug_mode:
                 print(f"[DEBUG] Container {container_name} started successfully")
             
-            # Configure codex to use docker exec for command execution
-            # We create a shell wrapper that uses docker exec
-            exec_wrapper = f"""#!/bin/bash
-# Wrapper to execute commands in Docker container {container_name}
-docker exec -w /workspace {container_name} bash -lc "$@"
-"""
-            wrapper_path = temp_dir / "docker_exec_wrapper.sh"
-            wrapper_path.write_text(exec_wrapper)
-            wrapper_path.chmod(0o755)
+            # Run codex CLI on host, but configure it to execute commands inside Docker
+            # Codex CLI runs on host, but we set SHELL environment variable to use docker exec
+            # This way codex CLI will execute all commands inside the container
             
-            # Run codex CLI with custom shell pointing to our wrapper
-            # Codex will use this shell to execute commands, which will run inside Docker
+            # Create a shell wrapper script that executes commands in Docker
+            exec_wrapper = temp_dir / "docker_exec_wrapper.sh"
+            exec_wrapper.write_text(f"""#!/bin/bash
+# Wrapper script to execute commands inside Docker container
+# This is used by codex CLI to run commands in the container
+exec docker exec -w /workspace -i {container_name} bash -lc "$@"
+""")
+            exec_wrapper.chmod(0o755)
+            
+            # Set SHELL environment variable so codex CLI uses our wrapper
+            docker_env = env.copy()
+            docker_env["SHELL"] = str(exec_wrapper.absolute())
+            
+            # Run codex CLI on host - it will use docker exec via SHELL wrapper
             codex_cmd = [
                 "codex", "exec",
                 "--dangerously-bypass-approvals-and-sandbox",
                 "--skip-git-repo-check",
-                "--cd", str(temp_dir),
+                "--cd", str(temp_dir),  # Codex sees temp_dir as root
                 "--model", self.model,
                 "--json",
                 "--",
@@ -870,13 +850,17 @@ docker exec -w /workspace {container_name} bash -lc "$@"
                 print(f"[DEBUG] Running codex with Docker execution:")
                 print(f"  Command: {' '.join(codex_cmd)}")
                 print(f"  Container: {container_name}")
+                print(f"  Shell wrapper: {exec_wrapper}")
+                print(f"  Workspace: /workspace (mapped from {temp_dir})")
+                print(f"  App dir: /app (mapped from {app_dir})")
+                print(f"  Data dir: /data (mapped from {data_dir})")
             
-            # Run codex on host - it will use docker exec via the wrapper
+            # Run codex CLI on host - commands will execute inside Docker via SHELL wrapper
             result = subprocess.run(
                 codex_cmd,
                 capture_output=True,
                 text=True,
-                env=env,
+                env=docker_env,  # Use modified env with SHELL wrapper
                 cwd=str(temp_dir),
                 timeout=300  # 5 minute timeout
             )

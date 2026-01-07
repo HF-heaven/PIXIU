@@ -1,0 +1,11 @@
+codex exec --dangerously-bypass-approvals-and-sandbox --skip-git-repo-check --cd /tmp/pixiu_codex_795c696287d2407bb03e9dc9a36b9f40 --model gpt-5-mini --json -- You are given a financial task instance in `tests/data/item.json`.
+
+- Read the JSON file at `tests/data/item.json` to understand the task requirements.
+- The JSON contains a "label_type" field describing the task (e.g., classification, NER, QA, summarization).
+- Complete the task according to the instructions in the JSON file.
+- Write your final answer as plain text to `app/answer.txt`.
+
+For classification tasks: Your answer must exactly match one of the provided choices.
+For NER/sequence labeling: Output in the expected format (e.g., "entity_name, entity_type" per line).
+For QA/generation tasks: Provide a direct answer to the question.
+For summarization tasks: Generate an appropriate summary.

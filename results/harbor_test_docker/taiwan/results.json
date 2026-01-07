@@ -1,0 +1,28 @@
+{
+  "results": {
+    "flare_cra_taiwan": {
+      "acc": 0.4666666666666667,
+      "acc_stderr": 0.1333333333333333,
+      "missing": 0.0,
+      "missing_stderr": 0.0,
+      "f1": 0.5939393939393939,
+      "macro_f1": 0.3181818181818182,
+      "mcc": -0.25
+    }
+  },
+  "versions": {
+    "flare_cra_taiwan": 1
+  },
+  "config": {
+    "model": "codex",
+    "model_args": "model=gpt-5-mini,harbor_mode=True",
+    "num_fewshot": 0,
+    "batch_size": null,
+    "batch_sizes": [],
+    "device": null,
+    "no_cache": true,
+    "limit": 15.0,
+    "bootstrap_iters": 100,
+    "description_dict": {}
+  }
+}

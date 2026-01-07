@@ -87,7 +87,7 @@ def simple_evaluate(
                         # Handle boolean flags like "harbor_mode"
                         if arg.strip() == "harbor_mode":
                             args_dict["harbor_mode"] = True
-            codex_model = args_dict.get("model", "gpt-4o")
+            codex_model = args_dict.get("model", "gpt-5-mini")
             harbor_mode = args_dict.get("harbor_mode", False)
             if isinstance(harbor_mode, str):
                 harbor_mode = harbor_mode.lower() in ("true", "1", "yes")
@@ -230,14 +230,26 @@ def evaluate(
         versions[task_name] = task.VERSION
         # default to test doc, fall back to val doc if validation unavailable
         # TODO: the test-fallback-to-val system isn't final, we should revisit it at some point
-        if task.has_test_docs():
-            task_doc_func = task.test_docs
-            task_set = "test"  # Required for caching in the decontamination
-        elif task.has_validation_docs():
-            task_set = "val"  # Required for caching in the decontamination
-            task_doc_func = task.validation_docs
+        # For specific tasks (ccfraud, ccf, taiwan), use validation instead of test
+        use_validation_for_these_tasks = ["flare_cra_ccfraud", "flare_cra_ccf", "flare_cra_taiwan"]
+        if task_name in use_validation_for_these_tasks:
+            if task.has_validation_docs():
+                task_doc_func = task.validation_docs
+                task_set = "val"  # Required for caching in the decontamination
+            elif task.has_test_docs():
+                task_doc_func = task.test_docs
+                task_set = "test"  # Required for caching in the decontamination
+            else:
+                raise RuntimeError("Task has neither test_docs nor validation_docs")
         else:
-            raise RuntimeError("Task has neither test_docs nor validation_docs")
+            if task.has_test_docs():
+                task_doc_func = task.test_docs
+                task_set = "test"  # Required for caching in the decontamination
+            elif task.has_validation_docs():
+                task_set = "val"  # Required for caching in the decontamination
+                task_doc_func = task.validation_docs
+            else:
+                raise RuntimeError("Task has neither test_docs nor validation_docs")
 
         # deterministically shuffle docs and chop off the first `limit` because sometimes docs are in some kind of order
         task_docs = list(task_doc_func())
@@ -263,7 +275,7 @@ def evaluate(
         # for doc_id, doc in enumerate(itertools.islice(task_docs, 0, limit)):
         for doc_id, doc in enumerate(itertools.islice(task_docs, limit)):
             # if "id" in doc:
-            #     print("doc-id: ", doc["id"])
+            #     print("doc-id: ", doc["id"], doc["query"])
             if decontaminate and task.should_decontaminate():
                 docs_for_decontamination[(task_name, task_set)].append(
                     task.doc_to_decontamination_query(doc)
@@ -349,9 +361,9 @@ def evaluate(
                 filtered_reqs.append([req, (i, task_name, doc, doc_id, diag_id, turn)])
             
             print("================================================")
-            print("reqs: ", reqs)
+            # print("reqs: ", reqs)
             print("reqtype: ", reqtype)
-            print("[req.args for req in reqs]: ", [req.args for req in reqs])
+            # print("[req.args for req in reqs]: ", [req.args for req in reqs])
             
             # For Harbor mode, set request_docs and agent details saving before calling greedy_until
             if reqtype == "greedy_until" and hasattr(lm, 'harbor_mode') and lm.harbor_mode:
@@ -394,12 +406,12 @@ def evaluate(
                 if filtered_req_args and filtered_req_args[0]:
                     print(f"[DEBUG] filtered_req_args[0] value (first 200 chars): {str(filtered_req_args[0])[:200]}")
                     print(f"[DEBUG] filtered_req_args[0] is empty: {not filtered_req_args[0] or (isinstance(filtered_req_args[0], tuple) and len(filtered_req_args[0]) > 0 and not filtered_req_args[0][0])}")
-                print(f"[DEBUG] filtered_req_args content (full): {filtered_req_args}")
+                # print(f"[DEBUG] filtered_req_args content (full): {filtered_req_args}")
                 print(f"[DEBUG] About to call {reqtype} with {len(filtered_req_args)} requests")
             else:
                 filtered_req_args = []
                 print(f"[DEBUG] WARNING: filtered_reqs is empty, using empty list")
-            print(f"[DEBUG] Final filtered_req_args before calling {reqtype}: {filtered_req_args}")
+            # print(f"[DEBUG] Final filtered_req_args before calling {reqtype}: {filtered_req_args}")
             print(f"[DEBUG] filtered_req_args id: {id(filtered_req_args)}")
             print(f"[DEBUG] filtered_req_args type: {type(filtered_req_args)}")
             print(f"[DEBUG] filtered_req_args len: {len(filtered_req_args) if filtered_req_args else 0}")
@@ -450,8 +462,8 @@ def evaluate(
 
         task = task_dict[task_name]
         doc = docs[(task_name, doc_id)]
-        print("doc: "+ str(doc))
-        print("requests: "+ str(requests))
+        # print("doc: "+ str(doc))
+        # print("requests: "+ str(requests))
 
 
         metrics = task.process_results(doc, requests)
