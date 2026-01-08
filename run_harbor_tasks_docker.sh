@@ -13,7 +13,7 @@ source ~/anaconda3/etc/profile.d/conda.sh
 conda activate pixiu_env
 
 # 设置 API key
-export OPENAI_API_KEY="${OPENAI_API_KEY:-Your OpenAI API key}"
+export OPENAI_API_KEY="Your OpenAI API key"
 export OPENAI_API_SECRET_KEY="${OPENAI_API_KEY}"
 
 # 设置 PYTHONPATH
