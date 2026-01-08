@@ -1,9 +1,0 @@
-codex exec --dangerously-bypass-approvals-and-sandbox --skip-git-repo-check --cd /tmp/pixiu_codex_a723ddee196e4ec6bb445ca7978095eb --model gpt-4o-mini --json -- You are given a financial task instance in `tests/data/item.json`.
-
-**Important**: You are currently in the `/app` directory, but the input file is located at the absolute path `tests/data/item.json` (relative to your working directory). Use the relative path `tests/data/item.json`.
-
-- Read the JSON file at `tests/data/item.json` to understand the query and available choices.
-- Decide on the single best label according to the task description.
-- Write your final answer as plain text to `app/answer.txt`.
-
-Your answer must exactly match one of the allowed labels.

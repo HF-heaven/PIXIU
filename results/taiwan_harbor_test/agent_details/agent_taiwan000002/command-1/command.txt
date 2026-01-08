@@ -1,7 +1,0 @@
-codex exec --dangerously-bypass-approvals-and-sandbox --skip-git-repo-check --cd /tmp/pixiu_codex_b3e361602b5946718cbd965520ddd1c5 --model gpt-5-mini --json -- You are given a financial task instance in `tests/data/item.json`.
-
-- Read the JSON file at `tests/data/item.json` to understand the query and available choices.
-- Decide on the single best label according to the task description.
-- Write your final answer as plain text to `app/answer.txt`.
-
-Your answer must exactly match one of the allowed labels.

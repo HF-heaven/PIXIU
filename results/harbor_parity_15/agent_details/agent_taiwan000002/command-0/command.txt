@@ -1,5 +1,0 @@
-cat >"$CODEX_HOME/auth.json" <<EOF
-{
-  "OPENAI_API_KEY": "${OPENAI_API_KEY}"
-}
-EOF
