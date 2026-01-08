@@ -1,0 +1,63 @@
+# Requirements for Codex evaluation environment (pixiu_env)
+# This file contains all dependencies needed to run run_harbor_tasks_docker.sh
+# Generated from actual pixiu_env installation
+
+# Core ML and NLP libraries
+torch==2.1.2
+transformers==4.57.3
+accelerate==1.12.0
+datasets==4.4.1
+
+# OpenAI API
+openai==2.8.1
+
+# Data processing
+numpy==1.26.4
+pandas==2.3.3
+scikit-learn==1.7.2
+
+# Progress bars
+tqdm==4.67.1
+tqdm-multiprocess==0.0.11
+
+# Evaluation metrics
+evaluate==0.4.6
+seqeval==1.2.2
+rouge-score==0.1.2
+sacrebleu==1.5.0
+
+# Language processing
+jieba==0.42.1
+nltk==3.9.2
+sentencepiece==0.2.1
+sentence-transformers==5.2.2
+
+# Configuration and utilities
+omegaconf==2.3.0
+einops==0.8.1
+jsonlines==4.0.0
+numexpr==2.14.1
+pycountry==24.6.1
+pytablewriter==1.2.1
+sqlitedict==1.1.0
+zstandard==0.25.0
+protobuf==6.33.1
+requests==2.32.5
+
+# Other dependencies
+peft==0.18.0
+
+# Note: The following are optional or may need special installation:
+# - spacy: Install separately with: python -m spacy download en_core_web_sm
+# - factscore_package: Local package in src/factscore_package/
+# - vllm: Only needed for vLLM models, not for Codex (vllm==0.2.7 if needed)
+# - gradio: Only needed for UI, not for evaluation
+# - rank-bm25: May be needed for some tasks (rank-bm25>=0.2.2)
+
+# Additional dependencies for local packages
+# Install lm_eval from local source:
+#   cd src/financial-evaluation && pip install -e . && cd ../..
+#
+# Install tasks package from local source:
+#   cd src && pip install -e . && cd ..
+

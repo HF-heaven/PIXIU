@@ -1,33 +1,33 @@
 #!/bin/bash
-# 运行所有 Harbor 任务，使用 Docker 模式
+# Run all Harbor tasks using Docker mode
 
 set -euo pipefail
 
-# 加载 nvm（确保 Codex CLI 可用）
+# Load nvm (ensure Codex CLI is available)
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 nvm use default
 
-# 激活 conda 环境
+# Activate conda environment
 source ~/anaconda3/etc/profile.d/conda.sh
 conda activate pixiu_env
 
-# 设置 API key
+# Set API key
 export OPENAI_API_KEY="Your OpenAI API key"
 export OPENAI_API_SECRET_KEY="${OPENAI_API_KEY}"
 
-# 设置 PYTHONPATH
-export PYTHONPATH="/home/hefan/PIXIU:/home/hefan/PIXIU/src:/home/hefan/PIXIU/src/financial-evaluation:/home/hefan/PIXIU/src/metrics/BARTScore:${PYTHONPATH:-}"
-
-# 确保 Codex CLI 在 PATH 中（nvm 路径）
+# Ensure Codex CLI is in PATH (nvm path)
 export PATH="$PATH:$HOME/.nvm/versions/node/$(nvm current)/bin"
 
 cd /home/hefan/PIXIU
 
+# Set PYTHONPATH (using relative paths after cd)
+export PYTHONPATH="$PWD:$PWD/src:$PWD/src/financial-evaluation:$PWD/src/metrics/BARTScore:${PYTHONPATH:-}"
+
 OUTPUT_BASE_DIR="results/harbor_test_docker"
 LIMIT=15
 
-# 所有任务映射
+# All task mappings
 declare -A TASK_MAP=(
     ["en-fpb"]="flare_fpb"
     ["flare-headlines"]="flare_headlines"
@@ -60,66 +60,66 @@ declare -A TASK_MAP=(
     ["finben-fomc"]="flare_fomc"
 )
 
-# 任务列表
+# Task list
 TASKS=(
-    # "en-fpb"
-    # "flare-headlines"
-    # "flare-ner"
-    # "flare-finqa"
-    # "flare-tatqa"
-    # "flare-fnxl"
-    # "flare-fsrl"
-    # "flare-ectsum"
-    # "flare-edtsum"
-    # "flare-fiqasa"
-    # "finben-fomc"
-    # "flare-cfa"
-    # "flare-german"
-    # "flare-australian"
-    # "flare-tsa"
-    # "flare-finred"
-    # "flare-cd"
-    # "flare-causal20-sc"
-    # "flare-mlesg"
-    # "flare-ma"
-    # "flare-multifin-en"
-    # "flare-sm-acl"
-    # "flare-sm-bigdata"
-    # "flare-sm-cikm"
-    # "cra-ccfraud"
-    # "cra-ccf"
-    # "taiwan"
+    "en-fpb"
+    "flare-headlines"
+    "flare-ner"
+    "flare-finqa"
+    "flare-tatqa"
+    "flare-fnxl"
+    "flare-fsrl"
+    "flare-ectsum"
+    "flare-edtsum"
+    "flare-fiqasa"
+    "finben-fomc"
+    "flare-cfa"
+    "flare-german"
+    "flare-australian"
+    "flare-tsa"
+    "flare-finred"
+    "flare-cd"
+    "flare-causal20-sc"
+    "flare-mlesg"
+    "flare-ma"
+    "flare-multifin-en"
+    "flare-sm-acl"
+    "flare-sm-bigdata"
+    "flare-sm-cikm"
+    "cra-ccfraud"
+    "cra-ccf"
+    "taiwan"
     "en-forecasting-travelinsurance"
-    # "finben-finer-ord"
+    "finben-finer-ord"
 )
 
 echo "=========================================="
-echo "运行所有 Harbor 任务（Docker 模式）"
+echo "Running all Harbor tasks (Docker mode)"
 echo "=========================================="
 echo ""
-echo "输出目录: $OUTPUT_BASE_DIR"
-echo "每个任务使用前 $LIMIT 个样本"
-echo "总任务数: ${#TASKS[@]}"
+echo "Output directory: $OUTPUT_BASE_DIR"
+echo "Each task uses first $LIMIT samples"
+echo "Total number of tasks: ${#TASKS[@]}"
 echo ""
 
-# 创建输出基础目录
+# Create output base directory
 mkdir -p "$OUTPUT_BASE_DIR"
 
-# 运行每个任务
+# Run each task
 for harbor_task_name in "${TASKS[@]}"; do
     pixiu_task_name="${TASK_MAP[$harbor_task_name]}"
     task_output_dir="$OUTPUT_BASE_DIR/$harbor_task_name"
     results_json_path="$task_output_dir/results.json"
     
     echo "=========================================="
-    echo "运行任务: $harbor_task_name -> $pixiu_task_name"
-    echo "输出目录: $task_output_dir"
+    echo "Running task: $harbor_task_name -> $pixiu_task_name"
+    echo "Output directory: $task_output_dir"
     echo "=========================================="
     
-    # 创建任务输出目录
+    # Create task output directory
     mkdir -p "$task_output_dir"
     
-    # 运行评估命令
+    # Run evaluation command
     python src/eval.py \
         --model codex \
         --model_args "model=gpt-5-mini,harbor_mode=True" \
@@ -129,15 +129,15 @@ for harbor_task_name in "${TASKS[@]}"; do
         --output_base_path "$task_output_dir" \
         --no_cache \
         --output_path "$results_json_path" || {
-        echo "⚠️  任务 $harbor_task_name 运行失败，继续下一个任务..."
+        echo "⚠️  Task $harbor_task_name failed, continuing to next task..."
         continue
     }
     
-    echo "✅ 任务 $harbor_task_name 完成"
+    echo "✅ Task $harbor_task_name completed"
     echo ""
 done
 
 echo "=========================================="
-echo "所有任务运行完成！"
+echo "All tasks completed!"
 echo "=========================================="
 
