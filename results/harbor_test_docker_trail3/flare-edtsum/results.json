@@ -1,0 +1,26 @@
+{
+  "results": {
+    "flare_edtsum": {
+      "rouge1": 0.26586717694832973,
+      "rouge2": 0.1028209800402954,
+      "rougeL": 0.18006601657299573,
+      "bert_score_f1": 0.6705902139345805,
+      "bart_score": -3.9342382748921714
+    }
+  },
+  "versions": {
+    "flare_edtsum": 1
+  },
+  "config": {
+    "model": "codex",
+    "model_args": "model=gpt-5-mini,harbor_mode=True",
+    "num_fewshot": 0,
+    "batch_size": null,
+    "batch_sizes": [],
+    "device": null,
+    "no_cache": true,
+    "limit": 15.0,
+    "bootstrap_iters": 100,
+    "description_dict": {}
+  }
+}

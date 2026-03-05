@@ -1,0 +1,137 @@
+[
+    {
+        "doc_id": 0,
+        "prompt_0": "Consider whether the headline mentions the price of gold.. Is there a Price or Not in the gold commodity market indicated in the news headline? Please answer Yes or No.\nText: Trading partners unlikely to take India’s gold import curbs lightly\nAnswer:until",
+        "logit_0": "No",
+        "truth": "No",
+        "pred": "Price or Not",
+        "gold": "1",
+        "avg_f1": "('Price or Not', 1, 1, ['No'])"
+    },
+    {
+        "doc_id": 1,
+        "prompt_0": "Look for indications that the price of gold is increasing.. Is there a Direction Up in the gold commodity market indicated in the news headline? Please answer Yes or No.\nText: Trading partners unlikely to take India’s gold import curbs lightly\nAnswer:until",
+        "logit_0": "No",
+        "truth": "No",
+        "pred": "Direction Up",
+        "gold": "1",
+        "avg_f1": "('Direction Up', 1, 1, ['No'])"
+    },
+    {
+        "doc_id": 2,
+        "prompt_0": "Look for indications that the price of gold is decreasing.. Does the news headline suggest a Direction Down for gold? Your response should be Yes or No.\nText: Trading partners unlikely to take India’s gold import curbs lightly\nAnswer:until",
+        "logit_0": "Yes",
+        "truth": "No",
+        "pred": "Direction Down",
+        "gold": "0",
+        "avg_f1": "('Direction Down', 0, 1, ['Yes'])"
+    },
+    {
+        "doc_id": 3,
+        "prompt_0": "Look for indications that the price of gold is stable.. Is there a mention of a Direction Constant in relation to gold in the news headline? Please answer with Yes or No.\nText: Trading partners unlikely to take India’s gold import curbs lightly\nAnswer:until",
+        "logit_0": "No",
+        "truth": "No",
+        "pred": "Direction Constant",
+        "gold": "1",
+        "avg_f1": "('Direction Constant', 1, 1, ['No'])"
+    },
+    {
+        "doc_id": 4,
+        "prompt_0": "Consider whether the headline references past prices of gold.. Does the news headline indicate a PastPrice in the context of gold commodities? Your answer should be Yes or No.\nText: Trading partners unlikely to take India’s gold import curbs lightly\nAnswer:until",
+        "logit_0": "No",
+        "truth": "No",
+        "pred": "PastPrice",
+        "gold": "1",
+        "avg_f1": "('PastPrice', 1, 1, ['No'])"
+    },
+    {
+        "doc_id": 5,
+        "prompt_0": "Look for any mention of future gold prices.. Does the news headline provide information on a FuturePrice regarding gold? Your answer should be either Yes or No.\nText: Trading partners unlikely to take India’s gold import curbs lightly\nAnswer:until",
+        "logit_0": "No",
+        "truth": "No",
+        "pred": "FuturePrice",
+        "gold": "1",
+        "avg_f1": "('FuturePrice', 1, 1, ['No'])"
+    },
+    {
+        "doc_id": 6,
+        "prompt_0": "Consider whether the headline discusses past events related to gold.. Does the news headline indicate a PastNews in the context of gold commodities? Your answer should be Yes or No.\nText: Trading partners unlikely to take India’s gold import curbs lightly\nAnswer:until",
+        "logit_0": "Yes",
+        "truth": "Yes",
+        "pred": "PastNews",
+        "gold": "0",
+        "avg_f1": "('PastNews', 0, 0, ['Yes'])"
+    },
+    {
+        "doc_id": 7,
+        "prompt_0": "Look for any references to future events concerning gold.. Is the news headline discussing a FutureNews related to gold? Please respond with Yes or No.\nText: Trading partners unlikely to take India’s gold import curbs lightly\nAnswer:until",
+        "logit_0": "No",
+        "truth": "No",
+        "pred": "FutureNews",
+        "gold": "1",
+        "avg_f1": "('FutureNews', 1, 1, ['No'])"
+    },
+    {
+        "doc_id": 8,
+        "prompt_0": "Consider if the headline compares gold with other assets.. Does the news headline indicate a Asset Comparision in the context of gold commodities? Your answer should be Yes or No.\nText: Trading partners unlikely to take India’s gold import curbs lightly\nAnswer:until",
+        "logit_0": "No",
+        "truth": "No",
+        "pred": "Asset Comparision",
+        "gold": "1",
+        "avg_f1": "('Asset Comparision', 1, 1, ['No'])"
+    },
+    {
+        "doc_id": 9,
+        "prompt_0": "Consider whether the headline mentions the price of gold.. Does the news headline mention anything about a Price or Not in gold commodities? Please answer Yes or No.\nText: gold jumps more than $10 as draghi boosts euro\nAnswer:until",
+        "logit_0": "Yes",
+        "truth": "Yes",
+        "pred": "Price or Not",
+        "gold": "0",
+        "avg_f1": "('Price or Not', 0, 0, ['Yes'])"
+    },
+    {
+        "doc_id": 10,
+        "prompt_0": "Look for indications that the price of gold is increasing.. In the context of gold, is there a Direction Up implied in the news headline? Respond with Yes or No.\nText: gold jumps more than $10 as draghi boosts euro\nAnswer:until",
+        "logit_0": "Yes",
+        "truth": "Yes",
+        "pred": "Direction Up",
+        "gold": "0",
+        "avg_f1": "('Direction Up', 0, 0, ['Yes'])"
+    },
+    {
+        "doc_id": 11,
+        "prompt_0": "Look for indications that the price of gold is decreasing.. In the context of gold, is there a Direction Down implied in the news headline? Respond with Yes or No.\nText: gold jumps more than $10 as draghi boosts euro\nAnswer:until",
+        "logit_0": "No",
+        "truth": "No",
+        "pred": "Direction Down",
+        "gold": "1",
+        "avg_f1": "('Direction Down', 1, 1, ['No'])"
+    },
+    {
+        "doc_id": 12,
+        "prompt_0": "Look for indications that the price of gold is stable.. Is there a mention of a Direction Constant in relation to gold in the news headline? Please answer with Yes or No.\nText: gold jumps more than $10 as draghi boosts euro\nAnswer:until",
+        "logit_0": "No",
+        "truth": "No",
+        "pred": "Direction Constant",
+        "gold": "1",
+        "avg_f1": "('Direction Constant', 1, 1, ['No'])"
+    },
+    {
+        "doc_id": 13,
+        "prompt_0": "Consider whether the headline references past prices of gold.. Does the news headline suggest a PastPrice for gold? Your response should be Yes or No.\nText: gold jumps more than $10 as draghi boosts euro\nAnswer:until",
+        "logit_0": "Yes",
+        "truth": "Yes",
+        "pred": "PastPrice",
+        "gold": "0",
+        "avg_f1": "('PastPrice', 0, 0, ['Yes'])"
+    },
+    {
+        "doc_id": 14,
+        "prompt_0": "Look for any mention of future gold prices.. In the news headline, can you identify a FuturePrice pertaining to gold? Your response should be Yes or No.\nText: gold jumps more than $10 as draghi boosts euro\nAnswer:until",
+        "logit_0": "No",
+        "truth": "No",
+        "pred": "FuturePrice",
+        "gold": "1",
+        "avg_f1": "('FuturePrice', 1, 1, ['No'])"
+    }
+]

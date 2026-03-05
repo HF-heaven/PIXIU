@@ -1,4 +1,0 @@
-{"type":"thread.started","thread_id":"019b90ea-6d93-7580-b07b-a9564b26e046"}
-{"type":"turn.started"}
-{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"In:O\nfiscal:O\nyear:O\n2017:O\n,:O\nwe:O\nrepurchased:O\nand:O\nretired:O\n2.2:B-BusinessAcquisitionEquityInterestsIssuedOrIssuableNumberOfSharesIssued\nmillion:O\nshares:O\nof:O\nour:O\ncommon:O\nstock:O\nfor:O\n$73.9:B-StockRepurchasedAndRetiredDuringPeriodValue\nmillion:O\n.:O"}}
-{"type":"turn.completed","usage":{"input_tokens":8051,"cached_input_tokens":6016,"output_tokens":1588}}

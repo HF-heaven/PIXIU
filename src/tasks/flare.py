@@ -13,6 +13,7 @@ import evaluate
 import re
 from factscore_package.factscorer import FactScorer
 import os
+import json
 #from comet import download_model, load_from_checkpoint
 
 _CITATION = """
@@ -224,11 +225,14 @@ class SequentialLabeling(Task):
                 word, label = pre.split(":")
             except:
                 continue
+            label = label.strip()
             if word == tokens[index] and label in self.LMAP.keys():
                 format_pred[index] = label
         return format_pred
 
     def entity_f1(self, items):
+        with open("items_2.json", "w") as f:
+            json.dump(items, f)
         golds, preds, tokens = zip(*items)
 
         list_preds = [
@@ -238,6 +242,53 @@ class SequentialLabeling(Task):
         f1 = entity_score(golds, list_preds)
         return f1
 
+    def process_result_flexible(self, pred, gold, tokens):
+        format_pred = ["O"] * len(gold)
+        lines = (pred.strip() or "").split("\n")
+        t_idx, l_idx = 0, 0
+        while t_idx < len(tokens) and l_idx < len(lines):
+            line = lines[l_idx]
+            try:
+                word, label = line.split(":", 1)
+                word, label = word.strip(), label.strip()
+            except Exception:
+                l_idx += 1
+                continue
+            if label not in self.LMAP:
+                l_idx += 1
+                continue
+            if word == tokens[t_idx]:
+                format_pred[t_idx] = label
+                l_idx += 1
+                t_idx += 1
+                continue
+            concat, first_label = word, label
+            l_idx += 1
+            while concat != tokens[t_idx] and l_idx < len(lines):
+                try:
+                    next_word, _ = lines[l_idx].split(":", 1)
+                    next_word = next_word.strip()
+                except Exception:
+                    break
+                concat += next_word
+                l_idx += 1
+                if concat == tokens[t_idx]:
+                    format_pred[t_idx] = first_label
+                    break
+            else:
+                if concat == tokens[t_idx]:
+                    format_pred[t_idx] = first_label
+            t_idx += 1
+        return format_pred
+
+    def entity_f1_flexible(self, items):
+        golds, preds, tokens = zip(*items)
+        list_preds = [
+            self.process_result_flexible(pred, gold, token)
+            for pred, gold, token in zip(preds, golds, tokens)
+        ]
+        return entity_score(golds, list_preds)
+
     def process_label_result(self, pred, gold, tokens):
         format_pred = [-1] * len(gold)
         for index, pre in enumerate(pred.split("\n")[: len(tokens)]):
@@ -245,6 +296,7 @@ class SequentialLabeling(Task):
                 word, label = pre.split(":")
             except:
                 continue
+            label = label.strip()
             if word == tokens[index]:
                 format_pred[index] = self.LMAP.get(label, -1)
         return format_pred
@@ -263,7 +315,7 @@ class SequentialLabeling(Task):
 
     def aggregation(self):
         return {
-            "entity_f1": self.entity_f1,
+            "entity_f1": self.entity_f1_flexible,
             "f1": self.label_f1,
         }
 
@@ -471,7 +523,8 @@ class ExtractiveSummarization(Task):
     def rouge_score(self, items):
         golds, texts, preds = zip(*items)
         golds = self.get_sum(golds, texts)
-        preds = self.get_sum([val.split("\n") for val in preds], texts)
+        # preds = self.get_sum([val.split("\n") for val in preds], texts)
+        preds = self.get_sum([[int(x) for x in val.split("\n")] for val in preds], texts)
         rouge = evaluate.load("rouge")
         results = rouge.compute(predictions=preds, references=golds)
         return results
@@ -492,7 +545,8 @@ class ExtractiveSummarization(Task):
         if getattr(self, "_cache_bertscore", None) is None:
             golds, texts, preds = zip(*items)
             golds = self.get_sum(golds, texts)
-            preds = self.get_sum([val.split("\n") for val in preds], texts)
+            # preds = self.get_sum([val.split("\n") for val in preds], texts)
+            preds = self.get_sum([[int(x) for x in val.split("\n")] for val in preds], texts)
 
             bertscore = evaluate.load("evaluate-metric/bertscore")
             self._cache_bertscore = bertscore.compute(
@@ -511,7 +565,8 @@ class ExtractiveSummarization(Task):
     def bart_score(self, items):
         golds, texts, preds = zip(*items)
         golds = self.get_sum(golds, texts)
-        preds = self.get_sum([val.split("\n") for val in preds], texts)
+        # preds = self.get_sum([val.split("\n") for val in preds], texts)
+        preds = self.get_sum([[int(x) for x in val.split("\n")] for val in preds], texts)
 
         bart_scorer = BARTScorer(device="cuda:0", checkpoint="facebook/bart-large-cnn")
         checkpoint_path = os.path.join(

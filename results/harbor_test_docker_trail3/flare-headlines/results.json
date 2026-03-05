@@ -1,0 +1,22 @@
+{
+  "results": {
+    "flare_headlines": {
+      "avg_f1": 0.8518518518518517
+    }
+  },
+  "versions": {
+    "flare_headlines": 1
+  },
+  "config": {
+    "model": "codex",
+    "model_args": "model=gpt-5-mini,harbor_mode=True",
+    "num_fewshot": 0,
+    "batch_size": null,
+    "batch_sizes": [],
+    "device": null,
+    "no_cache": true,
+    "limit": 15.0,
+    "bootstrap_iters": 100,
+    "description_dict": {}
+  }
+}

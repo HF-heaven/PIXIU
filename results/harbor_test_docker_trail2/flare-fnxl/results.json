@@ -1,0 +1,23 @@
+{
+  "results": {
+    "flare_fnxl": {
+      "entity_f1": 0.0,
+      "f1": 0.3708713086117656
+    }
+  },
+  "versions": {
+    "flare_fnxl": 1
+  },
+  "config": {
+    "model": "codex",
+    "model_args": "model=gpt-5-mini,harbor_mode=True",
+    "num_fewshot": 0,
+    "batch_size": null,
+    "batch_sizes": [],
+    "device": null,
+    "no_cache": true,
+    "limit": 15.0,
+    "bootstrap_iters": 100,
+    "description_dict": {}
+  }
+}

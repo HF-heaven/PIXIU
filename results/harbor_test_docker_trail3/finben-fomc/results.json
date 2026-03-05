@@ -1,0 +1,28 @@
+{
+  "results": {
+    "flare_fomc": {
+      "acc": 0.6,
+      "acc_stderr": 0.13093073414159545,
+      "missing": 0.06666666666666667,
+      "missing_stderr": 0.06666666666666667,
+      "f1": 0.6253968253968253,
+      "macro_f1": 0.6126984126984126,
+      "mcc": 0.4205986106725709
+    }
+  },
+  "versions": {
+    "flare_fomc": 1
+  },
+  "config": {
+    "model": "codex",
+    "model_args": "model=gpt-5-mini,harbor_mode=True",
+    "num_fewshot": 0,
+    "batch_size": null,
+    "batch_sizes": [],
+    "device": null,
+    "no_cache": true,
+    "limit": 15.0,
+    "bootstrap_iters": 100,
+    "description_dict": {}
+  }
+}

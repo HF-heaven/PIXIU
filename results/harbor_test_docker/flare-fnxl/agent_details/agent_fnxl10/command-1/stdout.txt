@@ -1,4 +1,0 @@
-{"type":"thread.started","thread_id":"019b90ea-b1bb-72c3-b23b-6e5f5889fdb7"}
-{"type":"turn.started"}
-{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Accounts:O\nreceivable:O\n,:O\nnet:O\nof:O\nallowances:B-AllowanceForDoubtfulAccountsReceivable\nfor:B-AllowanceForDoubtfulAccountsReceivable\ndoubtful:B-AllowanceForDoubtfulAccountsReceivable\naccounts:B-AllowanceForDoubtfulAccountsReceivable\nof:B-AllowanceForDoubtfulAccountsReceivable\n$2.9:B-AllowanceForDoubtfulAccountsReceivable\nand:B-AllowanceForDoubtfulAccountsReceivable\n$2.4:B-AllowanceForDoubtfulAccountsReceivable\n,:O\nrespectively:O"}}
-{"type":"turn.completed","usage":{"input_tokens":8046,"cached_input_tokens":6016,"output_tokens":1418}}

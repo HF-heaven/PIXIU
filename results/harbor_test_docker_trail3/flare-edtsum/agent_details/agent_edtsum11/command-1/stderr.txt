@@ -1,0 +1,1 @@
+2026-02-10T00:44:40.419126Z ERROR codex_core::exec: exec error: nul byte found in provided data

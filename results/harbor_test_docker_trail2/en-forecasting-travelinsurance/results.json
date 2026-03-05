@@ -1,0 +1,28 @@
+{
+  "results": {
+    "flare_cra_travelinsurace": {
+      "acc": 0.26666666666666666,
+      "acc_stderr": 0.11818736805705578,
+      "missing": 0.0,
+      "missing_stderr": 0.0,
+      "f1": 0.4210526315789474,
+      "macro_f1": 0.42105263157894735,
+      "mcc": 0.0
+    }
+  },
+  "versions": {
+    "flare_cra_travelinsurace": 1
+  },
+  "config": {
+    "model": "codex",
+    "model_args": "model=gpt-5-mini,harbor_mode=True",
+    "num_fewshot": 0,
+    "batch_size": null,
+    "batch_sizes": [],
+    "device": null,
+    "no_cache": true,
+    "limit": 15.0,
+    "bootstrap_iters": 100,
+    "description_dict": {}
+  }
+}

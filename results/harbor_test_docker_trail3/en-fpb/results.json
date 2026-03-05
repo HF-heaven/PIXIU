@@ -1,0 +1,28 @@
+{
+  "results": {
+    "flare_fpb": {
+      "acc": 0.8,
+      "acc_stderr": 0.10690449676496977,
+      "missing": 0.0,
+      "missing_stderr": 0.0,
+      "f1": 0.8888888888888888,
+      "macro_f1": 0.8888888888888888,
+      "mcc": 0.0
+    }
+  },
+  "versions": {
+    "flare_fpb": 1
+  },
+  "config": {
+    "model": "codex",
+    "model_args": "model=gpt-5-mini,harbor_mode=True",
+    "num_fewshot": 0,
+    "batch_size": null,
+    "batch_sizes": [],
+    "device": null,
+    "no_cache": true,
+    "limit": 15.0,
+    "bootstrap_iters": 100,
+    "description_dict": {}
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "results": {
+    "flare_sm_acl": {
+      "acc": 0.6,
+      "acc_stderr": 0.13093073414159542,
+      "missing": 0.0,
+      "missing_stderr": 0.0,
+      "f1": 0.5681818181818182,
+      "macro_f1": 0.48863636363636365,
+      "mcc": 0.0
+    }
+  },
+  "versions": {
+    "flare_sm_acl": 1
+  },
+  "config": {
+    "model": "codex",
+    "model_args": "model=gpt-5-mini,harbor_mode=True",
+    "num_fewshot": 0,
+    "batch_size": null,
+    "batch_sizes": [],
+    "device": null,
+    "no_cache": true,
+    "limit": 15.0,
+    "bootstrap_iters": 100,
+    "description_dict": {}
+  }
+}
