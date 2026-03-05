@@ -24,7 +24,12 @@ cd /home/hefan/PIXIU
 # Set PYTHONPATH (using relative paths after cd)
 export PYTHONPATH="$PWD:$PWD/src:$PWD/src/financial-evaluation:$PWD/src/metrics/BARTScore:${PYTHONPATH:-}"
 
-OUTPUT_BASE_DIR="results/harbor_test_docker"
+# Batch run: multiple output base dirs (trail4, trail5, trail6)
+OUTPUT_BASE_DIRS=(
+    "results/harbor_test_docker_trail1"
+    "results/harbor_test_docker_trail2"
+    "results/harbor_test_docker_trail3"
+)
 LIMIT=15
 
 # All task mappings
@@ -97,47 +102,50 @@ echo "=========================================="
 echo "Running all Harbor tasks (Docker mode)"
 echo "=========================================="
 echo ""
-echo "Output directory: $OUTPUT_BASE_DIR"
+echo "Output base dirs: ${OUTPUT_BASE_DIRS[*]}"
 echo "Each task uses first $LIMIT samples"
-echo "Total number of tasks: ${#TASKS[@]}"
+echo "Total number of tasks per run: ${#TASKS[@]}"
 echo ""
 
-# Create output base directory
-mkdir -p "$OUTPUT_BASE_DIR"
-
-# Run each task
-for harbor_task_name in "${TASKS[@]}"; do
-    pixiu_task_name="${TASK_MAP[$harbor_task_name]}"
-    task_output_dir="$OUTPUT_BASE_DIR/$harbor_task_name"
-    results_json_path="$task_output_dir/results.json"
-    
-    echo "=========================================="
-    echo "Running task: $harbor_task_name -> $pixiu_task_name"
-    echo "Output directory: $task_output_dir"
-    echo "=========================================="
-    
-    # Create task output directory
-    mkdir -p "$task_output_dir"
-    
-    # Run evaluation command
-    python src/eval.py \
-        --model codex \
-        --model_args "model=gpt-5-mini,harbor_mode=True" \
-        --tasks "$pixiu_task_name" \
-        --limit "$LIMIT" \
-        --write_out \
-        --output_base_path "$task_output_dir" \
-        --no_cache \
-        --output_path "$results_json_path" || {
-        echo "⚠️  Task $harbor_task_name failed, continuing to next task..."
-        continue
-    }
-    
-    echo "✅ Task $harbor_task_name completed"
+# Run for each output base directory
+for OUTPUT_BASE_DIR in "${OUTPUT_BASE_DIRS[@]}"; do
     echo ""
+    echo "########## Run: $OUTPUT_BASE_DIR ##########"
+    mkdir -p "$OUTPUT_BASE_DIR"
+
+    for harbor_task_name in "${TASKS[@]}"; do
+        pixiu_task_name="${TASK_MAP[$harbor_task_name]}"
+        task_output_dir="$OUTPUT_BASE_DIR/$harbor_task_name"
+        results_json_path="$task_output_dir/results.json"
+
+        echo "=========================================="
+        echo "Running task: $harbor_task_name -> $pixiu_task_name"
+        echo "Output directory: $task_output_dir"
+        echo "=========================================="
+
+        mkdir -p "$task_output_dir"
+        echo "OpenAI API Key: $OPENAI_API_KEY"
+        python src/eval.py \
+            --model codex \
+            --model_args "model=gpt-5-mini,harbor_mode=True" \
+            --tasks "$pixiu_task_name" \
+            --limit "$LIMIT" \
+            --write_out \
+            --output_base_path "$task_output_dir" \
+            --no_cache \
+            --output_path "$results_json_path" || {
+            echo "⚠️  Task $harbor_task_name failed, continuing to next task..."
+            continue
+        }
+
+        echo "✅ Task $harbor_task_name completed"
+        echo ""
+    done
+
+    echo "✅ Run for $OUTPUT_BASE_DIR completed"
 done
 
 echo "=========================================="
-echo "All tasks completed!"
+echo "All runs completed!"
 echo "=========================================="
 
